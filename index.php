@@ -80,7 +80,7 @@ include "setting/sql.php";
 							<div class="header-search">
 								<form>
 									<select class="input-select">
-										<option value="0">All Categories</option>
+										<option value="0">All</option>
 										<?php
 										while($f_category = mysqli_fetch_array($q_category)){
 											$nm_category = $f_category['nm_category'];
@@ -160,6 +160,7 @@ include "setting/sql.php";
 										<i class="fa fa-bars"></i>
 										<span>Menu</span>
 									</a>
+									
 								</div>
 								<!-- /Menu Toogle -->
 							</div>
@@ -184,6 +185,8 @@ include "setting/sql.php";
 					<ul class="main-nav nav navbar-nav">
 						<li class="active"><a href="<?=$domain;?>">Home</a></li>
 						<li><a href="#">Spesial Promo</a></li>
+						<li><a href="#">Terlaris</a></li>
+
 						<?php
 										$q_category1 = mysqli_query($koneksi,"select *from category_product");
 										while($f_category1 = mysqli_fetch_array($q_category1)){
@@ -298,7 +301,7 @@ include "setting/sql.php";
 											</div>
 											<div class="product-body">
 												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
+												<h3 class="product-name"><a href="#">Bisa Di KLik Quice Viewnya</a></h3>
 												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
 												<div class="product-rating">
 													<i class="fa fa-star"></i>
@@ -310,7 +313,7 @@ include "setting/sql.php";
 												<div class="product-btns">
 													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
 													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+													<button onclick="window.location.href = 'product.html';" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a>
 												</div>
 											</div>
 											<div class="add-to-cart">
