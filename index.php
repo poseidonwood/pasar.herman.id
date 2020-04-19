@@ -182,8 +182,8 @@ include "setting/sql.php";
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#">Hot Deals</a></li>
+						<li class="active"><a href="<?=$domain;?>">Home</a></li>
+						<li><a href="#">Spesial Promo</a></li>
 						<?php
 										$q_category1 = mysqli_query($koneksi,"select *from category_product");
 										while($f_category1 = mysqli_fetch_array($q_category1)){
