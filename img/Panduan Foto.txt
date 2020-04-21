@@ -1,0 +1,4 @@
+Ukuran Banner Category 
+W:600 x H:400
+Ukuran Product
+W:600 x H:600

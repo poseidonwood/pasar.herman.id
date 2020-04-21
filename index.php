@@ -1,258 +1,35 @@
 <?php
 include "setting/sql.php";
+include "headside.php";
 ?>
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-		<title><?=$title_profile;?></title>
-
-		<!-- Google font -->
-		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
-
-		<!-- Bootstrap -->
-		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
-		<!-- Slick -->
-		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
-		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
-
-		<!-- nouislider -->
-		<link type="text/css" rel="stylesheet" href="css/nouislider.min.css"/>
-
-		<!-- Font Awesome Icon -->
-		<link rel="stylesheet" href="css/font-awesome.min.css">
-
-		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="css/style.css"/>
-
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-
-    </head>
-	<body>
-		<!-- HEADER -->
-		<header>
-			<!-- TOP HEADER -->
-			<div id="top-header">
-				<div class="container">
-					<ul class="header-links pull-left">
-						<li><a href="tel:<?=$number_profile;?>"><i class="fa fa-phone"></i><?=$number_profile;?></a></li>
-						<li><a href="mailto:<?=$email_profile;?>"><i class="fa fa-envelope-o"></i> <?=$email_profile;?></a></li>
-						<!--<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>-->
-					</ul>
-					<ul class="header-links pull-right">
-						<!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
-						<li><a href="#"><i class="fa fa-user-o"></i> Register</a></li>
-						<li><a href="#"><i class="fa fa-user"></i> Login</a></li>
-
-					</ul>
-				</div>
-			</div>
-			<!-- /TOP HEADER -->
-
-			<!-- MAIN HEADER -->
-			<div id="header">
-				<!-- container -->
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<!-- LOGO -->
-						<div class="col-md-3">
-							<div class="header-logo">
-								<a href="#" class="logo">
-									<img src="./img/logo.png" alt="">
-								</a>
-							</div>
-						</div>
-						<!-- /LOGO -->
-
-						<!-- SEARCH BAR -->
-						<div class="col-md-6">
-							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0">All</option>
-										<?php
-										while($f_category = mysqli_fetch_array($q_category)){
-											$nm_category = $f_category['nm_category'];
-											$id_category = $f_category['id_category'];
-										echo"
-											<option value='$id_category '>$nm_category</option>
-											";
-										}	
-										?>
-									</select>
-									<input class="input" placeholder="Cari produk kebutuhan anda disini">
-									<button class="search-btn">Search</button>
-								</form>
-							</div>
-						</div>
-						<!-- /SEARCH BAR -->
-
-						<!-- ACCOUNT -->
-						<div class="col-md-3 clearfix">
-							<div class="header-ctn">
-								<!-- Wishlist -->
-								<div>
-									<a href="#">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										<div class="qty">2</div>
-									</a>
-								</div>
-								<!-- /Wishlist -->
-
-								<!-- Cart -->
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
-										<div class="qty">3</div>
-									</a>
-									<div class="cart-dropdown">
-										<div class="cart-list">
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product01.png" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
-
-											<div class="product-widget">
-												<div class="product-img">
-													<img src="./img/product02.png" alt="">
-												</div>
-												<div class="product-body">
-													<h3 class="product-name"><a href="#">product name goes here</a></h3>
-													<h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-												</div>
-												<button class="delete"><i class="fa fa-close"></i></button>
-											</div>
-										</div>
-										<div class="cart-summary">
-											<small>3 Item(s) selected</small>
-											<h5>SUBTOTAL: $2940.00</h5>
-										</div>
-										<div class="cart-btns">
-											<a href="#">View Cart</a>
-											<a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-								</div>
-								<!-- /Cart -->
-
-								<!-- Menu Toogle -->
-								<div class="menu-toggle">
-									<a href="#">
-										<i class="fa fa-bars"></i>
-										<span>Menu</span>
-									</a>
-									
-								</div>
-								<!-- /Menu Toogle -->
-							</div>
-						</div>
-						<!-- /ACCOUNT -->
-					</div>
-					<!-- row -->
-				</div>
-				<!-- container -->
-			</div>
-			<!-- /MAIN HEADER -->
-		</header>
-		<!-- /HEADER -->
-
-		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="<?=$domain;?>">Home</a></li>
-						<li><a href="#">Spesial Promo</a></li>
-						<li><a href="#">Terlaris</a></li>
-
-						<?php
-										$q_category1 = mysqli_query($koneksi,"select *from category_product");
-										while($f_category1 = mysqli_fetch_array($q_category1)){
-											$nm_category1 = $f_category1['nm_category'];
-											$id_category1 = $f_category1['id_category'];
-										echo"
-											<li><a href='#'>$nm_category1</a></li>
-											";
-										}	
-										?>
-					</ul>
-					<!-- /NAV -->
-				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
-		<!-- /NAVIGATION -->
-
 		<!-- SECTION -->
 		<div class="section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-							<div class="shop-img">
-								<img src="./img/shop01.png" alt="">
-							</div>
-							<div class="shop-body">
-								<h3>Laptop<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<!-- /shop -->
+										<?php
+										$q_category2 = mysqli_query($koneksi,"select *from category_product");
+										while($f_category2 = mysqli_fetch_array($q_category2)){
+											$nm_category2 = $f_category2['nm_category'];
+											$foto_category2= $f_category2['foto'];
+										echo"
+											<div class='col-md-4 col-xs-6'>
+												<div class='shop'>
+													<div class='shop-img'>
+														<img src='./img/$foto_category2' alt=''>
+													</div>
+													<div class='shop-body'>
+														<h3>$nm_category2</h3>
+														<a href='#' class='cta-btn'>Belanja sekarang <i class='fa fa-arrow-circle-right'></i></a>
+													</div>
+												</div>
+											</div>
+											";
+										}	
+										?>
+					
 
-					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-							<div class="shop-img">
-								<img src="./img/shop03.png" alt="">
-							</div>
-							<div class="shop-body">
-								<h3>Accessories<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<!-- /shop -->
-
-					<!-- shop -->
-					<div class="col-md-4 col-xs-6">
-						<div class="shop">
-							<div class="shop-img">
-								<img src="./img/shop02.png" alt="">
-							</div>
-							<div class="shop-body">
-								<h3>Cameras<br>Collection</h3>
-								<a href="#" class="cta-btn">Shop now <i class="fa fa-arrow-circle-right"></i></a>
-							</div>
-						</div>
-					</div>
-					<!-- /shop -->
 				</div>
 				<!-- /row -->
 			</div>
@@ -270,13 +47,12 @@ include "setting/sql.php";
 					<!-- section title -->
 					<div class="col-md-12">
 						<div class="section-title">
-							<h3 class="title">New Products</h3>
+							<h3 class="title">Spesial Promo Hari Ini</h3>
+							<p>Promo menarik dari Kami untuk kamu</p>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li>
-									<li><a data-toggle="tab" href="#tab1">Smartphones</a></li>
-									<li><a data-toggle="tab" href="#tab1">Cameras</a></li>
-									<li><a data-toggle="tab" href="#tab1">Accessories</a></li>
+									<!--<li><a href="#tab1" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>-->
+									
 								</ul>
 							</div>
 						</div>
@@ -290,150 +66,127 @@ include "setting/sql.php";
 								<!-- tab -->
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="./img/product01.png" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">Bisa Di KLik Quice Viewnya</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button onclick="window.location.href = 'product.html';" class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></a>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
+										<?php
+										//
+										//sql promo
+										$q_promo = mysqli_query($koneksi,"select *from tbl_promo where active ='Y' order by mulai_tanggal desc");
+									  	//end sql promo
 
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="./img/product02.png" alt="">
-												<div class="product-label">
-													<span class="new">NEW</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
+										while($f_promo = mysqli_fetch_array($q_promo)){
+											$promo_id_promo = $f_promo['id_promo'];	
+											$promo_id_barang = $f_promo['id_barang'];	
+											$promo_nm_barang = $f_promo['nm_barang'];	
+											$promo_jenis = $f_promo['jenis_promo'];
+											$promo_nilai = $f_promo['nilai_promo'];
+											$rp_promo_nilai = number_format($promo_nilai,2,',','.');
+											$promo_awal = $f_promo['harga_awal'];
+											$promo_akhir = $f_promo['harga_akhir'];
+											$rp_promo_awal = number_format($promo_awal,2,',','.');
+											$rp_promo_akhir = number_format($promo_akhir,2,',','.');
+											$promo_mulai = $f_promo['mulai_tanggal'];
+											$promo_berakhir = $f_promo['sampai_tanggal'];
 
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="./img/product03.png" alt="">
-												<div class="product-label">
-													<span class="sale">-30%</span>
-												</div>
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
+											//select product
+											$q_pr = mysqli_query($koneksi,"select*from tbl_product where id_barang = '$promo_id_barang'");
+											$f_pr = mysqli_fetch_array($q_pr);
+											$promo_id_category = $f_pr['id_category'];
+											$promo_id_satuan = $f_pr['id_satuan'];
+											$promo_foto = $f_pr['foto'];
+											$promo_rating = $f_pr['rating_akhir'];
 
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="./img/product04.png" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
-											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-											</div>
-										</div>
-										<!-- /product -->
+											//end product search
+											//ambil data category 
+											$q_cp = mysqli_query($koneksi,"select*from category_product where id_category = '$promo_id_category'");
+											$f_cp = mysqli_fetch_array($q_cp);
+											$promo_nm_category = $f_cp['nm_category'];
+											//end ambil nm category
+											//ambil data satuan
+											$q_st = mysqli_query($koneksi,"select*from tbl_satuan where id_satuan = '$promo_id_satuan'");
+											$f_st = mysqli_fetch_array($q_st);
+											$promo_nm_satuan = $f_st['nm_satuan'];
+											//end ambil nm satuan					
+											echo"
+											<div class='product'>
+											<div class='product-img'>
+												<img src='./img/product/$promo_foto' alt=''>
+												";
+											if($promo_jenis=="diskon"){
+												echo"
+												<div class='product-label'>
+													<span class='sale'>-$promo_nilai%</span>
+													<span class='new'>PROMO</span>
+												</div>";
+											}else{
+												echo"
+												<div class='product-label'>
+													<span class='sale'>Rp -$rp_promo_nilai</span>
+													<span class='new'>PROMO</span>
+												</div>";
+											}
+												
 
-										<!-- product -->
-										<div class="product">
-											<div class="product-img">
-												<img src="./img/product05.png" alt="">
-											</div>
-											<div class="product-body">
-												<p class="product-category">Category</p>
-												<h3 class="product-name"><a href="#">product name goes here</a></h3>
-												<h4 class="product-price">$980.00 <del class="product-old-price">$990.00</del></h4>
-												<div class="product-rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
+											echo
+											"</div>
+											<div class='product-body'>
+												<p class='product-category'>$promo_nm_category</p>
+												<h3 class='product-name'><a href='#'>$promo_nm_barang</a></h3> 
+												<h4 class='product-price'>Rp.$rp_promo_akhir<del class='product-old-price'>Rp.$rp_promo_awal</del> </h4>/ $promo_nm_satuan";
+											if($promo_rating =='5'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+												</div>";
+											}elseif($promo_rating =='4'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}elseif($promo_rating =='3'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}elseif($promo_rating =='2'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}else{
+												echo"<div class='product-rating'>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}
+											echo"
+												<div class='product-btns'>
+													<button class='add-to-wishlist'><i class='fa fa-heart-o'></i><span class='tooltipp'>add to wishlist</span></button>
+													<!--<button class='add-to-compare'><i class='fa fa-exchange'></i><span class='tooltipp'>add to compare</span></button>-->
+													<button onclick=\"window.location.href ='product.php?x=$promo_id_barang'\" class='quick-view'><i class='fa fa-eye'></i><span class='tooltipp'>quick view</span></a>
 												</div>
-												<div class="product-btns">
-													<button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-													<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-													<button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
-												</div>
 											</div>
-											<div class="add-to-cart">
-												<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+											<div class='add-to-cart'>
+												<button class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
 											</div>
 										</div>
-										<!-- /product -->
+											";
+										}
+										?>
+										
 									</div>
 									<div id="slick-nav-1" class="products-slick-nav"></div>
 								</div>
@@ -448,7 +201,142 @@ include "setting/sql.php";
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
+	<!-- SECTION -->
+	<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
 
+					<!-- section title -->
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">Buah - Buahan</h3>
+							<p>Kumpulan dari Buah - Buahan Segar</p>
+							<div class="section-nav">
+								<ul class="section-tab-nav tab-nav">
+									<li><a href="#tab1" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /section title -->
+
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab1" class="tab-pane active">
+									<div class="products-slick" data-nav="#slick-nav-6">
+										<?php
+										//sql product
+										$q_product = mysqli_query($koneksi,"select *from tbl_product where id_category ='2' and active ='Y' order by last_upt desc");
+										//end sql product
+
+										while($f_product = mysqli_fetch_array($q_product)){
+											$nm_barang = $f_product['nm_barang'];
+											$id_category = $f_product['id_category'];
+											//ambil data category 
+											$q_p = mysqli_query($koneksi,"select*from category_product where id_category = '$id_category'");
+											$f_p = mysqli_fetch_array($q_p);
+											$nm_category = $f_p['nm_category'];
+											//end ambil nm category
+											//ambil data satuan
+											$id_satuan = $f_product['id_satuan'];
+											$q_s = mysqli_query($koneksi,"select*from tbl_satuan where id_satuan = '$id_satuan'");
+											$f_s = mysqli_fetch_array($q_s);
+											$nm_satuan = $f_s['nm_satuan'];
+											//end ambil nm satuan					
+											$harga_jual = $f_product['harga_jual'];
+											$rp = number_format($harga_jual,2,',','.');
+											$id_barang = $f_product['id_barang'];
+											$foto = $f_product['foto'];
+											$rating = $f_product['rating_akhir'];
+											echo"
+										<div class='product'>
+											<div class='product-img'>
+												<img src='./img/product/$foto' alt=''>
+												<div class='product-label'>
+													<!--<span class='sale'>-30%</span>-->
+													<span class='new'>NEW</span>
+												</div>
+											</div>
+											<div class='product-body'>
+												<p class='product-category'>$nm_category</p>
+												<h3 class='product-name'><a href='#'>$nm_barang</a></h3> 
+												<h4 class='product-price'>Rp. $rp</h4>/ $nm_satuan";
+											if($rating =='5'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+												</div>";
+											}elseif($rating =='4'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}elseif($rating =='3'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}elseif($rating =='2'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}else{
+												echo"<div class='product-rating'>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}
+											echo"
+												<div class='product-btns'>
+													<button class='add-to-wishlist'><i class='fa fa-heart-o'></i><span class='tooltipp'>add to wishlist</span></button>
+													<!--<button class='add-to-compare'><i class='fa fa-exchange'></i><span class='tooltipp'>add to compare</span></button>-->
+													<button onclick=\"window.location.href ='product.php?x=$id_barang'\" class='quick-view'><i class='fa fa-eye'></i><span class='tooltipp'>quick view</span></a>
+												</div>
+											</div>
+											<div class='add-to-cart'>
+												<button class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
+											</div>
+										</div>
+											";
+										}
+										?>
+										
+									</div>
+									<div id="slick-nav-6" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+							</div>
+						</div>
+					</div>
+					<!-- Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
 		<!-- HOT DEAL SECTION -->
 		<div id="hot-deal" class="section">
 			<!-- container -->
@@ -1109,7 +997,7 @@ include "setting/sql.php";
 			<!-- /bottom footer -->
 		</footer>
 		<!-- /FOOTER -->
-
+										
 		<!-- jQuery Plugins -->
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>

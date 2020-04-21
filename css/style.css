@@ -120,7 +120,7 @@ ul, ol {
   padding: 0px 15px;
   border: 1px solid #E4E7ED;
   background-color: #FFF;
-  width: 100%;
+  width: 150%;
 }
 
 textarea.input {
@@ -187,6 +187,7 @@ textarea.input {
   background: #FFF;
   border: 1px solid #E4E7ED;
   height: 40px;
+  width: 50%;
 }
 
 /*-- checkbox & radio input --*/
@@ -314,6 +315,7 @@ textarea.input {
 
 .section-title .section-nav .section-tab-nav {
   display: inline-block;
+  
 }
 
 .section-tab-nav li {
@@ -335,17 +337,18 @@ textarea.input {
   display: block;
   width: 0%;
   height: 2px;
-  background-color: #D10024;
+  background-color: rgb(5, 238, 44);
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
 
 .section-tab-nav li.active a {
-  color: #D10024;
+  color: rgb(5, 238, 44);
 }
 
 .section-tab-nav li a:hover:after, .section-tab-nav li a:focus:after, .section-tab-nav li.active a:after {
   width: 100%;
+  
 }
 
 .section-title .section-nav .products-slick-nav {
@@ -481,7 +484,7 @@ textarea.input {
 
 .header-search form .search-btn {
   height: 40px;
-  width: 50px;
+  width: 100px;
   background: #D10024;
   color: #FFF;
   font-weight: 700;
@@ -543,11 +546,11 @@ textarea.input {
 
 .cart-dropdown {
   position: absolute;
-  width: 300px;
+  width: 250px;
   background: #FFF;
   padding: 15px;
-  -webkit-box-shadow: 0px 0px 0px 2px #E4E7ED;
-  box-shadow: 0px 0px 0px 2px #E4E7ED;
+  -webkit-box-shadow: 0px 0px 0px 0px #E4E7ED;
+  box-shadow: 0px 0px 0px 0px #E4E7ED;
   z-index: 99;
   right: 0;
   opacity: 0;
@@ -647,7 +650,7 @@ textarea.input {
   display: block;
   width: 0%;
   height: 2px;
-  background-color: #D10024;
+  background-color:#D10024;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
 }
@@ -724,8 +727,8 @@ textarea.input {
   top: 0;
   bottom: 0;
   left: 0px;
-  width: 60%;
-  background: #D10024;
+  width: 45%;
+  background:  rgb(5, 238, 44);
   opacity: 0.9;
   -webkit-transform: skewX(-45deg);
   -ms-transform: skewX(-45deg);
@@ -738,8 +741,8 @@ textarea.input {
   top: 0;
   bottom: 0;
   left: 1px;
-  width: 100%;
-  background: #D10024;
+  width: 75%;
+  background: rgb(5, 238, 44);
   opacity: 0.9;
   -webkit-transform: skewX(-45deg) translateX(-100%);
   -ms-transform: skewX(-45deg) translateX(-100%);
@@ -750,6 +753,7 @@ textarea.input {
   position: relative;
   background-color: #E4E7ED;
   z-index: -1;
+  
 }
 
 .shop .shop-img>img {
@@ -767,7 +771,7 @@ textarea.input {
 .shop .shop-body {
   position: absolute;
   top: 0;
-  width: 75%;
+  width: 100%;
   padding: 30px;
   z-index: 10;
 }
