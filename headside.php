@@ -235,7 +235,7 @@
             <tr>
 			  <th></th>
               <th colspan="2"><h5>Total:</h5></th>
-			  <th><h5><span class="price text-success">Rp. <?=number_format($total_cart_harga,0,',','.');;?></span></h5></th>
+			  <th><h5><span class="price text-success">Rp. <?=number_format($total_cart_harga,0,',','.');?></span></h5></th>
 			  <th></th>
             </tr>
           </thead>

@@ -73,7 +73,9 @@ include "headside.php";
 									  	//end sql promo
 
 										while($f_promo = mysqli_fetch_array($q_promo)){
-											$promo_id_promo = $f_promo['id_promo'];	
+
+											$promo_id_promo = $f_promo['id_promo'];
+											$promo_id_promo1 = $f_promo['id_promo'];	
 											$promo_id_barang = $f_promo['id_barang'];	
 											$promo_nm_barang = $f_promo['nm_barang'];	
 											$promo_jenis = $f_promo['jenis_promo'];
@@ -114,20 +116,56 @@ include "headside.php";
 												echo"
 												<div class='product-label'>
 													<span class='sale'>-$promo_nilai%</span>
-													<span class='new'>PROMO</span>
+													<span class='promo'>PROMO</span>
 												</div>";
 											}else{
 												echo"
 												<div class='product-label'>
 													<span class='sale'>Rp -$rp_promo_nilai</span>
-													<span class='new'>PROMO</span>
+													<span class='promo'>PROMO</span>
 												</div>";
 											}
 												
-
+												
 											echo
 											"</div>
 											<div class='product-body'>
+											";
+											?>
+												<script>
+												var countDownDate<?=$promo_id_promo;?> = new Date("<?=$promo_berakhir;?>").getTime();
+
+												var x = setInterval(function() {
+
+													var now<?=$promo_id_promo;?> = new Date().getTime();
+													
+													var distance = countDownDate<?=$promo_id_promo;?> - now<?=$promo_id_promo;?>;
+													
+													var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+													var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+													var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+													var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+													if (days==0&&hours>0){
+													document.getElementById("demo<?=$promo_id_promo;?>").innerHTML = "Berakhir dalam : "+hours + " Jam ";
+													}else if(hours==0 && days==0 ){
+													document.getElementById("demo<?=$promo_id_promo;?>").innerHTML = "Berakhir dalam : "+minutes + "m "  + seconds + "s " ;
+													}else if(days>0){
+													document.getElementById("demo<?=$promo_id_promo;?>").innerHTML = "Berakhir dalam : "+ days + " Hari ";
+													}else {
+														document.getElementById("demo<?=$promo_id_promo;?>").innerHTML = "Berakhir dalam :"+ minutes + "m " + seconds + "s ";
+
+													}
+													
+													if (distance < 0) {
+														clearInterval(x);
+														window.location.href ='proses/expired.php?z=<?=$promo_id_promo;?>';
+														document.getElementById("demo<?=$promo_id_promo;?>").innerHTML = "EXPIRED";
+													}
+												}, 1000);
+												</script>
+												<p class='product-price' id='demo<?=$promo_id_promo;?>'></p>
+											<?php
+											echo"
 												<p class='product-category'>$promo_nm_category</p>
 												<h3 class='product-name'><a href='#'>$promo_nm_barang</a></h3> 
 												<h4 class='product-price'>Rp.$rp_promo_akhir<del class='product-old-price'>Rp.$rp_promo_awal</del> </h4>/ $promo_nm_satuan";
@@ -184,6 +222,7 @@ include "headside.php";
 											</div>
 										</div>
 											";
+											
 										}
 										?>
 										
@@ -1005,6 +1044,6 @@ include "headside.php";
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
-
+			
 	</body>
 </html>
