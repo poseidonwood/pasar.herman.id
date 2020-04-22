@@ -183,7 +183,7 @@ textarea.input {
 /*-- Select input --*/
 
 .input-select {
-  padding: 0px 15px;
+  padding: 0px 30px;
   background: #FFF;
   border: 1px solid #E4E7ED;
   height: 40px;
@@ -483,7 +483,7 @@ textarea.input {
 
 .header-search form .search-btn {
   height: 40px;
-  width: 100px;
+  width: 40px;
   background: #D10024;
   color: #FFF;
   font-weight: 700;

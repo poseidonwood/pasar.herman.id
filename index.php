@@ -2,6 +2,89 @@
 include "setting/sql.php";
 include "headside.php";
 ?>
+
+
+											<!-- Countdown Hot deal -->
+
+											<script>
+												var countDownDate = new Date("2020-04-23 00:00:31".replace(/-/g,'/')).getTime();
+
+												var x = setInterval(function() {
+													
+
+													var now = new Date().getTime();
+													
+													var distance = countDownDate - now;
+													
+													var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+													var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+													var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+													var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+												
+													document.getElementById("hari").innerHTML = days;
+													document.getElementById("jam").innerHTML = hours;
+													document.getElementById("menit").innerHTML = minutes;
+													document.getElementById("detik").innerHTML = seconds;
+													
+													if (distance < 0) {
+														clearInterval(x);
+														//window.location.href ='proses/expired.php';
+														document.getElementById("hari").innerHTML = "EXPIRED";
+													}
+												}, 1000);
+												</script>
+
+
+
+
+
+											<!-- End Countdown-->
+
+<!-- HOT DEAL SECTION -->
+<div id="hot-deal" class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="hot-deal">
+							<ul class="hot-deal-countdown">
+								<li>
+									<div>
+										<h3 id="hari"></h3>
+										<span>Days</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3 id="jam"></h3>
+										<span>Hours</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3 id="menit"></h3>
+										<span>Mins</span>
+									</div>
+								</li>
+								<li>
+									<div>
+										<h3 id="detik"></h3>
+										<span>Secs</span>
+									</div>
+								</li>
+							</ul>
+							<h2 class="text-uppercase">Promo Spesial Minggu Ini</h2>
+							<p>Berbagai promo menarik diskon mulai 50%</p>
+							<a class="primary-btn cta-btn" href="#">Shop now</a>
+						</div>
+					</div>
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /HOT DEAL SECTION -->
 		<!-- SECTION -->
 		<div class="section">
 			<!-- container -->
@@ -43,21 +126,34 @@ include "headside.php";
 			<div class="container">
 				<!-- row -->
 				<div class="row">
-
-					<!-- section title -->
-					<div class="col-md-12">
-						<div class="section-title">
-							<h3 class="title">Spesial Promo Hari Ini</h3>
+					<?php
+					//cek ada promo atau tidak
+					$q_check = mysqli_query($koneksi,"select *from tbl_promo where active ='Y'");
+					$f_check = mysqli_num_rows($q_check);
+					if($f_check>0){
+						echo "
+						<!-- section title -->
+					<div class='col-md-12'>
+						<div class='section-title'>
+							<h3 class='title'>Spesial Promo Hari Ini</h3>
 							<p>Promo menarik dari Kami untuk kamu</p>
-							<div class="section-nav">
-								<ul class="section-tab-nav tab-nav">
-									<!--<li><a href="#tab1" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>-->
+							<div class='section-nav'>
+								<ul class='section-tab-nav tab-nav'>
+									<!--<li><a href='#tab1' style='color: rgb(5, 238, 44);'>Lihat semua >></a></li>-->
 									
 								</ul>
 							</div>
 						</div>
 					</div>
 					<!-- /section title -->
+						";
+					}else{
+						
+					}
+
+					
+					?>
+					
 
 					<!-- Products tab & slick -->
 					<div class="col-md-12">
@@ -133,7 +229,7 @@ include "headside.php";
 											";
 											?>
 												<script>
-												var countDownDate<?=$promo_id_promo;?> = new Date("<?=$promo_berakhir;?>").getTime();
+												var countDownDate<?=$promo_id_promo;?> = new Date("<?=$promo_berakhir;?>".replace(/-/g,'/')).getTime();
 
 												var x = setInterval(function() {
 
@@ -218,7 +314,7 @@ include "headside.php";
 												</div>
 											</div>
 											<div class='add-to-cart'>
-												<button class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
+												<button  onclick=\"window.location.href ='proses/cart.php?x=$promo_id_barang'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
 											</div>
 										</div>
 											";
@@ -355,7 +451,7 @@ include "headside.php";
 												</div>
 											</div>
 											<div class='add-to-cart'>
-												<button class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
+											<button  onclick=\"window.location.href ='proses/cart.php?x=$id_barang'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
 											</div>
 										</div>
 											";
@@ -376,52 +472,7 @@ include "headside.php";
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
-		<!-- HOT DEAL SECTION -->
-		<div id="hot-deal" class="section">
-			<!-- container -->
-			<div class="container">
-				<!-- row -->
-				<div class="row">
-					<div class="col-md-12">
-						<div class="hot-deal">
-							<ul class="hot-deal-countdown">
-								<li>
-									<div>
-										<h3>02</h3>
-										<span>Days</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>10</h3>
-										<span>Hours</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>34</h3>
-										<span>Mins</span>
-									</div>
-								</li>
-								<li>
-									<div>
-										<h3>60</h3>
-										<span>Secs</span>
-									</div>
-								</li>
-							</ul>
-							<h2 class="text-uppercase">hot deal this week</h2>
-							<p>New Collection Up to 50% OFF</p>
-							<a class="primary-btn cta-btn" href="#">Shop now</a>
-						</div>
-					</div>
-				</div>
-				<!-- /row -->
-			</div>
-			<!-- /container -->
-		</div>
-		<!-- /HOT DEAL SECTION -->
-
+		
 		<!-- SECTION -->
 		<div class="section">
 			<!-- container -->

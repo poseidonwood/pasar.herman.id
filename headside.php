@@ -13,7 +13,6 @@
 
 		<!-- Bootstrap -->
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"/>
-
 		<!-- Slick -->
 		<link type="text/css" rel="stylesheet" href="css/slick.css"/>
 		<link type="text/css" rel="stylesheet" href="css/slick-theme.css"/>
@@ -33,7 +32,7 @@
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
-
+		
     </head>
 <body>
 		<!-- HEADER -->
@@ -73,15 +72,15 @@
 						<!-- /LOGO -->
 
 						<!-- SEARCH BAR -->
-						<div class="col-md-6">
+						<center><div class="col-md-6">
 							<div class="header-search">
 								<form>
 									
 									<input class="input-select" placeholder="Mau belanja apa?">
-									<button class="search-btn">Search</button>
+									<button class="search-btn"><i class="fa fa-search"></i></button>
 								</form>
 							</div>
-						</div>
+						</div></center>
 						<!-- /SEARCH BAR -->
 
 						<!-- ACCOUNT -->
@@ -102,7 +101,14 @@
 									<a href="#" data-toggle="modal" data-target="#modalsaya">
 										<i class="fa fa-shopping-cart"></i>
 										<span>Your Cart</span>
-										<div class="qty"><?=$total_cart;?></div>
+										<?php
+										if($total_cart>0){
+											echo"
+											<div class='qty'>$total_cart</div>
+											";
+										}
+										?>
+										
 									</a>
 								</div>
 								<!-- akhir coba-->
@@ -202,15 +208,24 @@
 		  <?php
 		 									$total_cart_harga = 0;
 											while($f_cart=mysqli_fetch_array($q_cart)){
+												$cart_id_cart = $f_cart['id_cart'];
 												$cart_id_barang = $f_cart['id_barang'];
 												$cart_qty=$f_cart['qty'];
-												$cart_harga = $f_cart['harga'];
-												$rp_cart_harga = number_format($cart_harga,0,',','.');
+												$cart_harga = $f_cart['harga_total'];
+												$cart_harga_product = $f_cart['harga'];
+												//$rp_cart_harga = number_format($cart_harga,0,',','.');
+												$rp_cart_harga = $cart_harga;
 												//select product
 												$q_cart_product = mysqli_query($koneksi,"select *from tbl_product where id_barang = '$cart_id_barang'");
 												$f_cart_product = mysqli_fetch_array($q_cart_product);
 												$cart_foto = $f_cart_product['foto'];
 												$cart_nm_barang = $f_cart_product['nm_barang'];
+												$cart_satuan = $f_cart_product['id_satuan'];
+												//select nm satuan 
+												$q_cart_satuan = mysqli_query($koneksi,"select *from tbl_satuan where id_satuan = '$cart_satuan'");
+												$f_cart_satuan = mysqli_fetch_array($q_cart_satuan);
+												$cart_nm_satuan = $f_cart_satuan['nm_satuan'];
+
 												//end product												
 											
 											?>
@@ -218,26 +233,45 @@
               <td class="w-25">
                 <img src="img/product/<?=$cart_foto;?>" class="img-thumbnail" alt="Sheep" height="100" width="100">
 			  </td>
-              <td><?=$cart_nm_barang;?></td>
-              <td class="qty"><input type="number" class="form-control" id="input1" value="<?=$cart_qty;?>"></td>
-              <td><?="Rp. ".$rp_cart_harga;?></td>
+              <td><?=$cart_nm_barang;?> / (<?=$cart_nm_satuan;?>)</td>
+              <td class="qty">
+			  <div class="input-number">
+										<input type="number" id="qty<?=$cart_id_cart;?>" value="<?=$cart_qty;?>" name="qty" onchange="myFunction<?=$cart_id_cart;?>()" >
+										<input type="hidden" id="harga<?=$cart_id_cart;?>" value="<?=$cart_harga_product;?>" name="harga" readonly>
+
+										<span class="qty-up">+</span>
+										<span class="qty-down">-</span>
+										
+									</div>
+									</td>
+              <td ><h5 id ="hasil<?=$cart_id_cart;?>"> <?="Rp. ".$rp_cart_harga;?> </h5></td>
               <td>
                 <a href="#" class="btn btn-danger btn-sm">
                   <i class="fa fa-times"></i>
                 </a>
               </td>
 			</tr>
+			<script>
+			function myFunction<?=$cart_id_cart;?>() {
+			var x = document.getElementById("qty<?=$cart_id_cart;?>").value;
+			var y = document.getElementById("harga<?=$cart_id_cart;?>").value;
+			var z<?=$cart_id_cart;?> = x * y;
+			document.getElementById("hasil<?=$cart_id_cart;?>").innerHTML ="Rp. " 	+ z<?=$cart_id_cart;?>;
+			}
+			
+
+			</script>
 			<?php
 			$total_cart_harga += $f_cart['total'];
 			}?>
 		  </tbody>
 		  <thead>
-            <tr>
+          <!--  <tr>
 			  <th></th>
               <th colspan="2"><h5>Total:</h5></th>
-			  <th><h5><span class="price text-success">Rp. <?=number_format($total_cart_harga,0,',','.');?></span></h5></th>
+			  <th><h5><span class="price text-success" id="subtotal">Rp. <?=number_format($total_cart_harga,0,',','.');?></span></h5></th>
 			  <th></th>
-            </tr>
+            </tr>-->
           </thead>
 
         </table> 
