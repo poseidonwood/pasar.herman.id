@@ -2,12 +2,24 @@
 include "setting/sql.php";
 include "headside.php";
 ?>
+<?php
 
+//count down promo carausel berdasarkan jenis promo = mingguan
+$q_promo_mingguan = mysqli_query($koneksi,"select *from tbl_promo where jenis_promo = 'mingguan' and active='N'");
+$f_promo_mingguan_rows = mysqli_num_rows($q_promo_mingguan);
+if($f_promo_mingguan_rows>0){
+	$f_promo_mingguan = mysqli_fetch_array($q_promo_mingguan);
+	$tanggal_mulai = $f_promo_mingguan['mulai_tanggal'];
+
+//end 	
+
+
+?>
 
 											<!-- Countdown Hot deal -->
 
 											<script>
-												var countDownDate = new Date("2020-04-23 00:00:31".replace(/-/g,'/')).getTime();
+												var countDownDate = new Date("<?=$tanggal_mulai;?>".replace(/-/g,'/')).getTime();
 
 												var x = setInterval(function() {
 													
@@ -28,7 +40,7 @@ include "headside.php";
 													
 													if (distance < 0) {
 														clearInterval(x);
-														//window.location.href ='proses/expired.php';
+														window.location.href ='proses/expired-banner.php?z=<?="mingguan";?>';
 														document.getElementById("hari").innerHTML = "EXPIRED";
 													}
 												}, 1000);
@@ -76,7 +88,7 @@ include "headside.php";
 							</ul>
 							<h2 class="text-uppercase">Promo Spesial Minggu Ini</h2>
 							<p>Berbagai promo menarik diskon mulai 50%</p>
-							<a class="primary-btn cta-btn" href="#">Shop now</a>
+							<!--<a class="primary-btn cta-btn" href="#">Shop now</a>-->
 						</div>
 					</div>
 				</div>
@@ -85,6 +97,12 @@ include "headside.php";
 			<!-- /container -->
 		</div>
 		<!-- /HOT DEAL SECTION -->
+
+		<?php
+}else{
+
+}
+?>
 		<!-- SECTION -->
 		<div class="section">
 			<!-- container -->
@@ -208,13 +226,13 @@ include "headside.php";
 											<div class='product-img'>
 												<img src='./img/product/$promo_foto' alt=''>
 												";
-											if($promo_jenis=="diskon"){
+											if($promo_jenis=="diskon"||$promo_jenis=="mingguan"){
 												echo"
 												<div class='product-label'>
 													<span class='sale'>-$promo_nilai%</span>
 													<span class='promo'>PROMO</span>
 												</div>";
-											}else{
+											}elseif($promo_jenis=="potongan"){
 												echo"
 												<div class='product-label'>
 													<span class='sale'>Rp -$rp_promo_nilai</span>
