@@ -181,7 +181,6 @@ if($f_promo_mingguan_rows>0){
 								<div id="tab1" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
 										<?php
-										//
 										//sql promo
 										$q_promo = mysqli_query($koneksi,"select *from tbl_promo where active ='Y' order by mulai_tanggal desc");
 									  	//end sql promo
@@ -332,7 +331,7 @@ if($f_promo_mingguan_rows>0){
 												</div>
 											</div>
 											<div class='add-to-cart'>
-												<button  onclick=\"window.location.href ='proses/cart.php?x=$promo_id_barang'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
+												<button  onclick=\"window.location.href ='proses/cart.php?y=$promo_id_barang&z=$promo_id_promo&v=$promo_akhir'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
 											</div>
 										</div>
 											";
@@ -469,7 +468,7 @@ if($f_promo_mingguan_rows>0){
 												</div>
 											</div>
 											<div class='add-to-cart'>
-											<button  onclick=\"window.location.href ='proses/cart.php?x=$id_barang'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
+											<button  onclick=\"window.location.href ='proses/cart.php?x=$id_barang&h=$harga_jual'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
 											</div>
 										</div>
 											";

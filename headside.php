@@ -194,6 +194,11 @@
         </button>
       </div>
       <div class="modal-body">
+		  <?php
+			if($total_cart==0){
+				echo "<center><h5>Kelihatannya keranjang masih kosong.. Silahkan belanja!!</h5></center>";
+			}else{
+		  ?>
         <table class="table table-image">
           <thead>
             <tr>
@@ -213,13 +218,14 @@
 												$cart_qty=$f_cart['qty'];
 												$cart_harga = $f_cart['harga_total'];
 												$cart_harga_product = $f_cart['harga'];
+												$cart_nm_barang = $f_cart['nm_barang'];
 												//$rp_cart_harga = number_format($cart_harga,0,',','.');
 												$rp_cart_harga = $cart_harga;
 												//select product
 												$q_cart_product = mysqli_query($koneksi,"select *from tbl_product where id_barang = '$cart_id_barang'");
 												$f_cart_product = mysqli_fetch_array($q_cart_product);
 												$cart_foto = $f_cart_product['foto'];
-												$cart_nm_barang = $f_cart_product['nm_barang'];
+												
 												$cart_satuan = $f_cart_product['id_satuan'];
 												//select nm satuan 
 												$q_cart_satuan = mysqli_query($koneksi,"select *from tbl_satuan where id_satuan = '$cart_satuan'");
@@ -238,7 +244,8 @@
 			  <div class="input-number">
 										<input type="number" id="qty<?=$cart_id_cart;?>" value="<?=$cart_qty;?>" name="qty" onchange="myFunction<?=$cart_id_cart;?>()" >
 										<input type="hidden" id="harga<?=$cart_id_cart;?>" value="<?=$cart_harga_product;?>" name="harga" readonly>
-
+										<input type="hidden" id="id_cart<?=$cart_id_cart;?>" value="<?=$cart_id_cart;?>" name="harga" readonly>
+		
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 										
@@ -257,10 +264,24 @@
 			var y = document.getElementById("harga<?=$cart_id_cart;?>").value;
 			var z<?=$cart_id_cart;?> = x * y;
 			document.getElementById("hasil<?=$cart_id_cart;?>").innerHTML ="Rp. " 	+ z<?=$cart_id_cart;?>;
+
+			var qty<?=$cart_id_cart;?>=$("#qty<?=$cart_id_cart;?>").val();
+			var id_cart<?=$cart_id_cart;?> = $("#id_cart<?=$cart_id_cart;?>").val();
+			$.ajax({
+					url : 'proses/update-qty-cart.php',
+					data : 'id_cart='+id_cart<?=$cart_id_cart;?>+'&qty='+qty<?=$cart_id_cart;?>,
+			}).done(function(data){
+				var json = data,
+				obj = JSON.parse(json);
+				$("#qty<?=$cart_id_cart;?>").val(obj.qty);
+
+			});	
+
 			}
 			
 
 			</script>
+			
 			<?php
 			$total_cart_harga += $f_cart['total'];
 			}?>
@@ -274,12 +295,21 @@
             </tr>-->
           </thead>
 
-        </table> 
-        
+		</table> 
+		<?php
+			}
+			?>        
       </div>
       <div class="modal-footer border-top-0 d-flex justify-content-between">
-	  	<button type="button" class="btn btn-warning" data-dismiss="modal">Lanjut Belanja</button>
-        <a href="checkout.php"  class="btn btn-danger">&nbsp;Checkout<i class="fa fa-arrow-circle-right"></i></a>
+		  <button type="button" class="btn btn-warning" data-dismiss="modal">Lanjut Belanja</button>
+		  <?php
+			if($total_cart==0){
+
+			}else{
+		  ?>
+		<a href="checkout.php"  class="btn btn-danger">&nbsp;Checkout<i class="fa fa-arrow-circle-right"></i></a>
+		<?php
+		}?>
       </div>
     </div>
   </div>

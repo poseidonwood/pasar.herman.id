@@ -22,5 +22,9 @@ $f_count_cart = mysqli_fetch_array($q_count_cart);
 $total_cart = $f_count_cart['total_cart'];
 //end  cart
 
+//checkout jika kosong tidak boleh masuk ke halaman checkout
+$q_check = mysqli_query($koneksi,"select *from tbl_cart");
+$f_check_rows = mysqli_num_rows($q_check);
+
 
 ?>
