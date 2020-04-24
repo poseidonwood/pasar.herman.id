@@ -277,6 +277,9 @@ if($f_promo_mingguan_rows>0){
 												}, 1000);
 												</script>
 												<p class='product-price' id='demo<?=$promo_id_promo;?>'></p>
+												<div class="progress">
+													<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">0 barang terjual</div>
+												</div>
 											<?php
 											echo"
 												<p class='product-category'>$promo_nm_category</p>
