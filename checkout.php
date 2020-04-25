@@ -147,9 +147,41 @@ if($f_check_rows>0){
 								}?>
 							</div>
 							<div class="order-col">
-								<div>Shiping</div>
+								<div>Ongkos Kirim</div>
 								<div><strong>FREE</strong></div>
 							</div>
+							
+								<div class="input-checkbox">
+									<input type="checkbox" id="create">
+									<label for="create">
+										<span></span>
+										Punya Voucher?
+									</label>
+									<div class="caption">
+										<h5 id="notif_voucher" ></h5>
+										<div class="input-group">
+										<div class="input-group-addon">
+										<i class= "fa fa-tags"></i>
+										</div>
+										<input type="text" class="form-control" onkeyup="myFunction()" placeholder="Masukkan Kode Voucher" id="nm_voucher" name="coupon" required>
+										</div><br>
+										<!-- ajax mengambil kode promo-->
+									<script>
+									function myFunction(){
+									var voucher=$("#nm_voucher").val();
+										$.ajax({
+												url : 'proses/check-promo.php',
+												data : 'voucher='+voucher,
+										}).done(function(data){
+											var json = data,
+											obj = JSON.parse(json);
+											$("#notif_voucher").html(obj.ket);
+										});	
+									}
+									</script>	
+									</div>
+								</div>
+							
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
 								<div><strong class="order-total">Rp. <?=$total_belanja;?></strong></div>
@@ -157,8 +189,8 @@ if($f_check_rows>0){
 							
 						</div>
 						<div class="payment-method">
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-1">
+							<div class="input-checkbox">
+								<input type="checkbox" name="cod" id="payment-1" >
 								<label for="payment-1">
 									<span></span>
 									COD (Bayar Di Tempat)
@@ -167,8 +199,8 @@ if($f_check_rows>0){
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 								</div>-->
 							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-2">
+							<div class="input-checkbox">
+								<input type="checkbox" name="transfer" id="payment-2">
 								<label for="payment-2">
 									<span></span>
 									Transfer Bank
@@ -177,24 +209,18 @@ if($f_check_rows>0){
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 								</div>
 							</div>
-							<div class="input-radio">
-								<input type="radio" name="payment" id="payment-3">
+							<div class="input-checkbox">
+								<input type="checkbox" name="dompet" id="payment-3" >
 								<label for="payment-3">
 									<span></span>
-									Paypal System
+									Dompet Digital
 								</label>
 								<div class="caption">
 									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 								</div>
 							</div>
 						</div>
-						<div class="input-checkbox">
-							<input type="checkbox" id="terms">
-							<label for="terms">
-								<span></span>
-								I've read and accept the <a href="#">terms & conditions</a>
-							</label>
-						</div>
+						
 						<button type="submit" class="primary-btn order-submit col-md-12">Lanjutkan Pembayaran</button>
 					</div>
 					<!-- /Order Details -->
@@ -345,7 +371,7 @@ if($f_check_rows>0){
 		<script src="js/nouislider.min.js"></script>
 		<script src="js/jquery.zoom.min.js"></script>
 		<script src="js/main.js"></script>
-
+										
 	</body>
 </html>
 <?php
