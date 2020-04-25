@@ -49,6 +49,17 @@
 						<!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
 						<li><a href="#"><i class="fa fa-user-o"></i> Register</a></li>
 						<li><a href="#"><i class="fa fa-sign-in"></i> Login</a></li>
+						<li><a href="#"><i class="fa fa-heart-o"></i>Your Wishlist (0)</a></li>
+
+						<!-- 
+								<div>
+									<a href="#">
+										<i class="fa fa-heart-o"></i>
+										<span>Your Wishlist</span>
+										<div class="qty">2</div>
+									</a>
+								</div>
+								 -->
 
 					</ul>
 				</div>
@@ -87,20 +98,27 @@
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
 								
-								<!-- Wishlist -->
+								
+								<!-- Order -->
 								<div>
-									<a href="#">
-										<i class="fa fa-heart-o"></i>
-										<span>Your Wishlist</span>
-										<div class="qty">2</div>
+									<a href="#" data-toggle="modal" data-target="#modalorder">
+										<i class="fa fa-shopping-bag"></i>
+										<span>My Order</span>
+										<?php
+										if($f_not_order>0){
+											echo"<div class='qty'>New</div>";
+										}else{
+
+										}
+										?>
 									</a>
 								</div>
-								<!-- /Wishlist -->
+								<!-- /Order -->
 								<!-- coba -->
 								<div>
 									<a href="#" data-toggle="modal" data-target="#modalsaya">
 										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
+										<span>My Cart</span>
 										<?php
 										if($total_cart>0){
 											echo"
@@ -310,6 +328,100 @@
 		<a href="checkout.php"  class="btn btn-danger">&nbsp;Checkout<i class="fa fa-arrow-circle-right"></i></a>
 		<?php
 		}?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Order -->
+<div class="modal fade" id="modalorder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <h3> <span aria-hidden="true">&times;</span></h3>
+        </button>
+
+		<center><h3 class="modal-title" id="exampleModalLabel">My Order</h3></center>
+	<!--	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+      </div>
+      <div class="modal-body">
+		  <?php
+		  if($transaksi_status_transaksi=="FINISH"){
+			echo "Nampak nya anda belum belanja... Silahkan Belanja!";
+		  }else{
+			  ?>
+	<h5>Order Id</h5>
+	<p><?=$order_id_transaksi;?></p>
+	<hr>
+	<h5>Total Tagihan</h5>
+	<p><?= "Rp ".number_format($transaksi_harga,2,',','.');?></p>
+	<hr>
+	<h5>Status Pemesanan</h5>
+	<?php
+		  if($transaksi_status_transaksi=="MENUNGGU PEMBAYARAN"){
+			  echo"<p><span class='badge progress-bar-danger'>$transaksi_status_transaksi</span></p>";
+		  }else{
+			echo"<p><span class='badge progress-bar-success'>$transaksi_status_transaksi</span></p>";
+		}
+		  ?>
+	<hr>
+	<center><h5>Alamat Pengiriman</h5></center>
+	<p><strong><?=$transaksi_nm_pembeli;?></strong></p>
+	<p><?=$transaksi_hp;?></p>
+	<p><?=$transaksi_alamat;?></p>
+	<hr>
+	<div class="input-checkbox">
+	<center><label for="create">
+									<span class="badge progress-bar-success">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
+	</label>	</center>				
+	<input type="checkbox" id="create">			
+									<div class="caption">
+
+										<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Barang</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Harga</th>
+    </tr>
+  </thead>
+  <tbody>
+	  <?php
+	$q_order1 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi is not null and status is not null");  
+	while($f_detail = mysqli_fetch_array($q_order1)){
+
+	  ?>
+    <tr>
+      <td><?= $f_detail['nm_barang'];?></td>
+      <td><?= $f_detail['qty'];?></td>
+      <td>Rp <?= $f_detail['harga_total'];?></td>
+	</tr>
+	<?php
+	}?>
+	<th colspan="2">Total</th>
+	<td>Rp <?= $transaksi_harga;?></td>
+
+  </tbody>
+</table>
+</div>	
+		
+									</div>
+									<?php
+		  }
+		  ?>	
+								</div>
+								<hr>
+	
+      <div class="modal-footer">
+		  <?php
+		  if($transaksi_status_transaksi=="MENUNGGU PEMBAYARAN"){
+			  echo"<button type='button' class='btn btn-danger'>KONFIRMASI PEMBAYARAN</button>";
+		  }elseif($transaksi_status_transaksi=="FINISH"){
+			echo"<button type='button' class='close' data-dismiss='modal' aria-label='Close'>Close</button>";
+		}else{
+			  echo"<button type='button' class='btn btn-success'>Hubungi Kami</button>";
+		  }
+		  ?>
       </div>
     </div>
   </div>

@@ -3,10 +3,10 @@
 if(isset($_GET['z'])){
     include "../setting/koneksi.php";
     $jenis_promo = $_GET['z'];
-    $q_u = mysqli_query ($koneksi,"update tbl_promo set active ='N' where jenis_promo ='$jenis_promo'");
+    $q_u = mysqli_query ($koneksi,"update tbl_promo set active_mingguan ='N' where jenis_promo ='$jenis_promo'");
     if($q_u){
-       echo" <script>
-       		//window.location.href='$domain';</script>";
+       echo"<script>
+       		window.location.href='$domain';</script>";
     }
 }else{
     include "../setting/koneksi.php";

@@ -6,7 +6,7 @@ if(isset($_GET['x'])){
     $id_barang = $_GET['x'];
     $harga_get = $_GET['h'];
     //SELECT CART CEK ADA BARANG YANG SAMA ATAU TIDAK
-    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_get'");
+    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_get' and id_transaksi is null and status is null");
     $f_r = mysqli_num_rows($q_c);
     if($f_r>0){
         $qty = 1;
@@ -35,14 +35,14 @@ if(isset($_GET['x'])){
     $id_cart = date("YmdHis");
 
     //select barang
-    $q_b = mysqli_query($koneksi,"select *from tbl_product where id_barang = '$id_barang'");
+    $q_b = mysqli_query($koneksi,"select *from tbl_product where id_barang = '$id_barang' ");
     $f_b = mysqli_fetch_array($q_b);
     $nm_barang = $f_b['nm_barang'];
     $harga = $f_b['harga_jual'];
     $id_satuan = $f_b['id_satuan'];
     $harga_t = $harga*$qty;
    
-  $q_i = mysqli_query($koneksi,"INSERT INTO tbl_cart VALUES ('$id_cart',NULL,'$id_barang','$nm_barang','$qty','$id_satuan','$harga','$harga_t','$created')");
+  $q_i = mysqli_query($koneksi,"INSERT INTO tbl_cart VALUES ('$id_cart',NULL,'$id_barang','$nm_barang','$qty','$id_satuan','$harga','$harga_t','$device_ip','$created','')");
     if($q_i){
         echo"
         <script>
@@ -59,7 +59,7 @@ if(isset($_GET['x'])){
     $id_promo = $_GET['z'];
     $harga_promo = $_GET['v'];
     //SELECT CART CEK ADA BARANG YANG SAMA ATAU TIDAK
-    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_promo'");
+    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_promo' and id_transaksi is null and status is null");
     $f_r = mysqli_num_rows($q_c);
     if($f_r>0){
         $f_c = mysqli_fetch_array($q_c);
@@ -77,6 +77,8 @@ if(isset($_GET['x'])){
    
      $q_u = mysqli_query($koneksi,"update tbl_cart set qty = '$qty_b',harga_total='$harga_t' where id_barang ='$id_barang' and harga='$harga_promo'");
     if($q_u){
+        echo "<script>alert ('Gagal Update yz')</script>";
+
         echo"
         <script>
 		window.location.href='$domain';</script>";
@@ -102,8 +104,9 @@ if(isset($_GET['x'])){
     $id_satuan = $f_b['id_satuan'];
     
    
-  $q_i = mysqli_query($koneksi,"INSERT INTO tbl_cart VALUES ('$id_cart',NULL,'$id_barang','$nm_barang','$qty','$id_satuan','$harga_akhir','$harga_t','$created')");
+  $q_i = mysqli_query($koneksi,"INSERT INTO tbl_cart VALUES ('$id_cart',NULL,'$id_barang','$nm_barang','$qty','$id_satuan','$harga_akhir','$harga_t','$device_ip','$created','')");
     if($q_i){
+        echo "<script>alert ('Gagal simpan')</script>";
         echo"
         <script>
 		window.location.href='$domain';</script>";

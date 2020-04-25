@@ -6,7 +6,7 @@ $connect_data = mysqli_query($koneksi,"select *from domain ");
 $show_domain = mysqli_fetch_array($connect_data);
 $domain=$show_domain['nm_domain'];
 $status = $show_domain['status'];
-
+$device_ip=$_SERVER['REMOTE_ADDR'];
 //variable untuk laporan penjualan perbulan
 $date_awal = '2020-04-01';
 $date_akhir = '2020-04-30';
