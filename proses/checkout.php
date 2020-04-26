@@ -27,7 +27,7 @@ if($nm_voucher==''){
 $sql_t = "insert into transaksi values ('$timestamps','$id_transaksi','$tanggal','$nm_pembeli','$hp','$alamat',null,null,'$harga_total1','$jenis_pembayaran','N','$status_transaksi','$tempo','$device_ip')";
 $q_transaksi = mysqli_query($koneksi,$sql_t);
 if($q_transaksi){
-    $u_cart = mysqli_query($koneksi,"update tbl_cart set id_transaksi = '$id_transaksi' where device_ip = '$device_ip' and id_transaksi is null");
+    $u_cart = mysqli_query($koneksi,"update tbl_cart set id_transaksi = '$id_transaksi' where device_ip = '$device_ip' and id_transaksi is null and status=''");
     echo "<script>window.location.href='../confirm.php?x=$id_transaksi&jenis=$jenis_pembayaran';</script>";
     //transaksi berhasil -> link ATM 
 }else{

@@ -271,9 +271,9 @@
 									</td>
               <td ><h5 id ="hasil<?=$cart_id_cart;?>"> <?="Rp. ".$rp_cart_harga;?> </h5></td>
               <td>
-                <a href="#" class="btn btn-danger btn-sm">
+                <button onclick="hapuscart<?=$cart_id_cart;?>()" class="btn btn-danger btn-sm">
                   <i class="fa fa-times"></i>
-                </a>
+                </button>
               </td>
 			</tr>
 			<script>
@@ -292,6 +292,23 @@
 				var json = data,
 				obj = JSON.parse(json);
 				$("#qty<?=$cart_id_cart;?>").val(obj.qty);
+                      const Toast = Swal.mixin({
+						toast: true,
+						position: 'top',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						onOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+						})
+				
+						Toast.fire({
+						icon: 'success',
+						title: 'Data Berhasil Di Ubah.'
+						})
+ 
 
 			});	
 
@@ -299,7 +316,30 @@
 			
 
 			</script>
-			
+			<!--hapus cart dengan sweat alert -->
+			<script>
+			function hapuscart<?=$cart_id_cart;?>(){
+				Swal.fire({
+			title: 'Hapus <?=$cart_nm_barang;?> dari Keranjang ini?',
+			text: "",
+			icon: 'question',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yakin ?!'
+			}).then((result) => {
+			if (result.value) {
+				window.location.href='proses/delete-cart.php?x=<?=$cart_id_cart;?>';
+			}
+			})
+
+
+
+			}
+
+
+			</script>
+			<!--end hapus cart-->
 			<?php
 			$total_cart_harga += $f_cart['total'];
 			}?>
@@ -440,3 +480,4 @@
     </div>
   </div>
 </div>
+

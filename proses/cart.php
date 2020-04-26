@@ -6,7 +6,7 @@ if(isset($_GET['x'])){
     $id_barang = $_GET['x'];
     $harga_get = $_GET['h'];
     //SELECT CART CEK ADA BARANG YANG SAMA ATAU TIDAK
-    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_get' and id_transaksi is null and status is null");
+    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_get' and id_transaksi is null and status =''");
     $f_r = mysqli_num_rows($q_c);
     if($f_r>0){
         $qty = 1;
@@ -25,13 +25,16 @@ if(isset($_GET['x'])){
     if($q_upt){
         echo"
         <script>
-		window.location.href='$domain';</script>";
+		window.location.href='$domain?pesan=success&brg=$nm_barang';</script>";
     }else{
         echo "<script>alert ('Gagal')</script>";
     }
     }else{
         $qty = 1;
-    $created = date("Y-m-d H:i:s");
+    $created_date = date("Y-m-d H:i:s");
+    $selectedTime = $created_date;
+    $endTime = strtotime("+30 minutes", strtotime($selectedTime));
+    $created = date('Y-m-d H:i:s', $endTime);
     $id_cart = date("YmdHis");
 
     //select barang
@@ -46,7 +49,7 @@ if(isset($_GET['x'])){
     if($q_i){
         echo"
         <script>
-		window.location.href='$domain';</script>";
+		window.location.href='$domain?pesan=success&brg=$nm_barang';</script>";
     }else{
         echo "<script>alert ('Gagal')</script>";
     }
@@ -59,7 +62,7 @@ if(isset($_GET['x'])){
     $id_promo = $_GET['z'];
     $harga_promo = $_GET['v'];
     //SELECT CART CEK ADA BARANG YANG SAMA ATAU TIDAK
-    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_promo' and id_transaksi is null and status is null");
+    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_promo' and id_transaksi is null and status =''");
     $f_r = mysqli_num_rows($q_c);
     if($f_r>0){
         $f_c = mysqli_fetch_array($q_c);
@@ -81,7 +84,7 @@ if(isset($_GET['x'])){
 
         echo"
         <script>
-		window.location.href='$domain';</script>";
+		window.location.href='$domain?pesan=success&brg=$nm_barang';</script>";
     }else{
         echo "<script>alert ('Gagal Update yz')</script>";
     }
@@ -109,7 +112,7 @@ if(isset($_GET['x'])){
         echo "<script>alert ('Gagal simpan')</script>";
         echo"
         <script>
-		window.location.href='$domain';</script>";
+		window.location.href='$domain?pesan=success&brg=$nm_barang';</script>";
     }else{
         echo "<script>alert ('Gagal simpan')</script>";
     }

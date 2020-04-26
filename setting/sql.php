@@ -15,10 +15,10 @@ $q_category = mysqli_query($koneksi,"select *from category_product");
 //end  category product
 
 //sql cart
-$q_cart = mysqli_query($koneksi,"select id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total,SUM(harga_total)  as total from tbl_cart where device_ip='$device_ip' and id_transaksi is null GROUP BY 	
-id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total DESC");
+$q_cart = mysqli_query($koneksi,"select id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total,status,SUM(harga_total)  as total from tbl_cart where device_ip='$device_ip' and id_transaksi is null and status='' GROUP BY 	
+id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total,status DESC");
 //sql count cart
-$q_count_cart = mysqli_query($koneksi,"select count(*) as total_cart from tbl_cart where device_ip='$device_ip'  and id_transaksi is null");
+$q_count_cart = mysqli_query($koneksi,"select count(*) as total_cart from tbl_cart where device_ip='$device_ip'  and id_transaksi is null and status=''");
 $f_count_cart = mysqli_fetch_array($q_count_cart);
 $total_cart = $f_count_cart['total_cart'];
 //end  cart
@@ -28,7 +28,7 @@ $q_check = mysqli_query($koneksi,"select *from tbl_cart where device_ip='$device
 $f_check_rows = mysqli_num_rows($q_check);
 
 //sql myorder
-$q_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status=''");
+$q_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status='' order by created desc");
 $f_order = mysqli_fetch_array($q_order);
 //end my order
 $order_id_transaksi = $f_order['id_transaksi'];
@@ -43,7 +43,7 @@ $transaksi_harga = $f_transaksi['harga_total'];
 $transaksi_status_transaksi = $f_transaksi['status_transaksi'];
 $transaksi_device_ip = $f_transaksi['device_ip'];
 //myorder count notifikasi
-$q_not_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status=''");
+$q_not_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status='' order by created desc limit 1");
 $q_get_id = mysqli_fetch_array($q_not_order);
 $get_id = $q_get_id['id_transaksi'];
 $q_id = mysqli_query($koneksi,"select *from transaksi where id_transaksi = '$get_id' and status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD' and device_ip='$device_ip'");
@@ -52,5 +52,7 @@ $f_not_order = mysqli_num_rows($q_id);
 //ambil rekening
 $q_rek = mysqli_query($koneksi,"select *from tbl_rekening where active ='Y'");
 //end rekening
+
+
 
 ?>

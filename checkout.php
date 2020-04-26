@@ -130,8 +130,8 @@ if($f_check_rows>0){
 							<div class="order-products">
 								<?php
 								//ambil data cart
-								$qi_cart = mysqli_query($koneksi,"select id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total,SUM(harga_total)  as total from tbl_cart where device_ip='$device_ip' and id_transaksi is null GROUP BY 	
-								id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total DESC");
+								$qi_cart = mysqli_query($koneksi,"select id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total,status,SUM(harga_total)  as total from tbl_cart where device_ip='$device_ip' and id_transaksi is null and status='' GROUP BY 	
+								id_cart,id_transaksi,id_barang,nm_barang,qty,id_satuan,harga,harga_total,status DESC");
 								$total_belanja=0;
 								while($fi_cart = mysqli_fetch_array($qi_cart)){
 								$qty=$fi_cart['qty'];
