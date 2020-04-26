@@ -341,18 +341,25 @@
          <h3> <span aria-hidden="true">&times;</span></h3>
         </button>
 
-		<center><h3 class="modal-title" id="exampleModalLabel">My Order</h3></center>
+		<center><h3 class="modal-title" id="exampleModalLabel">My Order <i class="fa fa-shopping-bag"></i></h3></center>
 	<!--	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
       </div>
       <div class="modal-body">
 		  <?php
 		  if($transaksi_status_transaksi=="FINISH"){
 			echo "Nampak nya anda belum belanja... Silahkan Belanja!";
+			
 		  }else{
 			  ?>
-	<h5>Order Id</h5>
-	<p><?=$order_id_transaksi;?></p>
-	<hr>
+	<div class="input-checkbox">
+	
+<label for="order_id">
+<h5>Order Id : &nbsp;<span class="badge progress-bar-primary"><?=$order_id_transaksi;?></span>	</h5>
+<p style="font-size:80%;">(Klik untuk lihat selengkapnya)</p>
+	</label>			
+	<input type="checkbox" id="order_id">			
+									<div class="caption">
+									<hr>
 	<h5>Total Tagihan</h5>
 	<p><?= "Rp ".number_format($transaksi_harga,2,',','.');?></p>
 	<hr>
@@ -371,10 +378,10 @@
 	<p><?=$transaksi_alamat;?></p>
 	<hr>
 	<div class="input-checkbox">
-	<center><label for="create">
-									<span class="badge progress-bar-success">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
+	<center><label for="ringkasan">
+									<span class="badge progress-bar-primary">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
 	</label>	</center>				
-	<input type="checkbox" id="create">			
+	<input type="checkbox" id="ringkasan">			
 									<div class="caption">
 
 										<table class="table table-striped">
@@ -387,7 +394,7 @@
   </thead>
   <tbody>
 	  <?php
-	$q_order1 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi is not null and status is not null");  
+	$q_order1 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi ='$order_id_transaksi'");  
 	while($f_detail = mysqli_fetch_array($q_order1)){
 
 	  ?>
@@ -406,18 +413,22 @@
 </div>	
 		
 									</div>
+									
+								</div>
+								</div>
+	
 									<?php
 		  }
 		  ?>	
+								
 								</div>
-								<hr>
 	
       <div class="modal-footer">
 		  <?php
 		  if($transaksi_status_transaksi=="MENUNGGU PEMBAYARAN"){
-			  echo"<button type='button' class='btn btn-danger'>KONFIRMASI PEMBAYARAN</button>";
+			  echo"<button type='button' class='btn btn-success'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$order_id_transaksi&jenis=$transaksi_jenis'\" class='btn btn-danger'>TRANSFER</button>";
 		  }elseif($transaksi_status_transaksi=="FINISH"){
-			echo"<button type='button' class='close' data-dismiss='modal' aria-label='Close'>Close</button>";
+			echo"<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Close'>Close</button>";
 		}else{
 			  echo"<button type='button' class='btn btn-success'>Hubungi Kami</button>";
 		  }

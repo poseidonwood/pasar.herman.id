@@ -196,21 +196,21 @@ if($f_check_rows>0){
 
 							<div class="form-check">
 								<label class="radio-button">
-									<input class="form-check-input" value="cod" type="radio" checked="checked"
+									<input class="form-check-input" value="COD" type="radio" checked="checked"
 										name="jenis_pembayaran" required>&nbsp;COD (Bayar Ditempat)
 									<span class="checkmark"></span>
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="radio-button">
-									<input class="form-check-input" value="bca" type="radio" checked="checked"
+									<input class="form-check-input" value="BCA" type="radio" checked="checked"
 										name="jenis_pembayaran" required>&nbsp;Transfer Bank BCA
 									<span class="checkmark"></span>
 								</label>
 							</div>
 							<div class="form-check">
 								<label class="radio-button">
-									<input class="form-check-input" value="mandiri" type="radio" checked="checked"
+									<input class="form-check-input" value="MANDIRI" type="radio" checked="checked"
 										name="jenis_pembayaran" required>&nbsp;Transfer Bank MANDIRI
 									<span class="checkmark"></span>
 								</label>

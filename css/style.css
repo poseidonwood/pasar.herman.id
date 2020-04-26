@@ -727,7 +727,7 @@ textarea.input {
   bottom: 0;
   left: 0px;
   width: 45%;
-  background:  rgb(5, 238, 44);
+  background:  #284e21;
   opacity: 0.9;
   -webkit-transform: skewX(-45deg);
   -ms-transform: skewX(-45deg);
@@ -741,7 +741,7 @@ textarea.input {
   bottom: 0;
   left: 1px;
   width: 75%;
-  background: rgb(5, 238, 44);
+  background:#284e21;
   opacity: 0.9;
   -webkit-transform: skewX(-45deg) translateX(-100%);
   -ms-transform: skewX(-45deg) translateX(-100%);
@@ -1874,6 +1874,7 @@ textarea.input {
   border-left: 1px solid #E4E7ED;
   border-bottom: 1px solid #E4E7ED;
 }
+
 
 .order-details:before {
   content: "";

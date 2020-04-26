@@ -28,26 +28,29 @@ $q_check = mysqli_query($koneksi,"select *from tbl_cart where device_ip='$device
 $f_check_rows = mysqli_num_rows($q_check);
 
 //sql myorder
-$q_order = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$ip' and id_transaksi is not null and status is not null order by created desc ");
+$q_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status=''");
 $f_order = mysqli_fetch_array($q_order);
 //end my order
 $order_id_transaksi = $f_order['id_transaksi'];
 //id _transaksi
-$q_transaksi = mysqli_query($koneksi,"select *from transaksi where id_transaksi='$order_id_transaksi' and device_ip='$ip'");
+$q_transaksi = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and id_transaksi ='$order_id_transaksi'");
 $f_transaksi = mysqli_fetch_array($q_transaksi);
 $transaksi_nm_pembeli = $f_transaksi['nm_pembeli'];
 $transaksi_alamat = $f_transaksi['alamat'];
 $transaksi_hp = $f_transaksi['hp'];
+$transaksi_jenis=$f_transaksi['jenis_pembayaran'];
 $transaksi_harga = $f_transaksi['harga_total'];
 $transaksi_status_transaksi = $f_transaksi['status_transaksi'];
 $transaksi_device_ip = $f_transaksi['device_ip'];
 //myorder count notifikasi
-$q_not_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip'");
+$q_not_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status=''");
 $q_get_id = mysqli_fetch_array($q_not_order);
 $get_id = $q_get_id['id_transaksi'];
-$q_id = mysqli_query($koneksi,"select *from transaksi where id_transaksi = '$get_id' and status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD'");
+$q_id = mysqli_query($koneksi,"select *from transaksi where id_transaksi = '$get_id' and status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD' and device_ip='$device_ip'");
 $f_not_order = mysqli_num_rows($q_id);
 
-
+//ambil rekening
+$q_rek = mysqli_query($koneksi,"select *from tbl_rekening where active ='Y'");
+//end rekening
 
 ?>
