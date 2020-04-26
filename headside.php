@@ -349,6 +349,9 @@
 		  if($transaksi_status_transaksi=="FINISH"){
 			echo "Nampak nya anda belum belanja... Silahkan Belanja!";
 			
+		  }elseif($transaksi_status_transaksi==''){
+			echo "Nampak nya anda belum belanja... Silahkan Belanja!";
+			
 		  }else{
 			  ?>
 	<div class="input-checkbox">
@@ -430,7 +433,7 @@
 		  }elseif($transaksi_status_transaksi=="FINISH"){
 			echo"<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Close'>Close</button>";
 		}else{
-			  echo"<button type='button' class='btn btn-success'>Hubungi Kami</button>";
+			  echo"<button type='button' onclick=\"window.location.href ='https://wa.me/$number_profile'\" class='btn btn-success'><i class='fa fa-whatsapp'></i> &nbsp;Ada Kesulitan ? Hubungi Kami.</button>";
 		  }
 		  ?>
       </div>
