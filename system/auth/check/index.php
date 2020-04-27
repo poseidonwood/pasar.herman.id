@@ -14,15 +14,18 @@ if(!empty($_POST['email'])){
     if($q_rows>0){
         $f_check_login = mysqli_fetch_assoc($q_check_login);
         $role = $f_check_login['role'];
+        $name = $f_check_login['name'];
         if($role=='admin'){
         $_SESSION['email']=$email;
         $_SESSION['status']='login';
-        $_SESSION['role']='admin';
+        $_SESSION['role']=$role;
+        $_SESSION['name']='name';
         echo"<script>window.location.href='$domain\system/';</script>";
         //check Y belum 
         }else{
             $_SESSION['status']='login';
-            $_SESSION['role']='user';
+            $_SESSION['role']=$role;
+            $_SESSION['name']=$name;
             echo"<script>window.location.href='$domain\?user';</script>";
 
         }

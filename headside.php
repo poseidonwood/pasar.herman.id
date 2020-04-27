@@ -52,11 +52,11 @@ session_start();
 					<ul class="header-links pull-right">
 					<?php
 					if(empty($_SESSION['role'])){
-						echo"<li><a href='#'><i class='fa fa-user-o'></i> Register</a></li>
+						echo"<li><a href='$domain\system/auth/registrasi/'><i class='fa fa-user-o'></i> Register</a></li>
 						<li><a href='$domain\system/auth'><i class='fa fa-sign-in'></i> Login</a></li>";
 						
 					}else{
-						$session=$_SESSION['role'];
+						$session=$_SESSION['name'];
 						echo"<li><a href='#'><i class='fa fa-user-o'></i> Selamat datang, $session </a></li>
 						<li><a href='$domain\system/pages/logout/'><i class='fa fa-sign-in'></i> Logout</a></li>
 						<li><a href='#'><i class='fa fa-cog'></i>Pengaturan</a></li>
