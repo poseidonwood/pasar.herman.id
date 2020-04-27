@@ -6,6 +6,7 @@ if(isset($_GET['x'])){
 		window.alert('Anda Tidak Diperbolehkan Masuk');
 		window.location.href='$domain';</script>";
 	}else{
+		session_start();
 	$id_barang = $_GET['x'];
 	//search data di database
 	$q_p_b = mysqli_query($koneksi,"select *from tbl_product where id_barang = '$id_barang'");
@@ -45,7 +46,7 @@ if(isset($_GET['x'])){
 		<meta property="og:description" content="<?=$nm_barang;?> dengan harga murah hanya di <?=$domain;?>"/> 
 		
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+		<title><?=$title_profile."|$nm_barang";?></title>
 
 
 		<!-- Google font -->
@@ -86,10 +87,19 @@ if(isset($_GET['x'])){
 						<!--<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>-->
 					</ul>
 					<ul class="header-links pull-right">
-						<!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
-						<li><a href="#"><i class="fa fa-user-o"></i> Register</a></li>
-						<li><a href="#"><i class="fa fa-sign-in"></i> Login</a></li>
-						<li><a href="#"><i class="fa fa-heart-o"></i>Your Wishlist (0)</a></li>
+					<?php
+					if(empty($_SESSION['role'])){
+						echo"<li><a href='#'><i class='fa fa-user-o'></i> Register</a></li>
+						<li><a href='$domain\system/auth'><i class='fa fa-sign-in'></i> Login</a></li>";
+						
+					}else{
+						$session=$_SESSION['role'];
+						echo"<li><a href='#'><i class='fa fa-user-o'></i> Selamat datang, $session </a></li>
+						<li><a href='$domain\system/pages/logout/'><i class='fa fa-sign-in'></i> Logout</a></li>
+						<li><a href='#'><i class='fa fa-cog'></i>Pengaturan</a></li>
+						<!--<li><a href='#'><i class='fa fa-heart-o'></i>Your Wishlist (0)</a></li>-->";
+					}
+					?>
 
 						<!-- 
 								<div>

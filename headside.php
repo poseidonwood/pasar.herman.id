@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -47,10 +50,19 @@
 						<!--<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>-->
 					</ul>
 					<ul class="header-links pull-right">
-						<!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
-						<li><a href="#"><i class="fa fa-user-o"></i> Register</a></li>
-						<li><a href="<?=$domain."system/auth";?>"><i class="fa fa-sign-in"></i> Login</a></li>
-						<li><a href="#"><i class="fa fa-heart-o"></i>Your Wishlist (0)</a></li>
+					<?php
+					if(empty($_SESSION['role'])){
+						echo"<li><a href='#'><i class='fa fa-user-o'></i> Register</a></li>
+						<li><a href='$domain\system/auth'><i class='fa fa-sign-in'></i> Login</a></li>";
+						
+					}else{
+						$session=$_SESSION['role'];
+						echo"<li><a href='#'><i class='fa fa-user-o'></i> Selamat datang, $session </a></li>
+						<li><a href='$domain\system/pages/logout/'><i class='fa fa-sign-in'></i> Logout</a></li>
+						<li><a href='#'><i class='fa fa-cog'></i>Pengaturan</a></li>
+						<!--<li><a href='#'><i class='fa fa-heart-o'></i>Your Wishlist (0)</a></li>-->";
+					}
+					?>
 
 						<!-- 
 								<div>

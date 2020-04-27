@@ -12,11 +12,12 @@ if(!empty($_POST['email'])){
     $q_check_login = mysqli_query($koneksi,"select *from tbl_user where email ='$email' and password ='$password'");
     $q_rows = mysqli_num_rows($q_check_login);
     if($q_rows>0){
-        $f_check_login = mysqli_fetch_array($q_check_login);
+        $f_check_login = mysqli_fetch_assoc($q_check_login);
         $role = $f_check_login['role'];
         if($role=='admin'){
         $_SESSION['email']=$email;
         $_SESSION['status']='login';
+        $_SESSION['role']='admin';
         echo"<script>window.location.href='$domain\system/';</script>";
         //check Y belum 
         }else{
