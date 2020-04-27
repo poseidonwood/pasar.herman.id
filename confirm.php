@@ -100,7 +100,10 @@ if(isset($_GET['x'])){
 													if (distance < 0) {
 														clearInterval(x);
 														window.location.href ='proses/expired-pembayaran.php?z=<?=$id_transaksi;?>';
-														document.getElementById("hari").innerHTML = "EXPIRED";
+														document.getElementById("hari").innerHTML ="";
+													document.getElementById("jam").innerHTML = "";
+													document.getElementById("menit").innerHTML = "";
+													document.getElementById("detik").innerHTML = "";
 													}
 												}, 1000);
 												</script>

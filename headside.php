@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		<title><?=$title_profile;?></title>
@@ -48,7 +49,7 @@
 					<ul class="header-links pull-right">
 						<!--<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>-->
 						<li><a href="#"><i class="fa fa-user-o"></i> Register</a></li>
-						<li><a href="#"><i class="fa fa-sign-in"></i> Login</a></li>
+						<li><a href="<?=$domain."system/auth";?>"><i class="fa fa-sign-in"></i> Login</a></li>
 						<li><a href="#"><i class="fa fa-heart-o"></i>Your Wishlist (0)</a></li>
 
 						<!-- 
@@ -85,11 +86,11 @@
 						<!-- SEARCH BAR -->
 						<center><div class="col-md-6">
 							<div class="header-search">
-								<form>
+							<form>
 									
 									<input class="input-select" placeholder="Mau belanja apa?">
-									<button class="search-btn"><i class="fa fa-search"></i></button>
-								</form>
+									<button onclick="myalert()" class="search-btn"><i class="fa fa-search"></i></button>
+						</form>
 							</div>
 						</div></center>
 						<!-- /SEARCH BAR -->

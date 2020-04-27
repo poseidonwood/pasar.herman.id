@@ -1,4 +1,13 @@
 <?php
+session_start();
+if($_SESSION['role']="user"){
+ //masukkan tampilan user
+    echo "<script type='text/javascript'>
+	alert('anda login sebagai user')</script>";
+}
+	
+
+
 include "setting/sql.php";
 include "headside.php";
 ?>
@@ -532,4 +541,5 @@ if($f_promo_mingguan_rows>0){
 		<!-- /NEWSLETTER -->
 <?php
 include "footer.php";
+
 ?>
