@@ -1,4 +1,38 @@
 <?php
+
+//validasi cart jika created > jam sekarang maka update created - 15 menit dan status='canceled'
+$q_cart_validasi = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and status='' and id_transaksi is null");
+while($f_cart_array = mysqli_fetch_array($q_cart_validasi)){
+	date_default_timezone_set("Asia/Jakarta");
+	$created = $f_cart_array['created'];
+	$nm_barang_validasi = $f_cart_array['nm_barang'];
+    $compare_date = date("Y-m-d H:i:s");
+    if($created < $compare_date){
+		//-15 menit created 
+		$endTime = strtotime("-30 minutes", strtotime($created));
+		$created_update = date('Y-m-d H:i:s', $endTime);
+		//jatuh tempo 
+		$q_u_validasi = mysqli_query($koneksi,"update tbl_cart set status ='CANCELED',created='$created_update' where nm_barang='$nm_barang_validasi' and device_ip='$device_ip' and id_transaksi is null ");
+       // echo"<script>window.alert('$created_update Jatuh tempo')</script>";
+    }
+}
+
+//validasi transaksi jika tempobayar > jam sekarang maka update created - 15 menit dan status='canceled'
+$q_transaksi_validasi = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and status_pembayaran ='N'");
+while($f_transaksi_array = mysqli_fetch_array($q_transaksi_validasi)){
+	date_default_timezone_set("Asia/Jakarta");
+	$tempo_bayar = $f_transaksi_array['tempo_bayar'];
+	$id_transaksi_validasi = $f_transaksi_array['id_transaksi'];
+    $compare_date_transaksi = date("Y-m-d H:i:s");
+    if($tempo_bayar < $compare_date_transaksi){
+		
+		//jatuh tempo 
+		$q_u_transaksi_validasi = mysqli_query ($koneksi,"update transaksi set status_transaksi='CANCELED' where id_transaksi='$id_transaksi_validasi'");
+		$q_u_cart_validasi = mysqli_query ($koneksi,"update tbl_cart set status='CANCELED NO PAYMENT' where id_transaksi='$id_transaksi_validasi'");
+		 //echo"<script>window.alert('$created_update Jatuh tempo')</script>";
+    }
+}
+
 session_start();
 ?>
 <!DOCTYPE html>
@@ -399,45 +433,76 @@ session_start();
       </div>
       <div class="modal-body">
 		  <?php
-		  if($transaksi_status_transaksi=="FINISH"){
-			echo "Nampak nya anda belum belanja... Silahkan Belanja!";
+		  while($f_transaksi = mysqli_fetch_array($q_transaksi1)){
+			$transaksi1_id_transaksi = $f_transaksi['id_transaksi'];	
+			$transaksi1_nm_pembeli = $f_transaksi['nm_pembeli'];
+			$transaksi1_alamat = $f_transaksi['alamat'];
+			$transaksi1_hp = $f_transaksi['hp'];
+			$transaksi1_jenis=$f_transaksi['jenis_pembayaran'];
+			$transaksi1_harga = $f_transaksi['harga_total'];
+			$transaksi1_status_transaksi = $f_transaksi['status_transaksi'];
+			$transaksi1_device_ip = $f_transaksi['device_ip'];
 			
-		  }elseif($transaksi_status_transaksi==''){
-			echo "Nampak nya anda belum belanja... Silahkan Belanja!";
-			
-		  }else{
+		 
 			  ?>
-	<div class="input-checkbox">
 	
-<label for="order_id">
-<h5>Order Id : &nbsp;<span class="badge progress-bar-primary"><?=$order_id_transaksi;?></span>	</h5>
-<p style="font-size:80%;">(Klik untuk lihat selengkapnya)</p>
+	<div class="input-checkbox">
+	<label for="order_id(<?=$transaksi1_id_transaksi;?>)">
+	<h5>Order Id : &nbsp;<span class="badge progress-bar-primary"><?=$transaksi1_id_transaksi;?></span>
+	<?php
+		  if($transaksi1_jenis=="BCA"){
+			  echo"<span class='badge progress-bar-info'>$transaksi1_jenis</span>";
+			  if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
+				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+				}elseif($transaksi1_status_transaksi=="CANCELED"){
+			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+		 		 }
+		  }elseif($transaksi1_jenis=="MANDIRI"){
+			echo"<span class='badge progress-bar-warning'>$transaksi1_jenis</span>";
+			if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
+				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+				}elseif($transaksi1_status_transaksi=="CANCELED"){
+			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+		 		 }
+		}else{
+			echo"<span class='badge progress-bar-success'>$transaksi1_jenis</span>";
+			if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
+				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+				}elseif($transaksi1_status_transaksi=="CANCELED"){
+			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+		 		 }
+		}
+		  ?>
+	</h5>
+	<p style="font-size:80%;">(Klik untuk lihat selengkapnya)</p>
 	</label>			
-	<input type="checkbox" id="order_id">			
+	<input type="checkbox" id="order_id(<?=$transaksi1_id_transaksi;?>)">			
 									<div class="caption">
 									<hr>
 	<h5>Total Tagihan</h5>
-	<p><?= "Rp ".number_format($transaksi_harga,2,',','.');?></p>
+	<p><?= "Rp ".number_format($transaksi1_harga,2,',','.');?></p>
 	<hr>
 	<h5>Status Pemesanan</h5>
 	<?php
-		  if($transaksi_status_transaksi=="MENUNGGU PEMBAYARAN"){
-			  echo"<p><span class='badge progress-bar-danger'>$transaksi_status_transaksi</span></p>";
-		  }else{
-			echo"<p><span class='badge progress-bar-success'>$transaksi_status_transaksi</span></p>";
+		  if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
+			  echo"<p><span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span></p> <button type='button' class='btn btn-warning'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$transaksi1_id_transaksi&jenis=$transaksi1_status_transaksi'\" class='btn btn-danger'>TRANSFER</button>";
+		  }elseif($transaksi1_status_transaksi=="CANCELED"){
+			echo"<p><span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span></p> <button type='button' class='btn btn-danger'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$transaksi1_id_transaksi&jenis=$transaksi1_status_transaksi'\" class='btn btn-danger'>TRANSFER</button>";
+		}else{
+			echo"<p><span class='badge progress-bar-success'>$transaksi1_status_transaksi</span></p>";
 		}
 		  ?>
 	<hr>
 	<center><h5>Alamat Pengiriman</h5></center>
-	<p><strong><?=$transaksi_nm_pembeli;?></strong></p>
-	<p><?=$transaksi_hp;?></p>
-	<p><?=$transaksi_alamat;?></p>
+	<p><strong><?=$transaksi1_nm_pembeli;?></strong></p>
+	<p><?=$transaksi1_hp;?></p>
+	<p><?=$transaksi1_alamat;?></p>
 	<hr>
 	<div class="input-checkbox">
-	<center><label for="ringkasan">
-									<span class="badge progress-bar-primary">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
+	<center><label for="ringkasan(<?=$transaksi1_id_transaksi;?>)">
+									<span class="badge progress-bar-warning">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
 	</label>	</center>				
-	<input type="checkbox" id="ringkasan">			
+	<input type="checkbox" id="ringkasan(<?=$transaksi1_id_transaksi;?>)">			
 									<div class="caption">
 
 										<table class="table table-striped">
@@ -450,7 +515,7 @@ session_start();
   </thead>
   <tbody>
 	  <?php
-	$q_order1 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi ='$order_id_transaksi'");  
+	$q_order1 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi ='$transaksi1_id_transaksi'");  
 	while($f_detail = mysqli_fetch_array($q_order1)){
 
 	  ?>
@@ -462,7 +527,7 @@ session_start();
 	<?php
 	}?>
 	<th colspan="2">Total</th>
-	<td>Rp <?= $transaksi_harga;?></td>
+	<td>Rp <?= $transaksi1_harga;?></td>
 
   </tbody>
 </table>
@@ -472,23 +537,26 @@ session_start();
 									
 								</div>
 								</div>
-	
+	<hr>
 									<?php
-		  }
+		  
+		}
 		  ?>	
-								
+								<!--modal body ending -->
 								</div>
 	
       <div class="modal-footer">
 		  <?php
-		  if($transaksi_status_transaksi=="MENUNGGU PEMBAYARAN"){
-			  echo"<button type='button' class='btn btn-success'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$order_id_transaksi&jenis=$transaksi_jenis'\" class='btn btn-danger'>TRANSFER</button>";
-		  }elseif($transaksi_status_transaksi=="FINISH"){
+		 /* 
+		  if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
+			 // echo"<button type='button' class='btn btn-success'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$transaksi1_id_transaksi&jenis=$transaksi1_jenis'\" class='btn btn-danger'>TRANSFER</button>";
+		  }elseif($transaksi1_status_transaksi=="FINISH"){
 			echo"<button type='button' class='btn btn-primary' data-dismiss='modal' aria-label='Close'>Close</button>";
 		}else{
 			  echo"<button type='button' onclick=\"window.location.href ='https://wa.me/$number_profile'\" class='btn btn-success'><i class='fa fa-whatsapp'></i> &nbsp;Ada Kesulitan ? Hubungi Kami.</button>";
-		  }
+		  }*/
 		  ?>
+		  <button type='button' onclick="window.location.href ='https://wa.me/<?=$number_profile;?>'" class='btn btn-success'><i class='fa fa-whatsapp'></i> &nbsp;Ada Kesulitan ? Hubungi Kami.</button>
       </div>
     </div>
   </div>

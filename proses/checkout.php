@@ -1,5 +1,6 @@
 <?php
 include "../setting/koneksi.php";
+//include "../setting/sql.php";
 $duahari       = mktime(0,0,0,date("n"),date("j")+2,date("Y"));
 $tempo        = date("Y-m-d", $duahari);
 date_default_timezone_set("Asia/Jakarta");
@@ -8,6 +9,7 @@ $trx = date("mds");
 $id_transaksi = 'TRX'.$trx;
 $tanggal = date("Y-m-d");
 $nm_pembeli = $_POST['name'];
+$email = $_POST['email'];
 $hp = $_POST['hp'];
 $alamat = $_POST['alamat'];
 $jenis_pembayaran = $_POST['jenis_pembayaran'];
@@ -28,7 +30,6 @@ $sql_t = "insert into transaksi values ('$timestamps','$id_transaksi','$tanggal'
 $q_transaksi = mysqli_query($koneksi,$sql_t);
 if($q_transaksi){
     $u_cart = mysqli_query($koneksi,"update tbl_cart set id_transaksi = '$id_transaksi' where device_ip = '$device_ip' and id_transaksi is null and status=''");
-    echo "<script>window.location.href='../confirm.php?x=$id_transaksi&jenis=$jenis_pembayaran';</script>";
     //transaksi berhasil -> link ATM 
     //ambil rekening
 		$que_rek = mysqli_query($koneksi,"select *from tbl_rekening where active ='Y' and nm_bank ='$jenis_pembayaran'");
@@ -36,28 +37,25 @@ if($q_transaksi){
 		$nm_rekening = $g_rekening['nm_rekening'];
 		$no_rekening = $g_rekening['no_rekening'];
 		$foto_bank = $g_rekening['foto'];
-
+    //select jika transfer email jenis pembayran - Tranfer -bank
+    if($jenis_pembayaran=='MANDIRI'){
+        $method = 'TRANSFER - BANK ';
+    }elseif($jenis_pembayaran=='BCA'){
+        $method = 'TRANSFER - BANK ';
+    }else{
+        $method = "BAYAR DI TEMPAT - ";
+    }
     //Email Confirmasi 
     ini_set( 'display_errors', 1 );
     error_reporting( E_ALL );
-    $to = "santosofebrikukuh@gmail.com,poseidonwood1@gmail.com";
-    $subject = "HTML email";
+    $to = "$email";
+    $subject = "Menunggu Pembayaran $jenis_pembayaran | Pasar Herman.id";
     
     $message = "
     <!DOCTYPE html>
     <html>
     <head>
     <title>Lakukan Pembayaran Segera</title>
-    <!--
-    
-        An email present from your friends at Litmus (@litmusapp)
-    
-        Email is surprisingly hard. While this has been thoroughly tested, your mileage may vary.
-        It's highly recommended that you test using a service like Litmus ($domain) and your own devices.
-    
-        Enjoy!
-    
-     -->
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
@@ -158,7 +156,7 @@ if($q_transaksi){
     
     <!-- HIDDEN PREHEADER TEXT -->
     <div style='display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;'>
-        Entice the open with some amazing preheader text. Use a little mystery and get those subscribers to read through...
+     <!--   Entice the open with some amazing preheader text. Use a little mystery and get those subscribers to read through... -->
     </div>
     
     <!-- HEADER -->
@@ -174,7 +172,7 @@ if($q_transaksi){
                     <tr>
                         <td align='center' valign='top' style='padding: 15px 0;' class='logo'>
                             <a href='$domain' target='_blank'>
-                                <img alt='Logo' src='../img/logo1.png'  style='display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;' border='0'>
+                                <img src='$domain/img/logo1.png'  style='display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;' border='0'>
                             </a>
                         </td>
                     </tr>
@@ -199,7 +197,7 @@ if($q_transaksi){
                             <!-- COPY -->
                             <table width='100%' border='0' cellspacing='0' cellpadding='0'>
                                 <tr>
-                                    <td align='center' style='font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;' class='padding-copy'>Ordera Id #$id_transaksi</td>
+                                    <td align='center' style='font-size: 32px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;' class='padding-copy'>Order Id #$id_transaksi</td>
                                 </tr>
                                 <tr>
                                     <td align='left' style='padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;' class='padding-copy'>Kepada pelanggan YTH Bpk/Ibu $nm_pembeli. Terimakasih telah berbelanja di Pasar Herman.id. Segera lakukan pembayaran dengan rincian sebagai berikut : </td>
@@ -224,8 +222,8 @@ if($q_transaksi){
                 <![endif]-->
                 <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 500px;' class='responsive-table'>
                 <tr>
-                                <img alt='Logo' src='../img/bank/$foto_bank'  style='display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;' border='0'></tr>
-                                <tr> <strong><h6 style='float:center;font-family: Helvetica, Arial, sans-serif; font-size: 16px;'>$jenis_pembayaran a/n $nm_rekening</h6></strong>
+                                <img alt='Logo' src='$domain/img/bank/$foto_bank'  style='display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;' border='0'></tr>
+                                <tr> <strong><h6 style='float:center;font-family: Helvetica, Arial, sans-serif; font-size: 16px;'>$jenis_pembayaran - $no_rekening a/n $nm_rekening</h6></strong>
                                 </tr>
     <br>
                     <tr>
@@ -253,7 +251,7 @@ if($q_transaksi){
                                                 <td style='padding: 0 0 10px 0;'>
                                                     <table cellpadding='0' cellspacing='0' border='0' width='100%'>
                                                         <tr>
-                                                            <td align='right' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'>$jenis_pembayaran</td>
+                                                            <td align='right' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'>$method $jenis_pembayaran - $no_rekening</td>
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -387,7 +385,7 @@ if($q_transaksi){
                 <table width='100%' border='0' cellspacing='0' cellpadding='0' align='center' style='max-width: 500px;' class='responsive-table'>
                     <tr>
                         <td align='center' style='font-size: 12px; line-height: 18px; font-family: Helvetica, Arial, sans-serif; color:#666666;'>
-                        <img alt='Logo' src='../img/logo1.png'  style='display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;' border='0'>
+                        <img alt='Logo' src='$domain/img/logo1.png'  style='display: block; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-size: 16px;' border='0'>
                             <br>
                             <hr>
                             Email dibuat secara otomatis. Mohon tidak mengirimkan balasan ke email ini.
@@ -419,11 +417,22 @@ $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 // More headers
 $headers .= 'From: Pasar Herman.Id<info@pasar.herman.id>' . "\r\n";
-//$headers .= 'Cc: myboss@example.com' . "\r\n";
+//$headers .= 'Cc: pt.simultan@gmail.com' . "\r\n";
+//echo $message;
 
-mail($to,$subject,$message,$headers);
-    //Ending Email Confirmasi
+        $mailto = mail($to,$subject,$message,$headers);
+            //Ending Email Confirmasi
+        if($mailto){
+            //berhasil
+           
+                echo "<script>window.location.href='../confirm.php?x=$id_transaksi&jenis=$status_transaksi';</script>";
 
+        }else{
+            echo "gagal kirim email";
+           
+                echo "<script>window.location.href='../confirm.php?x=$id_transaksi&jenis=$status_transaksi';</script>";
+
+        }
 }else{
 
     echo "gagal $harga_total ";

@@ -43,6 +43,9 @@ if($f_check_rows>0){
 								<input class="input" type="text" name="name" placeholder="Nama Lengkap Pembeli" required>
 							</div>
 							<div class="form-group">
+										<input class="input" type="email" name="email" placeholder="Masukkan Email" required>
+							</div>
+							<div class="form-group">
 								<input class="input" type="number" name="hp" placeholder="Nomor Handphone" required>
 							</div>
 							<div class="form-group">
@@ -56,10 +59,7 @@ if($f_check_rows>0){
 										Mau Buat Akun Sekalian? Biar dapat promo menarik.
 									</label>
 									<div class="caption">
-										<p>Hanya masukkan password dan email yang mau di daftarkan!</p>
-										<div class="form-group">
-										<input class="input" type="email" name="email" placeholder="Masukkan Email">
-										</div>
+										<p>Hanya masukkan password yang mau di daftarkan!</p>
 										<div class="form-group">
 										<input class="input" type="password" name="password" placeholder="Password Anda">
 										</div>

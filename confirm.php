@@ -9,13 +9,10 @@ if(isset($_GET['x'])){
 	}else{
 	$id_transaksi = $_GET['x'];
 	$jenis = $_GET['jenis'];
-	if($jenis=='COD'){
-		include "confirm-cod.php";
 	
-}else{
 		
 	//search data di database
-	$q_p_b = mysqli_query($koneksi,"select *from transaksi where id_transaksi = '$id_transaksi' and status_transaksi='MENUNGGU PEMBAYARAN'");
+	$q_p_b = mysqli_query($koneksi,"select *from transaksi where id_transaksi = '$id_transaksi' and status_transaksi='$jenis'");
 	$f_q_r = mysqli_num_rows($q_p_b);
 	if($f_q_r>0){
 		$f_q_r = mysqli_fetch_array($q_p_b);
@@ -72,8 +69,17 @@ if(isset($_GET['x'])){
 				<div class="col-md-5 order-details" style="width:100%; margin:0 auto;">
 				<div class="card text-center">
   <div class="card-body">
-	<h3 class="card-title">Segera Selesaikan Pembayaran</h3>
-	<p class="card-text">Sisa waktu pembayaran Anda</p>
+  <?php
+  if($jenis_pembayaran1=='COD'){
+	  echo "<h3 class='card-title'>Kami Akan Segera Menghubungi Anda</h3>
+	  <h5 class='card-title'>Mohon menunggu selama jeda di bawah ini selagi kami meproses orderan anda dan segera menghubungi anda. Terima kasih.</h5>
+  ";
+  }else{
+	  echo "<h3 class='card-title'>Segera Selesaikan Pembayaran</h3>
+	  <p class='card-text'>Sisa waktu pembayaran Anda</p>";
+  }
+  ?>
+	
 	<div class="panel panel-default">
 <!-- Countdown Hot deal -->
 
@@ -149,20 +155,39 @@ if(isset($_GET['x'])){
   (Sebelum <?=tgl_indo("$tempo_bayar")." Pukul : 00:00 WIB";?>)
 </div>
 
-  <div class="card-footer text-muted">
-  Transfer pembayaran ke rekening :
-  </div><br>
-  	<div class="panel panel-default">
 
-	<div class="panel-body">	
-
-  <img src="img/bank/<?=$foto;?>" alt="" width="90"> <strong><?=$no_rekening;?> a/n <?=$nm_rekening;?></strong
-  </div><br>
-  <div class="card-footer text-muted ">
-  Jumlah yang harus di bayarkan :
-  </div><br>
+<?php
+  if($jenis_pembayaran1=='COD'){
+	  echo "<div class='card-footer text-muted'>
+	  </div><br>
+		  <div class='panel panel-default'>
+	
+		<div class='panel-body'>	
+	
+	  </div><br>
+	  <div class='card-footer text-muted '>
+	  </div><br>
+	  
+	  <h3></h3>
+  ";
+  }else{
+	  echo "<div class='card-footer text-muted'>
+	  Transfer pembayaran ke rekening :
+	  </div><br>
+		  <div class='panel panel-default'>
+	
+		<div class='panel-body'>	
+	
+	  <img src='img/bank/$foto' alt='' width='90'> <strong>$no_rekening a/n $nm_rekening</strong
+	  </div><br>
+	  <div class='card-footer text-muted '>
+	  Jumlah yang harus di bayarkan :
+	  </div><br>
+	  
+	  <h3>Rp. ".number_format($harga_total,2,',','.')."</h3>";
+  }
+  ?>
   
-  <h3>Rp <?=number_format($harga_total,2,',','.');?></h3>
 		</div>
 	</div>
 				</div>
@@ -198,7 +223,6 @@ if(isset($_GET['x'])){
 	echo"<script>
 		window.alert('Anda Tidak Diperbolehkan Masuk');
 		window.location.href='$domain';</script>";
-}
 }
 }
 }

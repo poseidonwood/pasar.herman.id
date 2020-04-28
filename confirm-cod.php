@@ -177,7 +177,7 @@ if($f_q_r>0){
     include "footer.php";
 }else{
 	echo"<script>
-		window.alert('Anda Tidak Diperbolehkan Masuk');
-		window.location.href='$domain';</script>";
+		window.alert('Anda Tidak Diperbolehkan Masuk');</script>";
 }
+
 	?>

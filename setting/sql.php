@@ -35,13 +35,18 @@ $order_id_transaksi = $f_order['id_transaksi'];
 //id _transaksi
 $q_transaksi = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and id_transaksi ='$order_id_transaksi'");
 $f_transaksi = mysqli_fetch_array($q_transaksi);
-$transaksi_nm_pembeli = $f_transaksi['nm_pembeli'];
-$transaksi_alamat = $f_transaksi['alamat'];
-$transaksi_hp = $f_transaksi['hp'];
-$transaksi_jenis=$f_transaksi['jenis_pembayaran'];
-$transaksi_harga = $f_transaksi['harga_total'];
-$transaksi_status_transaksi = $f_transaksi['status_transaksi'];
-$transaksi_device_ip = $f_transaksi['device_ip'];
+    $transaksi_id_transaksi = $f_transaksi['id_transaksi'];	
+    $transaksi_nm_pembeli = $f_transaksi['nm_pembeli'];
+    $transaksi_alamat = $f_transaksi['alamat'];
+    $transaksi_hp = $f_transaksi['hp'];
+    $transaksi_jenis=$f_transaksi['jenis_pembayaran'];
+    $transaksi_harga = $f_transaksi['harga_total'];
+    $transaksi_status_transaksi = $f_transaksi['status_transaksi'];
+    $transaksi_device_ip = $f_transaksi['device_ip'];
+    
+//select semua transaksi berdasar kan device id ini
+$q_transaksi1 = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip'");
+
 //myorder count notifikasi
 $q_not_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status='' order by created desc limit 1");
 $q_get_id = mysqli_fetch_array($q_not_order);

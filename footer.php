@@ -251,41 +251,7 @@ function myalert() {
   alert("Maaf Tombol Ini Rusak , Masih di perbaiki dan segera berfungsi lagi.");
 }
 </script>
-	<?php
 
-//validasi cart jika created > jam sekarang maka update created - 15 menit dan status='canceled'
-$q_cart_validasi = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and status='' and id_transaksi is null");
-while($f_cart_array = mysqli_fetch_array($q_cart_validasi)){
-	date_default_timezone_set("Asia/Jakarta");
-	$created = $f_cart_array['created'];
-	$nm_barang_validasi = $f_cart_array['nm_barang'];
-    $compare_date = date("Y-m-d H:i:s");
-    if($created < $compare_date){
-		//-15 menit created 
-		$endTime = strtotime("-30 minutes", strtotime($created));
-		$created_update = date('Y-m-d H:i:s', $endTime);
-		//jatuh tempo 
-		$q_u_validasi = mysqli_query($koneksi,"update tbl_cart set status ='CANCELED',created='$created_update' where nm_barang='$nm_barang_validasi' and device_ip='$device_ip' and id_transaksi is null ");
-       // echo"<script>window.alert('$created_update Jatuh tempo')</script>";
-    }
-}
-
-//validasi transaksi jika tempobayar > jam sekarang maka update created - 15 menit dan status='canceled'
-$q_transaksi_validasi = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and status_pembayaran ='N'");
-while($f_transaksi_array = mysqli_fetch_array($q_transaksi_validasi)){
-	date_default_timezone_set("Asia/Jakarta");
-	$tempo_bayar = $f_transaksi_array['tempo_bayar'];
-	$id_transaksi_validasi = $f_transaksi_array['id_transaksi'];
-    $compare_date_transaksi = date("Y-m-d H:i:s");
-    if($tempo_bayar < $compare_date_transaksi){
-		
-		//jatuh tempo 
-		$q_u_transaksi_validasi = mysqli_query ($koneksi,"update transaksi set status_transaksi='CANCELED' where id_transaksi='$id_transaksi_validasi'");
-		$q_u_cart_validasi = mysqli_query ($koneksi,"update tbl_cart set status='CANCELED NO PAYMENT' where id_transaksi='$id_transaksi_validasi'");
-		 //echo"<script>window.alert('$created_update Jatuh tempo')</script>";
-    }
-}
-?>
 
 	</body>
 </html>

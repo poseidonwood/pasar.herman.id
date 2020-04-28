@@ -334,7 +334,7 @@ if($f_promo_mingguan_rows>0){
 												</div>
 											</div>
 											<div class='add-to-cart'>
-												<button  onclick=\"window.location.href ='proses/cart.php?y=$promo_id_barang&z=$promo_id_promo&v=$promo_akhir'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
+												<button  onclick=\"window.location.href ='proses/cart.php?y=$promo_id_barang&z=$promo_id_promo&v=$promo_akhir'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> ADD TO CART</button>
 											</div>
 										</div>
 											";
@@ -357,7 +357,7 @@ if($f_promo_mingguan_rows>0){
 		</div>
 		<!-- /SECTION -->
 	<!-- SECTION -->
-	<div class="section">
+		<div class="section">
 			<!-- container -->
 			<div class="container">
 				<!-- row -->
@@ -471,7 +471,143 @@ if($f_promo_mingguan_rows>0){
 												</div>
 											</div>
 											<div class='add-to-cart'>
-											<button  onclick=\"window.location.href ='proses/cart.php?x=$id_barang&h=$harga_jual'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> add to cart</button>
+											<button  onclick=\"window.location.href ='proses/cart.php?x=$id_barang&h=$harga_jual'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> ADD TO CART</button>
+											</div>
+										</div>
+											";
+										}
+										?>
+										
+									</div>
+									<div id="slick-nav-6" class="products-slick-nav"></div>
+								</div>
+								<!-- /tab -->
+							</div>
+						</div>
+					</div>
+					<!-- Products tab & slick -->
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+		<!-- /SECTION -->
+		<!-- SECTION -->
+	<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+					<!-- section title -->
+					<div class="col-md-12">
+						<div class="section-title">
+							<h3 class="title">Sayur - Sayuran</h3>
+							<p>Beberapa Sayuran Segar</p>
+							<div class="section-nav">
+								<ul class="section-tab-nav tab-nav">
+									<li><a href="#tab1" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /section title -->
+
+					<!-- Products tab & slick -->
+					<div class="col-md-12">
+						<div class="row">
+							<div class="products-tabs">
+								<!-- tab -->
+								<div id="tab1" class="tab-pane active">
+									<div class="products-slick" data-nav="#slick-nav-6">
+										<?php
+										//sql product
+										$q_product = mysqli_query($koneksi,"select *from tbl_product where id_category ='1' and active ='Y' order by last_upt desc");
+										//end sql product
+
+										while($f_product = mysqli_fetch_array($q_product)){
+											$nm_barang = $f_product['nm_barang'];
+											$id_category = $f_product['id_category'];
+											//ambil data category 
+											$q_p = mysqli_query($koneksi,"select*from category_product where id_category = '$id_category'");
+											$f_p = mysqli_fetch_array($q_p);
+											$nm_category = $f_p['nm_category'];
+											//end ambil nm category
+											//ambil data satuan
+											$id_satuan = $f_product['id_satuan'];
+											$q_s = mysqli_query($koneksi,"select*from tbl_satuan where id_satuan = '$id_satuan'");
+											$f_s = mysqli_fetch_array($q_s);
+											$nm_satuan = $f_s['nm_satuan'];
+											//end ambil nm satuan					
+											$harga_jual = $f_product['harga_jual'];
+											$rp = number_format($harga_jual,2,',','.');
+											$id_barang = $f_product['id_barang'];
+											$foto = $f_product['foto'];
+											$rating = $f_product['rating_akhir'];
+											echo"
+										<div class='product'>
+											<div class='product-img'>
+												<img src='./img/product/$foto' alt=''>
+												<div class='product-label'>
+													<!--<span class='sale'>-30%</span>-->
+													<span class='new'>NEW</span>
+												</div>
+											</div>
+											<div class='product-body'>
+												<p class='product-category'>$nm_category</p>
+												<h3 class='product-name'><a href='#'>$nm_barang</a></h3> 
+												<h4 class='product-price'>Rp. $rp</h4>/ $nm_satuan";
+											if($rating =='5'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+												</div>";
+											}elseif($rating =='4'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}elseif($rating =='3'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}elseif($rating =='2'){
+												echo"<div class='product-rating'>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}else{
+												echo"<div class='product-rating'>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+													<i class='fa fa-star-o'></i>
+												</div>";
+											}
+											echo"
+												<div class='product-btns'>
+													<button class='add-to-wishlist'><i class='fa fa-heart-o'></i><span class='tooltipp'>add to wishlist</span></button>
+													<!--<button class='add-to-compare'><i class='fa fa-exchange'></i><span class='tooltipp'>add to compare</span></button>-->
+													<button onclick=\"window.location.href ='product.php?x=$id_barang'\" class='quick-view'><i class='fa fa-eye'></i><span class='tooltipp'>quick view</span></a>
+												</div>
+											</div>
+											<div class='add-to-cart'>
+											<button  onclick=\"window.location.href ='proses/cart.php?x=$id_barang&h=$harga_jual'\" class='add-to-cart-btn'><i class='fa fa-shopping-cart'></i> ADD TO CART</button>
 											</div>
 										</div>
 											";
