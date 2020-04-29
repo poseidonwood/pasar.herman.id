@@ -19,30 +19,61 @@ if(isset($_GET['x'])){
 		$tempo_bayar = $f_q_r['tempo_bayar'];
 		$harga_total = $f_q_r['harga_total'];
 		$jenis_pembayaran1 = $f_q_r['jenis_pembayaran'];
-		//fungsi hari
-		function tgl_indo($tanggal){
-			$bulan = array (
-				1 =>   'Januari',
-				'Februari',
-				'Maret',
-				'April',
-				'Mei',
-				'Juni',
-				'Juli',
-				'Agustus',
-				'September',
-				'Oktober',
-				'November',
-				'Desember'
-			);
-			$pecahkan = explode('-', $tanggal);
-			
-			// variabel pecahkan 0 = tanggal
-			// variabel pecahkan 1 = bulan
-			// variabel pecahkan 2 = tahun
-		 
-			return $pecahkan[2] . ' ' . $bulan[ (int)$pecahkan[1] ] . ' ' . $pecahkan[0];
-		}//end fungsi hari
+		$tanggal = $tempo_bayar;
+
+//pisahkan tanggal
+$array1=explode("-",$tanggal);
+$tahun=$array1[0];
+$bulan=$array1[1];
+$sisa1=$array1[2];
+$array2=explode(" ",$sisa1);
+$tanggal=$array2[0];
+$sisa2=$array2[1];
+$array3=explode(":",$sisa2);
+$jam=$array3[0];
+$menit=$array3[1];
+$detik=$array3[2];
+//ubah nama bulan menjadi bahasa indonesia
+switch($bulan)
+{
+case"01";
+$bulan="Januari";
+break;
+case"02";
+$bulan="Februari";
+break;
+case"03";
+$bulan="Maret";
+break;
+case"04";
+$bulan="April";
+break;
+case"05";
+$bulan="Mei";
+break;
+case"06";
+$bulan="Juni";
+break;
+case"07";
+$bulan="Juli";
+break;
+case"08";
+$bulan="Agustus";
+break;
+case"09";
+$bulan="September";
+break;
+case"10";
+$bulan="Oktober";
+break;
+case"11";
+$bulan="November";
+break;
+case"12";
+$bulan="Desember";
+break;
+}
+
 		//ambil rekening
 		$que_rek = mysqli_query($koneksi,"select *from tbl_rekening where active ='Y' and nm_bank ='$jenis_pembayaran1'");
 		$g_rekening = mysqli_fetch_array($que_rek);
@@ -152,7 +183,7 @@ if(isset($_GET['x'])){
 						</div>
   </div>
   <div class="alert alert-warning" role="alert">
-  (Sebelum <?=tgl_indo("$tempo_bayar")." Pukul : 00:00 WIB";?>)
+  (Sebelum <?="$tanggal $bulan $tahun"." Pukul : $jam:$menit WIB";?>)
 </div>
 
 

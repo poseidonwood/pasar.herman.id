@@ -1,16 +1,7 @@
 <?php
-ini_set( 'display_errors', 1 );
-error_reporting( E_ALL );
-$from = "pasar@herman.id";
-$to = "santosofebrikukuh@gmail.com";
-$subject = "Checking PHP mail";
-$message = "PHP mail berjalan dengan baik";
-$headers = "From:" . $from;
-$mailto = mail($to,$subject,$message, $headers);
-if($mailto){
-    echo "Pesan email sudah terkirim.";
-}else{
-    echo "Pesan anda Gagal terkirim.";
+date_default_timezone_set("Asia/Jakarta");
 
-}
+$tempo        = date('Y-m-d H:i:s', time() + (60 * 60 * 24 * 2));
+
+echo "$tempo";
 ?>

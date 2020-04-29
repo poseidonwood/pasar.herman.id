@@ -41,6 +41,9 @@ session_start();
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta property="og:image" content="./img/product/logo1.png"/>  
+		<meta property="og:title" content="<?=$title_profile;?>"/>  
+		<meta property="og:description" content="Jual beli kebutuhan Pasar anda dan harga murah hanya di <?=$domain;?>"/> 
 		
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
@@ -432,8 +435,28 @@ session_start();
 	<!--	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
       </div>
       <div class="modal-body">
-		  <?php
-		  while($f_transaksi = mysqli_fetch_array($q_transaksi1)){
+		  
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Order Active &nbsp;
+										<?php
+										if($f_not_order>0){
+											echo"<span class='badge progress-bar-danger'>New</span>";
+										}else{
+
+										}
+										?></a></li>
+    <li><a data-toggle="tab" href="#menu1"><i class="fa fa-history"></i> History Order</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <br>
+	  <?php
+		  $rows_transaksi = mysqli_num_rows($q_transaksi1);
+
+		  if($rows_transaksi>0){
+			while($f_transaksi = mysqli_fetch_array($q_transaksi1)){
+			 
 			$transaksi1_id_transaksi = $f_transaksi['id_transaksi'];	
 			$transaksi1_nm_pembeli = $f_transaksi['nm_pembeli'];
 			$transaksi1_alamat = $f_transaksi['alamat'];
@@ -441,9 +464,7 @@ session_start();
 			$transaksi1_jenis=$f_transaksi['jenis_pembayaran'];
 			$transaksi1_harga = $f_transaksi['harga_total'];
 			$transaksi1_status_transaksi = $f_transaksi['status_transaksi'];
-			$transaksi1_device_ip = $f_transaksi['device_ip'];
-			
-		 
+			$transaksi1_device_ip = $f_transaksi['device_ip'];		 
 			  ?>
 	
 	<div class="input-checkbox">
@@ -451,23 +472,20 @@ session_start();
 	<h5>Order Id : &nbsp;<span class="badge progress-bar-primary"><?=$transaksi1_id_transaksi;?></span>
 	<?php
 		  if($transaksi1_jenis=="BCA"){
-			  echo"<span class='badge progress-bar-info'>$transaksi1_jenis</span>";
 			  if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
-				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+				echo"&nbsp;<span class='badge progress-bar-danger'>Pending</span>";
 				}elseif($transaksi1_status_transaksi=="CANCELED"){
 			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
 		 		 }
 		  }elseif($transaksi1_jenis=="MANDIRI"){
-			echo"<span class='badge progress-bar-warning'>$transaksi1_jenis</span>";
 			if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
-				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+				echo"&nbsp;<span class='badge progress-bar-danger'>Pending</span>";
 				}elseif($transaksi1_status_transaksi=="CANCELED"){
 			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
 		 		 }
 		}else{
-			echo"<span class='badge progress-bar-success'>$transaksi1_jenis</span>";
 			if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
-				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
+				echo"&nbsp;<span class='badge progress-bar-danger'>Pending</span>";
 				}elseif($transaksi1_status_transaksi=="CANCELED"){
 			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
 		 		 }
@@ -479,28 +497,35 @@ session_start();
 	<input type="checkbox" id="order_id(<?=$transaksi1_id_transaksi;?>)">			
 									<div class="caption">
 									<hr>
+	<label>
 	<h5>Total Tagihan</h5>
 	<p><?= "Rp ".number_format($transaksi1_harga,2,',','.');?></p>
+	</label>
+
 	<hr>
+	<label>
 	<h5>Status Pemesanan</h5>
 	<?php
 		  if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
-			  echo"<p><span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span></p> <button type='button' class='btn btn-warning'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$transaksi1_id_transaksi&jenis=$transaksi1_status_transaksi'\" class='btn btn-danger'>TRANSFER</button>";
+			  echo"<p><span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span></p><br> <button type='button' onclick=\"window.location.href ='https://wa.me/$number_profile'\"class='btn btn-success'><i class='fa fa-whatsapp'></i> KONFIRMASI</button>&nbsp;<button type='button' onclick=\"window.location.href ='confirm.php?x=$transaksi1_id_transaksi&jenis=$transaksi1_status_transaksi'\" class='btn btn-danger'><i class='fa fa-dollar'></i> TRANSFER</button>";
 		  }elseif($transaksi1_status_transaksi=="CANCELED"){
-			echo"<p><span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span></p> <button type='button' class='btn btn-danger'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$transaksi1_id_transaksi&jenis=$transaksi1_status_transaksi'\" class='btn btn-danger'>TRANSFER</button>";
+			echo"<p><span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span></p>";
 		}else{
 			echo"<p><span class='badge progress-bar-success'>$transaksi1_status_transaksi</span></p>";
 		}
 		  ?>
+		  </label>
 	<hr>
-	<center><h5>Alamat Pengiriman</h5></center>
-	<p><strong><?=$transaksi1_nm_pembeli;?></strong></p>
-	<p><?=$transaksi1_hp;?></p>
+	<label>
+	<strong><h5>Alamat Pengiriman</h5></strong>
+	<p><?=$transaksi1_nm_pembeli;?></p>
+	<p>(<?=$transaksi1_hp;?>)</p>
 	<p><?=$transaksi1_alamat;?></p>
+	</label>
 	<hr>
 	<div class="input-checkbox">
 	<center><label for="ringkasan(<?=$transaksi1_id_transaksi;?>)">
-									<span class="badge progress-bar-warning">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
+									<span class="badge progress-bar-primary">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
 	</label>	</center>				
 	<input type="checkbox" id="ringkasan(<?=$transaksi1_id_transaksi;?>)">			
 									<div class="caption">
@@ -539,9 +564,160 @@ session_start();
 								</div>
 	<hr>
 									<?php
+			
+		}}else{
+				?>
+<div class="input-checkbox">
+	<label for="order_id">
+	<h5>Anda Belum Belanja Sepertinya</h5>
+	</label>			
+	
+</div>	
+
+		<?php
+			
+			}
 		  
-		}
+		
 		  ?>	
+    </div>
+    <div id="menu1" class="tab-pane fade">
+	  <br>
+	  <?php
+		  $rows_transaksi = mysqli_num_rows($q_transaksi2);
+
+		  if($rows_transaksi>0){
+			while($f_transaksi = mysqli_fetch_array($q_transaksi2)){
+			 
+			$transaksi2_id_transaksi = $f_transaksi['id_transaksi'];	
+			$transaksi2_nm_pembeli = $f_transaksi['nm_pembeli'];
+			$transaksi2_alamat = $f_transaksi['alamat'];
+			$transaksi2_hp = $f_transaksi['hp'];
+			$transaksi2_jenis=$f_transaksi['jenis_pembayaran'];
+			$transaksi2_harga = $f_transaksi['harga_total'];
+			$transaksi2_status_transaksi = $f_transaksi['status_transaksi'];
+			$transaksi2_device_ip = $f_transaksi['device_ip'];		 
+			  ?>
+	
+	<div class="input-checkbox">
+	<label for="order_id(<?=$transaksi2_id_transaksi;?>)">
+	<h5>Order Id : &nbsp;<span class="badge progress-bar-primary"><?=$transaksi2_id_transaksi;?></span>
+	<?php
+		  if($transaksi2_jenis=="BCA"){
+			  echo"<span class='badge progress-bar-info'>$transaksi2_jenis</span>";
+			  if($transaksi2_status_transaksi=="MENUNGGU PEMBAYARAN"){
+				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span>";
+				}elseif($transaksi2_status_transaksi=="CANCELED"){
+			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span>";
+		 		 }
+		  }elseif($transaksi2_jenis=="MANDIRI"){
+			echo"<span class='badge progress-bar-warning'>$transaksi2_jenis</span>";
+			if($transaksi2_status_transaksi=="MENUNGGU PEMBAYARAN"){
+				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span>";
+				}elseif($transaksi2_status_transaksi=="CANCELED"){
+			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span>";
+		 		 }
+		}else{
+			echo"<span class='badge progress-bar-success'>$transaksi2_jenis</span>";
+			if($transaksi2_status_transaksi=="MENUNGGU PEMBAYARAN"){
+				echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span>";
+				}elseif($transaksi2_status_transaksi=="CANCELED"){
+			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span>";
+		 		 }
+		}
+		  ?>
+	</h5>
+	<p style="font-size:80%;">(Klik untuk lihat selengkapnya)</p>
+	</label>			
+	<input type="checkbox" id="order_id(<?=$transaksi2_id_transaksi;?>)">			
+									<div class="caption">
+									<hr>
+	<label>
+	<h5>Total Tagihan</h5>
+	<p><?= "Rp ".number_format($transaksi2_harga,2,',','.');?></p>
+	</label>
+
+	<hr>
+	<label>
+	<h5>Status Pemesanan</h5>
+	<?php
+		  if($transaksi2_status_transaksi=="MENUNGGU PEMBAYARAN"){
+			  echo"<p><span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span></p> <button type='button' class='btn btn-warning'><i class='fa fa-whatsapp'></i> KONFIRMASI</button><button type='button' onclick=\"window.location.href ='confirm.php?x=$transaksi2_id_transaksi&jenis=$transaksi2_status_transaksi'\" class='btn btn-danger'>TRANSFER</button>";
+		  }elseif($transaksi2_status_transaksi=="CANCELED"){
+			echo"<p><span class='badge progress-bar-danger'>$transaksi2_status_transaksi</span></p>";
+		}else{
+			echo"<p><span class='badge progress-bar-success'>$transaksi2_status_transaksi</span></p>";
+		}
+		  ?>
+		  </label>
+	<hr>
+	<label>
+	<strong><h5>Alamat Pengiriman</h5></strong>
+	<p><?=$transaksi2_nm_pembeli;?></p>
+	<p>(<?=$transaksi2_hp;?>)</p>
+	<p><?=$transaksi2_alamat;?></p>
+	</label>
+	<hr>
+	<div class="input-checkbox">
+	<center><label for="ringkasan(<?=$transaksi2_id_transaksi;?>)">
+									<span class="badge progress-bar-primary">	<i class="fa fa-sort"></i>&nbsp;Ringkasan Belanja</span>
+	</label>	</center>				
+	<input type="checkbox" id="ringkasan(<?=$transaksi2_id_transaksi;?>)">			
+									<div class="caption">
+
+										<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Barang</th>
+      <th scope="col">Qty</th>
+      <th scope="col">Harga</th>
+    </tr>
+  </thead>
+  <tbody>
+	  <?php
+	$q_order2 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi ='$transaksi2_id_transaksi'");  
+	while($f_detail = mysqli_fetch_array($q_order2)){
+
+	  ?>
+    <tr>
+      <td><?= $f_detail['nm_barang'];?></td>
+      <td><?= $f_detail['qty'];?></td>
+      <td>Rp <?= $f_detail['harga_total'];?></td>
+	</tr>
+	<?php
+	}?>
+	<th colspan="2">Total</th>
+	<td>Rp <?= $transaksi2_harga;?></td>
+
+  </tbody>
+</table>
+</div>	
+		
+									</div>
+									
+								</div>
+								</div>
+	<hr>
+									<?php
+			
+		}}else{
+				?>
+<div class="input-checkbox">
+	<label for="order_id">
+	<h5>Anda Belum Belanja Sepertinya</h5>
+	</label>			
+	
+</div>	
+
+		<?php
+			
+			}
+		  
+		
+		  ?>    </div>
+  </div>
+
+		
 								<!--modal body ending -->
 								</div>
 	

@@ -1,9 +1,8 @@
 <?php
 include "../setting/koneksi.php";
 //include "../setting/sql.php";
-$duahari       = mktime(0,0,0,date("n"),date("j")+2,date("Y"));
-$tempo        = date("Y-m-d", $duahari);
 date_default_timezone_set("Asia/Jakarta");
+$tempo        = date('Y-m-d H:i:s', time() + (60 * 60 * 24 * 2));
 $timestamps = date("Y-m-d H:i:s");
 $trx = date("mds");
 $id_transaksi = 'TRX'.$trx;
@@ -417,7 +416,7 @@ $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 // More headers
 $headers .= 'From: Pasar Herman.Id<info@pasar.herman.id>' . "\r\n";
-//$headers .= 'Cc: pt.simultan@gmail.com' . "\r\n";
+$headers .= 'Cc: pt.simultan@gmail.com' . "\r\n";
 //echo $message;
 
         $mailto = mail($to,$subject,$message,$headers);
