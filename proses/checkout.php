@@ -332,7 +332,9 @@ if($q_transaksi){
                             </table>
                         </td>
                     </tr>
-                </table>
+                    </table>
+                    
+               
                 <!--[if (gte mso 9)|(IE)]>
                 </td>
                 </tr>
@@ -340,6 +342,7 @@ if($q_transaksi){
                 <![endif]-->
             </td>
         </tr>
+       
         <tr>
             <td bgcolor='#ffffff' align='center' style='padding: 15px;'>
                 <!--[if (gte mso 9)|(IE)]>
@@ -373,6 +376,177 @@ if($q_transaksi){
             </td>
         </tr>
         
+        <!-- Start Detail Customer-->
+        <table border='0' cellpadding='0' cellspacing='0' width='100%'>
+        
+        <tr>
+            <td bgcolor='#ffffff' align='center' style='padding: 15px;' class='padding'>
+                <!--[if (gte mso 9)|(IE)]>
+                <table align='center' border='0' cellspacing='0' cellpadding='0' width='500'>
+                <tr>
+                <td align='center' valign='top' width='500'>
+                <![endif]-->
+                <table border='0' cellpadding='0' cellspacing='0' width='100%' style='max-width: 500px;' class='responsive-table'>
+                <tr>
+                                <tr> <strong><h3 style='float:center;font-family: Helvetica, Arial, sans-serif; font-size: 16px;'>Detail Customer</h3></strong>
+                                </tr>
+    <br>
+                    <tr>
+                        <td style='padding: 10px 0 0 0; border-top: 1px dashed #aaaaaa;'>
+                            <!-- TWO COLUMNS -->
+                            <table cellspacing='0' cellpadding='0' border='0' width='100%'>
+                                <tr>
+                                    <td valign='top' class='mobile-wrapper'>
+                                        <!-- LEFT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='left'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        
+                                                        <tr>
+                                                            <td align='left' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'>Nama Customer </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- RIGHT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='right'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        <tr>
+                                                            <td align='right' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'>Bpk/Ibu $nm_pembeli</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!-- TWO COLUMNS -->
+                            <table cellspacing='0' cellpadding='0' border='0' width='100%'>
+                                <tr>
+                                    <td valign='top' style='padding: 0;' class='mobile-wrapper'>
+                                        <!-- LEFT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='left'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        <tr>
+                                                            <td align='left' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'>No Hp</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- RIGHT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='right'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        <tr>
+                                                            <td align='right' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'> $hp</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!-- TWO COLUMNS -->
+                            <table cellspacing='0' cellpadding='0' border='0' width='100%'>
+                                <tr>
+                                    <td valign='top' style='padding: 0;' class='mobile-wrapper'>
+                                        <!-- LEFT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='left'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        <tr>
+                                                            <td align='left' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'>Email </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- RIGHT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='right'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        <tr>
+                                                            <td align='right' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'> $email</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <!-- TWO COLUMNS -->
+                            <table cellspacing='0' cellpadding='0' border='0' width='100%'>
+                                <tr>
+                                    <td valign='top' style='padding: 0;' class='mobile-wrapper'>
+                                        <!-- LEFT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='left'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        <tr>
+                                                            <td align='left' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'>Alamat </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- RIGHT COLUMN -->
+                                        <table cellpadding='0' cellspacing='0' border='0' width='47%' style='width: 47%;' align='right'>
+                                            <tr>
+                                                <td style='padding: 0 0 10px 0;'>
+                                                    <table cellpadding='0' cellspacing='0' border='0' width='100%'>
+                                                        <tr>
+                                                            <td align='right' style='font-family: Arial, sans-serif; color: #333333; font-size: 16px;'> $alamat</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='padding: 10px 0 0 0; border-top: 1px dashed #aaaaaa;'>
+                            <!-- TWO COLUMNS -->
+                            <table cellspacing='0' cellpadding='0' border='0' width='100%'>
+                               
+                            </table>
+                        </td>
+                    </tr>
+                    
+             </table>
+
+
+<br>
+
+        <!-- End Detail Customer-->
         <tr>
             <td bgcolor='#ffffff' align='center' style='padding: 20px 0px;'>
                 <!--[if (gte mso 9)|(IE)]>
@@ -409,7 +583,8 @@ if($q_transaksi){
 
 
 
-    ";
+   
+     ";
     // Always set content-type when sending HTML email
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";

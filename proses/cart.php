@@ -6,7 +6,7 @@ if(isset($_GET['x'])){
     $id_barang = $_GET['x'];
     $harga_get = $_GET['h'];
     //SELECT CART CEK ADA BARANG YANG SAMA ATAU TIDAK
-    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_get' and id_transaksi is null and status =''");
+    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_get' and id_transaksi is null and status ='' and device_ip = '$device_ip'");
     $f_r = mysqli_num_rows($q_c);
     if($f_r>0){
         $qty = 1;
@@ -62,7 +62,7 @@ if(isset($_GET['x'])){
     $id_promo = $_GET['z'];
     $harga_promo = $_GET['v'];
     //SELECT CART CEK ADA BARANG YANG SAMA ATAU TIDAK
-    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_promo' and id_transaksi is null and status =''");
+    $q_c = mysqli_query($koneksi,"select *from tbl_cart where id_barang ='$id_barang' and harga='$harga_promo' and id_transaksi is null and status ='' and device_ip = '$device_ip'");
     $f_r = mysqli_num_rows($q_c);
     if($f_r>0){
         $f_c = mysqli_fetch_array($q_c);

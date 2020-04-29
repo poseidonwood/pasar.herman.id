@@ -45,14 +45,14 @@ $f_transaksi = mysqli_fetch_array($q_transaksi);
     $transaksi_device_ip = $f_transaksi['device_ip'];
     
 //select semua transaksi berdasar kan device id ini
-$q_transaksi1 = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD'  order by timestamps desc");
-$q_transaksi2 = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and status_transaksi = 'CANCELED' or status_transaksi ='FINISH'  order by timestamps desc");
+$q_transaksi1 = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and (status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD')  order by timestamps desc");
+$q_transaksi2 = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and (status_transaksi = 'CANCELED' or status_transaksi ='FINISH')  order by timestamps desc");
 
 //myorder count notifikasi
 $q_not_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is not null and device_ip='$device_ip' and status='' order by created desc limit 1");
 $q_get_id = mysqli_fetch_array($q_not_order);
 $get_id = $q_get_id['id_transaksi'];
-$q_id = mysqli_query($koneksi,"select *from transaksi where id_transaksi = '$get_id' and status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD' and device_ip='$device_ip'");
+$q_id = mysqli_query($koneksi,"select *from transaksi where id_transaksi = '$get_id' and (status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD' and device_ip='$device_ip')");
 $f_not_order = mysqli_num_rows($q_id);
 
 //ambil rekening

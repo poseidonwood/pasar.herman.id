@@ -520,7 +520,7 @@ if($f_promo_mingguan_rows>0){
 							<div class="products-tabs">
 								<!-- tab -->
 								<div id="tab1" class="tab-pane active">
-									<div class="products-slick" data-nav="#slick-nav-6">
+									<div class="products-slick" data-nav="#slick-nav-7">
 										<?php
 										//sql product
 										$q_product = mysqli_query($koneksi,"select *from tbl_product where id_category ='1' and active ='Y' order by last_upt desc");
@@ -615,7 +615,7 @@ if($f_promo_mingguan_rows>0){
 										?>
 										
 									</div>
-									<div id="slick-nav-6" class="products-slick-nav"></div>
+									<div id="slick-nav-7" class="products-slick-nav"></div>
 								</div>
 								<!-- /tab -->
 							</div>

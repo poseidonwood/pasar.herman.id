@@ -452,9 +452,9 @@ session_start();
     <div id="home" class="tab-pane fade in active">
       <br>
 	  <?php
-		  $rows_transaksi = mysqli_num_rows($q_transaksi1);
+		  $rows_transaksi1 = mysqli_num_rows($q_transaksi1);
 
-		  if($rows_transaksi>0){
+		  if($rows_transaksi1>0){
 			while($f_transaksi = mysqli_fetch_array($q_transaksi1)){
 			 
 			$transaksi1_id_transaksi = $f_transaksi['id_transaksi'];	
@@ -483,9 +483,9 @@ session_start();
 				}elseif($transaksi1_status_transaksi=="CANCELED"){
 			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
 		 		 }
-		}else{
-			if($transaksi1_status_transaksi=="MENUNGGU PEMBAYARAN"){
-				echo"&nbsp;<span class='badge progress-bar-danger'>Pending</span>";
+		}elseif($transaksi1_jenis=="COD"){
+			if($transaksi1_status_transaksi=="COD"){
+				echo"&nbsp;<span class='badge progress-bar-success'>SEGERA DI HUBUNGI</span>";
 				}elseif($transaksi1_status_transaksi=="CANCELED"){
 			  echo"&nbsp;<span class='badge progress-bar-danger'>$transaksi1_status_transaksi</span>";
 		 		 }
@@ -676,13 +676,13 @@ session_start();
   <tbody>
 	  <?php
 	$q_order2 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi ='$transaksi2_id_transaksi'");  
-	while($f_detail = mysqli_fetch_array($q_order2)){
+	while($f_detail1 = mysqli_fetch_array($q_order2)){
 
 	  ?>
     <tr>
-      <td><?= $f_detail['nm_barang'];?></td>
-      <td><?= $f_detail['qty'];?></td>
-      <td>Rp <?= $f_detail['harga_total'];?></td>
+      <td><?= $f_detail1['nm_barang'];?></td>
+      <td><?= $f_detail1['qty'];?></td>
+      <td>Rp <?= $f_detail1['harga_total'];?></td>
 	</tr>
 	<?php
 	}?>
