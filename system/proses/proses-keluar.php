@@ -5,7 +5,7 @@
 //Set MInus Saldo saat transaksi berlangsung
 //Saldo berkurang sukses ,, tinggal aktifkan ke action php keluar
 // koneksi database
-include '../setting/koneksi.php';
+include '../../setting/koneksi.php';
 // menangkap data yang di kirim dari form
 date_default_timezone_set("Asia/Jakarta");
 $timestamps = date("Y-m-d H:i:s");

@@ -1,12 +1,12 @@
 <?php
-include "../../setting/koneksi.php";
+include "../../../setting/koneksi.php";
 
 
 if(isset($_POST['id_barang'])){
    $id_barang = $_POST['id_barang'];
 
-   $query = "select count(*) as cntUser from inventory where id_barang='$id_barang'";
-   $query1 = mysqli_query($koneksi,"select *from inventory where id_barang='$id_barang'");
+   $query = "select count(*) as cntUser from tbl_product where id_barang='$id_barang'";
+   $query1 = mysqli_query($koneksi,"select *from tbl_product where id_barang='$id_barang'");
    $ambil = mysqli_fetch_array($query1);
    $nm_barang = $ambil['nm_barang'];
    $result = mysqli_query($koneksi,$query);

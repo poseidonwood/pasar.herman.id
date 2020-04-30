@@ -1,5 +1,5 @@
 <?php
-//include "setting/koneksi.php";
+include "../setting/koneksi.php";
 include "setting/session.php";
 
 ?>
@@ -9,7 +9,7 @@ include "setting/session.php";
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Kedai Bu Puji | Dashboard</title>
+  <title><?=$title_profile;?> | Dashboard</title>
   <script type="text/javascript" src="chartjs/Chart.js"></script>
 
   <!-- Tell the browser to be responsive to screen width -->
@@ -62,11 +62,10 @@ include "setting/session.php";
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
-      <div class='alert alert-danger alert-dismissible'>
+   <!--   <div class='alert alert-danger alert-dismissible'>
 <marquee> <strong> (
 <?php 
-                include 'setting/koneksi.php';
-                $data_alert = mysqli_query($koneksi,"select * from inventory where ket ='HABIS'");
+                $data_alert = mysqli_query($koneksi,"select * from tvl_product where qty < 5");
                 while($d_habis = mysqli_fetch_array($data_alert)){
                   $da_nm_barang = $d_habis['nm_barang'];
 
@@ -75,19 +74,28 @@ include "setting/session.php";
     ?>
 ) </strong> stok nya sudah habis . Harap restock sebelum ada customer yang beli produk tersebut.   </marquee>
 </div>
-
+-->
      <?php 
-                include 'setting/koneksi.php';
-                $data_alert1 = mysqli_query($koneksi,"select count(*)  as total from inventory where ket ='MAU HABIS'");
+                $data_alert1 = mysqli_query($koneksi,"select count(*)  as total from tbl_product where qty < 10");
                 while($d_habis1 = mysqli_fetch_array($data_alert1)){
                   $da_total = $d_habis1['total'];
+                  if($da_total>0){
+                    echo" <div class='alert alert-warning alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
+                    <h5><i class='icon fas fa-exclamation-triangle'></i> Alert!</h5>
+                    Ada <strong>$da_total</strong> stok yang mau habis . Harap cek qty real sebelum ada customer yang beli produk tersebut.
+      </div>
+      </div>";
+                  }else{
+                    echo" <div class='alert alert-success alert-dismissible'>
+                    <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
+                    <h5><i class='icon fas fa-exclamation-triangle'></i> Alert!</h5>
+                   Semua barang masih dalam stock / Aman 
+      </div>
+      </div>";
+                  }
 
-                 echo" <div class='alert alert-warning alert-dismissible'>
-                 <button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>
-                 <h5><i class='icon fas fa-exclamation-triangle'></i> Alert!</h5>
-                 Ada <strong>$da_total</strong> stok yang mau habis . Harap cek qty real sebelum ada customer yang beli produk tersebut.
-   </div>
-   </div>";
+                
                 }
     ?>
    
@@ -104,14 +112,14 @@ include "setting/session.php";
             
             <div class="small-box bg-info">
               <div class="inner">
-              <h3><?Php 
-                include "setting/koneksi.php";
+              <h3>
+              <?Php 
                 //include "setting/time_since.php";
 
-                $query_trans = mysqli_query($koneksi,"select count(*) as total from transaksi where jenis_transaksi='Keluar' and tanggal between '$date_awal' and '$date_akhir'");
+                $query_trans = mysqli_query($koneksi,"select count(*) as total from transaksi where status_transaksi ='FINISH' and (MONTH(timestamps) = MONTH(CURRENT_DATE))");
                 $tampil1 = mysqli_fetch_array($query_trans);
                 $echo_tampil1=$tampil1['total'];
-                $target = $echo_tampil1/$target_penjualan*100;
+               // $target = $echo_tampil1/$target_penjualan*100;
                 echo"$echo_tampil1";
                 ?>
                 </h3>
@@ -124,19 +132,22 @@ include "setting/session.php";
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <!--    <div class="col-lg-3 col-6">
           
-            <!-- small box -->
-            <div class="small-box bg-success">
+         <div class="small-box bg-success">
               <div class="inner">
-                <h3><?Php 
-                include "setting/koneksi.php";
-                $date1 = date("Y-m-d");
-                $query_penghasilan = mysqli_query($koneksi,"select SUM(harga) AS harga_total from transaksi where jenis_transaksi='Keluar' and tanggal='$date1'");
-                $tampil13 = mysqli_fetch_array($query_penghasilan);
-                $echo_tampil13=$tampil13['harga_total'];
-                echo "Rp";
-                echo number_format($echo_tampil13, 0, ',', '.');
+                <h3
+                <?php 
+                $date_now = date("Y-m-d");
+                $q_peng = mysqli_query($koneksi,"select SUM(harga_total) AS total from transaksi where status_transaksi='FINISH' and tanggal = '2020-04-30'");
+                $qp_tampil = mysqli_fetch_array($q_peng);
+                $eqp = $qp_tampil['total'];
+                if($eqp==''){
+                  echo"Rp. 0";
+                }else{
+                echo "Rp.";
+                echo number_format($eqp, 0, ',', '.');
+                }
                 ?></h3>
 
                 <p>Total Pemasukan Hari Ini</p>
@@ -146,112 +157,18 @@ include "setting/session.php";
               </div>
               <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#rinciantransaksi">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3><?Php 
-                include "setting/koneksi.php";
-                $query_trans1 = mysqli_query($koneksi,"select nm_pembeli, count(nm_pembeli) as pembelian, sum(harga) from transaksi where jenis_transaksi='Keluar' and tanggal between '$date_awal' and '$date_akhir' group by nm_pembeli ORDER BY sum(harga) desc");
-                $tampil2 = mysqli_fetch_array($query_trans1);
-                $echo_tampil2=$tampil2['nm_pembeli'];
-                echo"$echo_tampil2";
-                ?>
-                </h3>
-
-                <p>Top Global Pembelian</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#topglobalmodal">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-              <h3><?Php 
-                include "setting/koneksi.php";
-                $query_trans2 = mysqli_query($koneksi,"select id_barang, count(id_barang) as pembelian from transaksi where tanggal between '$date_awal' and '$date_akhir' group by id_barang ORDER BY pembelian desc");
-                $tampil3 = mysqli_fetch_array($query_trans2);
-                $ambil_data=$tampil3['id_barang'];
-                $query_inventory = mysqli_query($koneksi,"select id_barang,nm_barang from inventory where id_barang ='$ambil_data'");
-                $tampil4 = mysqli_fetch_array($query_inventory);
-                $echo_tampil3=$tampil4['nm_barang'];
-                echo"$echo_tampil3";
-                ?>
-                </h3>
-
-                <p>Top Global Product</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-box"></i>
-              </div>
-              <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#topglobalproduct">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
+          </div>-->
+         
         </div>
         <!-- /.row -->
 
         <!-- Info 2 -->
         <!-- =========================================================== -->
-        <h5 class="mt-4 mb-2">Target Transaksi Bulan Ini</h5>
         
-        <div class="row">
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box bg-info">
-              <span class="info-box-icon"><i class="fas fa-bullseye"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Target Transaksi Per Bulan</span>
-                <span class="info-box-number"><?=$echo_tampil1;?></span>
-
-                <div class="progress">
-                  <div class="progress-bar" style="width: <?=$target;?>%"></div>
-                </div>
-                <span class="progress-description">
-                <?php
-                if($target>=100){
-                  echo "Achievement Reached  $target %";
-                }else{
-                echo round($target);
-               echo"% sampai $tanggal_akhir";
-                }
-                ?>
-                </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-          <a href="#" class="small-box-footer"  data-toggle="modal" data-target="#rewardmodal">
-  
-          <div class="info-box">
-              <span class="info-box-icon bg-warning"><i class="fas fa-gamepad"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Claim Reward</span>
-                <span class="info-box-number">0</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-              </a>
+         
 
 
-
-
-        </div>
-        <!-- /.row -->
-
+        
 
         <!--info 2 -->
 
@@ -279,9 +196,6 @@ include "setting/session.php";
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content p-0">
-                  <?php
-                  include 'setting/koneksi.php';
-                  ?>
                   <!-- Morris chart - Sales -->
                   <div class="chart tab-pane active" 
                        style="position: relative; height: 300px; margin: 0px; auto">
@@ -304,51 +218,51 @@ include "setting/session.php";
 					label: '',
 					data: [
 					<?php 
-					$januari = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-01-01' and '2020-01-31'");
+					$januari = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-01-01' and '2020-01-31'");
 					echo mysqli_num_rows($januari);
 					?>, 
 					<?php 
-					$februari = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-02-01' and '2020-02-31'");
+					$februari = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-02-01' and '2020-02-31'");
 					echo mysqli_num_rows($februari);
 					?>, 
 					<?php 
-					$maret = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-03-01' and '2020-03-31'");
+					$maret = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-03-01' and '2020-03-31'");
 					echo mysqli_num_rows($maret);
 					?>, 
 					<?php 
-					$april = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-04-01' and '2020-04-31'");
+					$april = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-04-01' and '2020-04-31'");
 					echo mysqli_num_rows($april);
 					?>, 
 					<?php 
-					$mei = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-05-01' and '2020-05-31'");
+					$mei = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-05-01' and '2020-05-31'");
 					echo mysqli_num_rows($mei);
 					?>, 
 					<?php 
-					$juni = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-06-01' and '2020-06-31'");
+					$juni = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-06-01' and '2020-06-31'");
 					echo mysqli_num_rows($juni);
 					?>, 
 					<?php 
-					$juli = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-07-01' and '2020-07-31'");
+					$juli = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-07-01' and '2020-07-31'");
 					echo mysqli_num_rows($juli);
 					?>, 
 					<?php 
-					$agustus = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-08-01' and '2020-08-31'");
+					$agustus = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-08-01' and '2020-08-31'");
 					echo mysqli_num_rows($agustus);
 					?>, 
 					<?php 
-					$sempember = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-09-01' and '2020-09-31'");
+					$sempember = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-09-01' and '2020-09-31'");
 					echo mysqli_num_rows($sempember);
 					?>, 
 					<?php 
-					$oktober = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-10-01' and '2020-10-31'");
+					$oktober = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-10-01' and '2020-10-31'");
 					echo mysqli_num_rows($oktober);
 					?>, 
 					<?php 
-					$november = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-11-01' and '2020-11-31'");
+					$november = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-11-01' and '2020-11-31'");
 					echo mysqli_num_rows($november);
 					?>, 
 					<?php 
-					$desember = mysqli_query($koneksi,"select * from transaksi where jenis_transaksi='Keluar' and tanggal between '2020-12-01' and '2020-12-31'");
+					$desember = mysqli_query($koneksi,"select * from transaksi where status_transaksi ='FINISHED' and tanggal between '2020-12-01' and '2020-12-31'");
 					echo mysqli_num_rows($desember);
 					?>
 					],

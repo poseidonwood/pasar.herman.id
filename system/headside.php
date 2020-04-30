@@ -1,6 +1,4 @@
-<?php
-include "setting/koneksi.php";
-?>
+
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <!-- Navbar -->
@@ -36,14 +34,14 @@ include "setting/koneksi.php";
         <a class="nav-link" data-toggle="dropdown"  href="#">
           <i class="fas fa"></i>
           <?php
-           include "setting/koneksi.php";
+       /*    include "../setting/koneksi.php";
           $saldo = mysqli_query($koneksi,"select *from tbl_saldo");
           $fetch_saldo = mysqli_fetch_array($saldo);
           $get_saldo = $fetch_saldo['total_saldo'];
           $get_id_s= $fetch_saldo['id_saldo'];
           echo "Rp. ".number_format( $get_saldo, 0, ',', '.');
           
-          ?>
+          */?>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
        
@@ -71,7 +69,6 @@ include "setting/koneksi.php";
           <i class="far fa-bell"></i>
           
           <?php 
-          include "setting/koneksi.php";
           include "setting/time_since.php";
           //notifikasi acc tbl log
           $notif_sql = mysqli_query($koneksi,"select count(*)as notif from tbl_log where keterangan = 'DATA SEMENTARA'");
@@ -80,14 +77,14 @@ include "setting/koneksi.php";
           $notif2 = mysqli_fetch_array($notif_sql2);
           $notif = mysqli_fetch_array($notif_sql);
           //notifikasi stok mau habis
-          $notif_stok = mysqli_query($koneksi,"select count(*)as stok from inventory where ket = 'MAU HABIS' or ket = 'HABIS'");
-          $notif_stok2 = mysqli_query($koneksi,"SELECT * FROM inventory  where ket = 'MAU HABIS' or ket = 'HABIS' order by last_upt desc limit 1");
-          $notif_stok3 = mysqli_fetch_array($notif_stok);
-          $notif_stok4 = mysqli_fetch_array($notif_stok2);
+          $notif_order = mysqli_query($koneksi,"select count(*)as order_baru from transaksi where (status_transaksi ='MENUNGGU PEMBAYARAN' or status_transaksi ='COD')");
+         // $notif_stok2 = mysqli_query($koneksi,"SELECT * FROM inventory  where ket = 'MAU HABIS' or ket = 'HABIS' order by last_upt desc limit 1");
+          $notif_order = mysqli_fetch_array($notif_order);
+         // $notif_stok4 = mysqli_fetch_array($notif_stok2);
 
-          $tmpil_hitung = $notif['notif']+$notif_stok3['stok'];
+          $tmpil_hitung = $notif['notif']+$notif_order['order_baru'];
           $count_notif = $notif['notif'];
-          $count_stok = $notif_stok3['stok'];
+          $count_stok = $notif_order['order_baru'];
           if($tmpil_hitung==0){
             echo"";
           }else{
@@ -176,8 +173,11 @@ include "setting/koneksi.php";
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         
           <div class="dropdown-divider"></div>
-          <a href="pages/logout/" class="dropdown-item">
-            <i class="fas fa-sign-out"></i>Sign Out
+          <a href="<?=$domain."system/pages/logout/";?>" class="dropdown-item bg-danger">
+            <span class="badge bg-danger"> <i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out</span>
+          </a>
+           <a href="<?=$domain;?>" target="_blank" class="dropdown-item  bg-success">
+           <span class="badge bg-success">   <i class="fas fa-globe"></i>&nbsp;Ke Front End</span>
           </a>
          
           <div class="dropdown-divider"></div>
@@ -217,7 +217,7 @@ include "setting/koneksi.php";
               
                 <div class="tab-content" id="custom-tabs-three-tabContent">
                   <?php
-                  include "setting/koneksi.php";
+                  include "../setting/koneksi.php";
                   $query_logsaldo = mysqli_query($koneksi,"select * from log_saldo ORDER BY id_transaksi DESC");
                   while($fetch_logsaldo = mysqli_fetch_array($query_logsaldo)){
                     $harga =  number_format($fetch_logsaldo['harga'], 0, ',', '.');
@@ -371,7 +371,7 @@ include "setting/koneksi.php";
                     <select class ="form-control" name ="alasan" required>
                     <option value="">--Pilih Alasan--</option>
                     <?php
-                      include "setting/koneksi.php";
+                      include "../setting/koneksi.php";
                       $alasan_saldo_sql = mysqli_query($koneksi,"select *from alasan_saldo");
                       while($fetch_alasan_saldo = mysqli_fetch_array($alasan_saldo_sql)){
                         $alasan_get = $fetch_alasan_saldo['alasan'];

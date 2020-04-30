@@ -21,5 +21,12 @@ $tanggal_akhir = date_format($date_akhir1,"d M, yy");
 if (mysqli_connect_errno()){
 	echo "Koneksi database gagal : " . mysqli_connect_error();
 }
-
+//sql profile
+$q_profile = mysqli_query($koneksi,"select *from front_profile");
+$f_profile = mysqli_fetch_array($q_profile);
+//isi front_profile cuma 1 rows
+$title_profile = $f_profile['title'];
+$number_profile = $f_profile['number'];
+$email_profile = $f_profile['email'];
+//end sql profile
 ?>
