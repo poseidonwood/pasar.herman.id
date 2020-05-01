@@ -63,9 +63,9 @@
           </li>-->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+              <i class="nav-icon fas fa-tasks">+</i>
               <p>
-                Posting Area
+                &nbsp;Posting Area
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -77,37 +77,28 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/keluar.php" class="nav-link">
+                <a href1="<?=$domain."system/pages/blog/";?>" onclick="myalert()" class="nav-link">
                   <i class="fas fa-globe nav-icon"></i>
                   <p>Posting Blog</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href1="<?=$domain."system/pages/edit-forms/";?>" onclick="myalert()" class="nav-link">
+                  <i class="fas fa-edit nav-icon"></i>
+                  <p>Edit Form</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href1="<?=$domain."system/pages/users-management/";?>" onclick="myalert()" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                User Log
-                <i class="fas fa-angle-left right"></i>
+                Users Management
               </p>
             </a>
-            <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a href="pages/forms/transaksi.php" class="nav-link">
-                  <i class="fas fa-user nav-icon"></i>
-                  <p>User Management</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/forms/keluar.php" class="nav-link">
-                  <i class="fas fa-history nav-icon"></i>
-                  <p>User Activity</p>
-                </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item has-treeview">
+        <!--  <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-exchange-alt"></i>
               <p>
@@ -136,7 +127,7 @@
               </li>
               
             </ul>
-          </li>
+          </li>-->
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-table"></i>
@@ -147,7 +138,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="pages/tables/inventory.php" class="nav-link">
+                <a href1="pages/tables/inventory.php" onclick="myalert()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Inventori</p>
                 </a>

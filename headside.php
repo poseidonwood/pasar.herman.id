@@ -18,7 +18,7 @@ while($f_cart_array = mysqli_fetch_array($q_cart_validasi)){
 }
 
 //validasi transaksi jika tempobayar > jam sekarang maka update created - 15 menit dan status='canceled'
-$q_transaksi_validasi = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and status_pembayaran ='N'");
+$q_transaksi_validasi = mysqli_query($koneksi,"select *from transaksi where status_pembayaran ='N'");
 while($f_transaksi_array = mysqli_fetch_array($q_transaksi_validasi)){
 	date_default_timezone_set("Asia/Jakarta");
 	$tempo_bayar = $f_transaksi_array['tempo_bayar'];

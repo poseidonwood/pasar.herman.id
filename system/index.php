@@ -298,45 +298,7 @@ include "setting/session.php";
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-5 connectedSortable">
- <!-- PRODUCT LIST -->
- <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">News Update Corona Indonesia</h3><br>
-                              <?php
-
-$ch = curl_init();
-
-curl_setopt($ch, CURLOPT_URL, 'https://api.kawalcorona.com/indonesia/');
-
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-$content = curl_exec($ch);
-
-curl_close($ch);
-
-//mengubah data json menjadi data array asosiatif
-$result=json_decode($content,true);
-
-//looping data menggunakan foreach
-foreach ($result as $value) {
  
- echo "Negara : ".$value['name']."<br>";
- echo "Positif : ".$value['positif']."<br>";
- echo "Sembuh : ".$value['sembuh']."<br>";
- echo "Meninggal : ".$value['meninggal']."<br>";
-
- 
-}
-?>
-               
-              </div>
-              <!-- /.card-header -->
-            
-              
-              <!-- /.card-footer -->
-            </div>
-                
-           
 
            
 

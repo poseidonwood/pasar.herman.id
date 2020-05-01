@@ -52,6 +52,13 @@ $f_not_order = mysqli_num_rows($q_id);
 $q_rek = mysqli_query($koneksi,"select *from tbl_rekening where active ='Y'");
 //end rekening
 
-
+//----------------------------------------------------------------------------------------------------Sql backend---------------------------------------------------
+$b_q_order = mysqli_query($koneksi,"select *from transaksi where (status_transaksi = 'MENUNGGGU PEMBAYARAN' or status_transaksi= 'COD')");
+$b_f_order = mysqli_fetch_array($b_q_order);
+$timestamps_order = $b_f_order['timestamps'];
+//cari stok yang kurang dari 7 
+$q_stok = mysqli_query($koneksi,"SELECT * FROM tbl_product  where qty <= 7");
+$notif_stok = mysqli_fetch_array($q_stok);
+$stok_time = $notif_stok['last_upt'];
 
 ?>

@@ -61,8 +61,8 @@ include "../../setting/session.php";
             <div class="card card-primary card-outline">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-tasks">+</i>
-                  &nbsp;Posting Product
+                  <i class="fas fa-edit"></i>
+                  Posting Product
                 </h3>
               </div>
               <div class="card-body">
@@ -73,10 +73,9 @@ include "../../setting/session.php";
               <div class="card-header p-0 border-bottom-0">
                 <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true"><i class ="fas fa-shopping-cart"></i>&nbsp;Product Post</a>
-                  </li>
+                    <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true"><i class="fas fa-user nav-icon"></i>&nbsp;User Management</a>
                   <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false"><i class ="fas fa-tags"></i>&nbsp;Product Promo</a>
+                    <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false"><i class="fas fa-history nav-icon"></i>&nbsp;User Activity</a>
                   </li>
                 </ul>
               </div>
@@ -340,7 +339,7 @@ include "../../setting/session.php";
   </div>
   <!-- /.content-wrapper -->
   <?php 
- include "../../footer.php";
+ include "../pages-footer.php";
  ?>
 
   <!-- Control Sidebar -->

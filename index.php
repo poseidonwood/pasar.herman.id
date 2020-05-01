@@ -114,6 +114,7 @@ if($f_promo_mingguan_rows>0){
 										while($f_category2 = mysqli_fetch_array($q_category2)){
 											$nm_category2 = $f_category2['nm_category'];
 											$foto_category2= $f_category2['foto'];
+											$link = $f_category2['link'];
 										echo"
 											<div class='col-md-4 col-xs-6'>
 												<div class='shop'>
@@ -122,7 +123,7 @@ if($f_promo_mingguan_rows>0){
 													</div>
 													<div class='shop-body'>
 														<h3>$nm_category2</h3>
-														<a href='#' class='cta-btn'>Belanja sekarang <i class='fa fa-arrow-circle-right'></i></a>
+														<a href='$link' class='cta-btn'>Belanja sekarang <i class='fa fa-arrow-circle-right'></i></a>
 													</div>
 												</div>
 											</div>
@@ -157,7 +158,7 @@ if($f_promo_mingguan_rows>0){
 							<p>Promo menarik dari Kami untuk kamu</p>
 							<div class='section-nav'>
 								<ul class='section-tab-nav tab-nav'>
-									<!--<li><a href='#tab1' style='color: rgb(5, 238, 44);'>Lihat semua >></a></li>-->
+									<!--<li><a href='#tab5' style='color: rgb(5, 238, 44);'>Lihat semua >></a></li>-->
 									
 								</ul>
 							</div>
@@ -178,7 +179,7 @@ if($f_promo_mingguan_rows>0){
 						<div class="row">
 							<div class="products-tabs">
 								<!-- tab -->
-								<div id="tab1" class="tab-pane active">
+								<div id="tab5" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-1">
 										<?php
 										//sql promo
@@ -191,6 +192,7 @@ if($f_promo_mingguan_rows>0){
 											$promo_id_promo1 = $f_promo['id_promo'];	
 											$promo_id_barang = $f_promo['id_barang'];	
 											$promo_nm_barang = $f_promo['nm_barang'];	
+											$promo_qty = $f_promo['qty'];
 											$promo_jenis = $f_promo['jenis_promo'];
 											$promo_nilai = $f_promo['nilai_promo'];
 											$rp_promo_nilai = number_format($promo_nilai,2,',','.');
@@ -276,9 +278,16 @@ if($f_promo_mingguan_rows>0){
 													}
 												}, 1000);
 												</script>
+												<?php
+													$terjual = 9;
+													$sisa = $promo_qty - $terjual;
+													$qtypersen = $sisa/$promo_qty*100;
+													?>
 												<p class='product-price' id='demo<?=$promo_id_promo;?>'></p>
+												<p>Sisa <?=$sisa;?> Barang Lagi</p>
 												<div class="progress">
-													<div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">0 barang terjual</div>
+													
+													<div class="progress-bar" role="progressbar" style="width: <?=$qtypersen;?>%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 												</div>
 											<?php
 											echo"
@@ -506,7 +515,7 @@ if($f_promo_mingguan_rows>0){
 							<p>Beberapa Sayuran Segar</p>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li><a href="#tab1" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+									<li><a href="#tab2" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
 									
 								</ul>
 							</div>
@@ -519,7 +528,7 @@ if($f_promo_mingguan_rows>0){
 						<div class="row">
 							<div class="products-tabs">
 								<!-- tab -->
-								<div id="tab1" class="tab-pane active">
+								<div id="tab2" class="tab-pane active">
 									<div class="products-slick" data-nav="#slick-nav-7">
 										<?php
 										//sql product

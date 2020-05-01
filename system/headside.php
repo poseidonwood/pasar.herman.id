@@ -70,22 +70,32 @@
           
           <?php 
           include "setting/time_since.php";
-          //notifikasi acc tbl log
-          $notif_sql = mysqli_query($koneksi,"select count(*)as notif from tbl_log where keterangan = 'DATA SEMENTARA'");
-          //notifikasi timestamps tbl log
+          $url_validasi = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+          $domain_dashboard = "http://192.168.1.3/pasar.herman.id/system/";
+          //echo"<script>alert('$domain_dashboard')</script>";
+         // echo"<script>alert('$url_validasi')</script>";
+
+          if($url_validasi!==$domain_dashboard){
+            include "../../../setting/sql.php";
+          }else{
+            include "../setting/sql.php";
+          }
+          //notifikasi orderan masuk
+          $notif_sql = mysqli_query($koneksi,"select count(*)as notif from transaksi where (status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD')");
+         /* //notifikasi timestamps tbl log
           $notif_sql2 = mysqli_query($koneksi,"SELECT * FROM tbl_log  where keterangan ='DATA SEMENTARA' order by timestamps desc limit 1");
-          $notif2 = mysqli_fetch_array($notif_sql2);
+          $notif2 = mysqli_fetch_array($notif_sql2);*/
           $notif = mysqli_fetch_array($notif_sql);
           //notifikasi stok mau habis
           $notif_order = mysqli_query($koneksi,"select count(*)as order_baru from transaksi where (status_transaksi ='MENUNGGU PEMBAYARAN' or status_transaksi ='COD')");
-         // $notif_stok2 = mysqli_query($koneksi,"SELECT * FROM inventory  where ket = 'MAU HABIS' or ket = 'HABIS' order by last_upt desc limit 1");
           $notif_order = mysqli_fetch_array($notif_order);
-         // $notif_stok4 = mysqli_fetch_array($notif_stok2);
 
-          $tmpil_hitung = $notif['notif']+$notif_order['order_baru'];
-          $count_notif = $notif['notif'];
-          $count_stok = $notif_order['order_baru'];
-          if($tmpil_hitung==0){
+
+         // $tmpil_hitung = $notif['notif']+$notif_order['order_baru'];
+         $tmpil_hitung = $notif['notif'];
+         $count_notif = $notif['notif'];
+        //  $count_notif = $notif_order['order_baru'];
+          if($count_notif==0){
             echo"";
           }else{
             echo"
@@ -115,37 +125,38 @@
             <span class="float-right text-muted text-sm">3 mins</span>
           </a>-->
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item" data-toggle="modal" data-target="#ltbarang">
+          <a href="#" class="dropdown-item" data-toggle="modal" data-target="#ltorder">
             
           <?php
-            if($count_stok==0){
-                echo "<i class='fas fa-shopping-cart mr-2'></i> Item Aman";
+            if($count_notif==0){
+                echo "<i class='fas fa-file mr-2'></i> Belum ada orderan";
 
             }else{
-                echo "<i class='fas fa-shopping-cart mr-2'></i> $count_stok limited stock";
+                echo "<i class='fas fa-file mr-2'></i> $count_notif  Orderan Masuk";
 
 
             }
             
             
             ?>
-            <span class="float-right text-muted text-sm"><?php $notifi_stok=$notif_stok4['last_upt'];
-             if($notifi_stok==0){
+            <span class="float-right text-muted text-sm"><?php
+        
+             if($count_notif==0){
                 echo "";
              }else{
-                echo time_since(strtotime($notifi_stok));
+                echo time_since(strtotime($timestamps_order ));
              }
                ?></span>
           </a>
           <div class="dropdown-divider"></div>
-        <a href="pages/tables/acc_page.php" class="dropdown-item">
+        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#ltbarang">
             
             <?php
-            if($count_notif==0){
-                echo "<i class='fas fa-file mr-2'></i> Tidak ada transaksi baru";
+            if($notif_stok==0){
+                echo "<i class='fas fa-shopping-cart mr-2'></i> Stok Masih Aman";
 
             }else{
-                echo "<i class='fas fa-file mr-2'></i> $count_notif transaksi baru";
+                echo "<i class='fas fa-shopping-cart mr-2'></i> $notif_stok Barang Mau Habis";
 
 
             }
@@ -153,11 +164,11 @@
             
             ?>
             <span class="float-right text-muted text-sm">
-            <?php $notifi=$notif2['timestamps'];
-             if($notifi==0){
+            <?php 
+             if($stok_time==0){
                 echo "";
              }else{
-                echo time_since(strtotime($notifi));
+                echo time_since(strtotime($stok_time));
              }
                ?></span>
           </a>
