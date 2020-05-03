@@ -649,8 +649,8 @@ if($f_promo_mingguan_rows>0){
 					<div class="col-md-12">
 						<div class="newsletter">
 							<p>Cari Status <strong>Orderan Anda</strong></p>
-							<form>
-								<input class="input" type="text" placeholder="Masukkan Id Order Anda">
+							<form action ="search.php" method="get">
+								<input class="input" type="text" name="x" placeholder="Masukkan Id Order Anda">
 								<button class="newsletter-btn"><i class="fa fa-search"></i> Search Order</button>
 							</form>
 							<ul class="newsletter-follow">

@@ -61,4 +61,7 @@ $q_stok = mysqli_query($koneksi,"SELECT * FROM tbl_product  where qty <= 7");
 $notif_stok = mysqli_fetch_array($q_stok);
 $stok_time = $notif_stok['last_upt'];
 
+
+
+
 ?>

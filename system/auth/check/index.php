@@ -19,10 +19,10 @@ if(!empty($_POST['email'])){
         $_SESSION['email']=$email;
         $_SESSION['status']='login';
         $_SESSION['role']=$role;
-        $_SESSION['name']='name';
+        $_SESSION['name']=$name;
         echo"<script>window.location.href='$domain\system/';</script>";
         //check Y belum 
-        }else{
+        }elseif($role=='user'){
             $_SESSION['status']='login';
             $_SESSION['role']=$role;
             $_SESSION['name']=$name;

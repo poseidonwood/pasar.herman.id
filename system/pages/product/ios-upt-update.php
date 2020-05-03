@@ -29,6 +29,22 @@ include "../../setting/session.php";
 <?php
   include "../../headside.php";
   include "../../mainside.php";
+  if(isset($_GET)){
+    $get_lb_id_barang = $_GET['id'];
+    $lb_q_barang = $koneksi->query("select *from tbl_product where id_barang = '$get_lb_id_barang'");
+    $f_list_barang = mysqli_fetch_array($lb_q_barang);
+    $lb_id_barang = $f_list_barang['id_barang'];
+    $lb_nm_barang = $f_list_barang['nm_barang'];
+    $lb_detail = $f_list_barang['detail'];
+    $lb_qty = $f_list_barang['qty'];
+    $lb_harga_jual = $f_list_barang['harga_jual'];
+    $lb_last_upt = $f_list_barang['last_upt'];
+    $lb_id_satuan = $f_list_barang['id_satuan'];
+    $lb_harga_beli = $f_list_barang['harga_beli'];
+    $lb_expired = $f_list_barang['expired'];
+    $lb_foto= $f_list_barang['foto'];
+
+
   ?>
 
   <!-- Content Wrapper. Contains page content -->
@@ -46,7 +62,7 @@ include "../../setting/session.php";
           <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="../../">Home</a></li>
-              <li class="breadcrumb-item active">Posting Product</li>
+              <li class="breadcrumb-item active">Update Ios Only Form Product</li>
             </ol>
           </div>
         </div>
@@ -61,8 +77,8 @@ include "../../setting/session.php";
             <div class="card card-primary card-outline">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-tasks">+</i>
-                  &nbsp;Posting Product
+                  <i class="fas fa-apple-alt"></i>
+                  &nbsp;Edit Product in Ios
                 </h3>
               </div>
               <div class="card-body">
@@ -73,13 +89,7 @@ include "../../setting/session.php";
               <div class="card-header p-0 border-bottom-0">
                 <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
                   <li class="nav-item">
-                    <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true"><i class ="fas fa-sticky-note"></i>&nbsp;Product</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false"><i class ="fas fa-tags"></i>&nbsp;Promo</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="custom-tabs-three-list-tab" data-toggle="pill" href="#custom-tabs-three-list" role="tab" aria-controls="custom-tabs-three-list" aria-selected="false"><i class ="fas fa-pencil-alt"></i>&nbsp;Edit</a>
+                    <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#custom-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true"><i class ="fas fa-pencil-alt"></i>&nbsp;Edit <?=$lb_nm_barang;?></a>
                   </li>
                 </ul>
               </div>
@@ -88,339 +98,10 @@ include "../../setting/session.php";
                   <div class="tab-pane fade show active" id="custom-tabs-three-home" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
   
                     <h4></h4>
-                
-                    <form method="post" action="<?=$domain."system/proses/herman-product.php";?>" enctype="multipart/form-data">
+
+                    <form method="post" action="<?=$domain."system/proses/herman-update-product.php?id=".$lb_id_barang;?>" enctype="multipart/form-data">
                     <?php
                     date_default_timezone_set("Asia/Jakarta");
-                    $id_transaksi = date("YmdHis");
-                    $tanggal = date("Y-m-d")
-                    ?>
-                    
-                 <!--   <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                      </div>
-                      <input type="date" class="form-control" name="tanggal" placeholder="Tanggal" value="<?=$tanggal?>" required >
-                    </div>
-      -->
-                                    
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-shopping-cart"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="nm_barang" name ="nm_barang" placeholder="Nama Product" required>
-                    </div>
-    
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-cart-plus"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="id_barang" name="id_barang" onkeyup="autofill()" placeholder="Kode Product" required autofocus>
-                      <span class="input-group-text"><div id="uname_response" ></div></span>
-                      
-                    </div>
-                  <!--<div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-sort"></i></span>
-                      </div>-->
-                     <!-- <input type="text" class="form-control" placeholder="Jenis Transaksi">
-                    </div>-->
-    
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-info-circle"></i>&nbsp;Detail</span>
-                      </div>
-                      <textarea class="form-control" name ="detail" placeholder="Detail" required> </textarea>
-                    </div>
-    
-                    
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-sort-amount-up"></i></span>
-                      </div>
-                      <input type="number" class="form-control" name ="qty" placeholder="Qty Product" required>
-                    </div>
-    
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-bell"></i></span>
-                      </div>
-                     
-                      <select name ="id_satuan" class="form-control" required >
-                      <option value="1">--Pilih Satuan Product--</option>
-                      <?php
-                      $q_s_select = mysqli_query($koneksi,"Select *from tbl_satuan where active='Y'");
-                      while($f_s_select = mysqli_fetch_array($q_s_select)){
-                          $select_id_satuan = $f_s_select['id_satuan'];
-                          $select_nm_satuan = $f_s_select['nm_satuan'];
-                          echo "<option value='$select_id_satuan'>$select_nm_satuan</option>";
-                      }
-    
-                      ?>
-                      
-                      </select>
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-bell"></i></span>
-                      </div>
-                     
-                      <select name ="id_category" class="form-control" required >
-                      <option value="1">--Pilih Kategori Produk--</option>
-                      <?php
-                      $q_c_select = mysqli_query($koneksi,"Select *from category_product where status='Y'");
-                      while($f_c_select = mysqli_fetch_array($q_c_select)){
-                          $select_id_category = $f_c_select['id_category'];
-                          $select_nm_category = $f_c_select['nm_category'];
-                          echo "<option value='$select_id_category'>$select_nm_category</option>";
-                      }
-    
-                      ?>
-                      
-                      </select>
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class=""><strong>Rp. </strong></i></span>
-                      </div>
-                      <input type="number" class="form-control" name ="harga_beli" placeholder="Harga Beli Total" required>
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class=""><strong>Rp. </strong></i></span>
-                      </div>
-                      <input type="number" class="form-control" name ="harga_jual" placeholder="Harga Jual" required>
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt">&nbsp;Exp</i></span>
-                      </div>
-                      <input type="date" class="form-control" name="expired" placeholder="Tanggal" value="<?=$tanggal?>" required >
-                    </div>
-                    
-                    <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-cloud">&nbsp;</i></span>
-                      </div>
-    
-                          <div class="custom-file">
-                            <input type="file" name="foto" class="custom-file-input" id="exampleInputFile">
-                            <label class="custom-file-label" for="exampleInputFile">Pilih Foto</label>
-                          </div>
-                        </div>
-                        <div class="input-group-append">
-                            <p><span class="badge bg-danger">*Ukuran foto 600px*600px atau 1:1</span></p>
-                          </div>
-              <!--      <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-bell"> Active?</i></span>
-                      </div>
-                      <select name ="active" class="form-control" required >
-                      <option value="1">--Tampilkan Ke Web ?--</option>
-                      <option value="Y">YA</option>
-                      <option value="N">TIDAK</option>
-                      </select>
-                    </div>-->
-                   
-    
-                    <button type="submit" class="btn btn-info">Submit</button>
-                    </form> 
-                   </div>
-                  <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-                    <p id='notif'></p>
-                
-                    <form method="post" action="<?=$domain."system/proses/herman-promo.php";?>" >
-                    <?php
-                    date_default_timezone_set("Asia/Jakarta");
-                    ?>
-                    
-                 <!--   <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                      </div>
-                      <input type="date" class="form-control" name="tanggal" placeholder="Tanggal" value="<?=$tanggal?>" required >
-                    </div>
-      -->
-                                    
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-shopping-cart"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="nm_barang1" name ="nm_barang" placeholder="Nama Product" readonly required>
-                    </div>
-    
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-cart-plus"></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="id_barang1" name="id_barang" onkeyup="autofill1()" placeholder="Kode Product" required>
-                      <a href="#"  class="input-group-text bg-success" data-toggle="modal" data-target="#choosebarang"><i class="fas fa-plus"></i></a>
-                      
-                    </div>
-                  <!--<div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-sort"></i></span>
-                      </div>-->
-                     <!-- <input type="text" class="form-control" placeholder="Jenis Transaksi">
-                    </div>-->  
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-tags"></i></span>
-                      </div>
-                     
-                      <select name ="jenis_promo" onchange='Validasi()' id="jenis_promo1" class="form-control" required >
-                      <option value="0">--Pilih Jenis Promo--</option>
-                      <option value="diskon">Promo Diskon</option>
-                    <!--  <option value="mingguan">Promo Mingguan</option>-->
-                      <option value="potongan">Promo Potongan Harga</option>
-                      </select>
-                    </div>
-    
-                    <p id="notif_promo"></p>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="">%</i></span>
-                      </div>
-                      <input type="number" class="form-control" id="nilai_promo" name ="nilai_promo" onkeyup="hitung()" placeholder="Nilai Promo" required>
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class=""><strong>Rp. </strong></i></span>
-                      </div>
-                      <input type="number" class="form-control" id="harga_awal1" name ="harga_awal" placeholder="Harga Awal" required readonly>
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class=""><strong>Rp. </strong></i></span>
-                      </div>
-                      <input type="text" class="form-control" id="harga_akhir" name ="harga_akhir" placeholder="Harga Promo" required readonly>
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class=""><strong>Qty </strong></i></span>
-                      </div>
-                      <input type="number" class="form-control" name ="qty" placeholder="Qty Promo" required >
-                    </div>
-                  
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt">&nbsp;Start</i></span>
-                      </div>
-                      <input type="date" class="form-control" name="mulai_tanggal" placeholder="Tanggal" value="<?=$tanggal?>" required >
-                    </div>
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt">&nbsp;End</i></span>
-                      </div>
-                      <input type="date" class="form-control" name="sampai_tanggal" placeholder="Tanggal" value="<?=$tanggal?>" required >
-                    </div>
-                    
-              <!--      <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-bell"> Active?</i></span>
-                      </div>
-                      <select name ="active" class="form-control" required >
-                      <option value="1">--Tampilkan Ke Web ?--</option>
-                      <option value="Y">YA</option>
-                      <option value="N">TIDAK</option>
-                      </select>
-                    </div>-->
-                   
-    
-                    <button type="submit" class="btn btn-info">Submit</button>
-                    </form> 
-                      </div>
-                      <div class="tab-pane fade" id="custom-tabs-three-list" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-                      <div class="card">
-            <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: 300px;">
-              <table id="example1" class="table table-head-fixed text-nowrap">
-                <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Nama Barang</th>
-                  <th>Qty</th>
-                  <th>Harga Jual</th>
-                  <th>Last Update</th>
-                  <th>Action</th>
-
-                </tr>
-                </thead>
-                <tbody>
-                  <?php
-                  //tampil list product 
-                  $q_list_barang = $koneksi->query("select *from tbl_product");
-                  $no = 1;
-                  while($f_list_barang = mysqli_fetch_array($q_list_barang)){
-                  $lb_id_barang = $f_list_barang['id_barang'];
-                  $lb_nm_barang = $f_list_barang['nm_barang'];
-                  $lb_detail = $f_list_barang['detail'];
-                  $lb_qty = $f_list_barang['qty'];
-                  $lb_harga_jual = $f_list_barang['harga_jual'];
-                  $lb_last_upt = $f_list_barang['last_upt'];
-                  $lb_id_satuan = $f_list_barang['id_satuan'];
-                  $lb_harga_beli = $f_list_barang['harga_beli'];
-                  $lb_expired = $f_list_barang['expired'];
-                  $lb_foto= $f_list_barang['foto'];
-
-
-                  ?>
-                <tr>
-                  <td><?=$no++;?></td>
-                  <td><?=$lb_nm_barang;?></td>
-                  <td><?=$lb_qty;?></td>
-                  <td><?=$lb_harga_jual;?></td>
-                  <td><?=$lb_last_upt;?></td>
-                  <td>
-                  <a href="#"  onclick="ios<?=$lb_id_barang;?>()" data-toggle="modal" data-target="#edit-barang<?=$lb_id_barang;?>"> <span class ="badge bg-success"> <i class="fas fa-pencil-alt"></i></span></a>
-                      <a href="<?=$domain."system/proses/herman-hapus.php";?>?id=<?=$lb_id_barang;?>"  > <span class ="badge bg-danger"><i class="fas fa-trash" onclick="return confirm('Anda yakin mau menghapus item ini ?')"></i></span></a>
-                    </td>
-                </tr>
-                <script>
-function ios<?=$lb_id_barang;?>() {
-
-var iDevices = [
-  'iPad Simulator',
-  'iPhone Simulator',
-  'iPod Simulator',
-  'iPad',
-  'iPhone',
-  'iPod'
-];
-
-if (!!navigator.platform) {
-  while (iDevices.length) {
-    if (navigator.platform === iDevices.pop()){
-     // alert('<?=$lb_id_barang;?>');
-      window.location.href ='<?=$domain."system/pages/product/ios-upt-update.php?id=".$lb_id_barang;?>';
-      // return true;
-       }
-  }
-}
-
-return false;
-}
-
-</script>
-
-
-<!-- End Detect Ios-->
-                <!-- Modal -->
-<div class="modal fade" id="edit-barang<?= $lb_id_barang;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Product <?=$lb_nm_barang;?></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <!--Start Body-->
-       <form method="post" action="<?=$domain."system/proses/herman-update-product.php?id=".$lb_id_barang;?>" enctype="multipart/form-data">
-                    <?php
-                    date_default_timezone_set("Asia/Jakarta");
-                    $id_transaksi = date("YmdHis");
                     $tanggal = date("Y-m-d")
                     ?>
                     
@@ -439,7 +120,7 @@ return false;
                       <input type="text" class="form-control" id="nm_barang" name ="nm_barang" value="<?=$lb_nm_barang;?>" required>
                     </div>
     
-                  <!--  <div class="input-group mb-3">
+                   <!-- <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-cart-plus"></i></span>
                       </div>
@@ -508,7 +189,6 @@ return false;
 
                     <div class="input-group mb-3">
                     <div class="input-group-prepend">
-
                         <span class="input-group-text"><img src="<?=$domain."img/product/".$lb_foto;?>" width ="25px" height="25px">&nbsp;</span>
                       </div>
     
@@ -518,8 +198,7 @@ return false;
                           </div>
                         </div>
                         <div class="input-group-append">
-                            <p><span class="badge bg-danger">*Ukuran foto 600px*600px atau 1:1 </span></p>
-                           
+                            <p><span class="badge bg-danger">*Ukuran foto 600px*600px atau 1:1</span></p>
                           </div>
               <!--      <div class="input-group mb-3">
                       <div class="input-group-prepend">
@@ -531,41 +210,11 @@ return false;
                       <option value="N">TIDAK</option>
                       </select>
                     </div>-->
-                   
+                    <button type="submit" class="btn btn-info">Save changes</button>
+                    </form> 
       
-
-
-
-      <!-- End Body -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-info">Save changes</button>
-      </div>
-      </form> 
-
-    </div>
-  </div>
-</div>
-                <?php
-              }
-              ?>
-                </tbody>
-                <tfoot>
-                <tr>
-                <th>No</th>
-                  <th>Nama Barang</th>
-                  <th>Qty</th>
-                  <th>Harga Jual</th>
-                  <th>Last Update</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
+                   </div>
+                
                 <!-- /.card-tools -->
                     </div>
                 </div>
@@ -935,3 +584,8 @@ $(document).ready(function () {
       
 </body>
 </html>
+<?php
+  }else{
+    echo "<script>alert('Hei anda sudah terlalu jauh')</script>";
+  }
+  ?>
