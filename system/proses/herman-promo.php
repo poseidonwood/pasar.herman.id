@@ -27,7 +27,7 @@ if($jenis_promo=='mingguan'){
     $active_mingguan = "N";
 }
 
-$q_s = mysqli_query($koneksi,"insert into tbl_promo values('$id_promo','$id_barang','$nm_barang','$jenis_promo','$nilai_promo','$harga_awal','$harga_akhir','$qty','$mulai_tanggal','$sampai_tanggal','$created','$active','$active_mingguan')");
+$q_s = mysqli_query($koneksi,"insert into tbl_promo values('$id_promo','$id_barang','PROMO-$nm_barang','$jenis_promo','$nilai_promo','$harga_awal','$harga_akhir','$qty','$mulai_tanggal','$sampai_tanggal','$created','$active','$active_mingguan')");
 
 if($q_s){
     //product di hilangkan 

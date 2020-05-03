@@ -309,7 +309,9 @@ session_start();
 			  </td>
               <td><?=$cart_nm_barang;?> / (<?=$cart_nm_satuan;?>)</td>
               <td class="qty">
-			  <div class="input-number">
+			 						 <div class="input-number">
+
+
 										<input type="number" id="qty<?=$cart_id_cart;?>" value="<?=$cart_qty;?>" name="qty" onchange="myFunction<?=$cart_id_cart;?>()" >
 										<input type="hidden" id="harga<?=$cart_id_cart;?>" value="<?=$cart_harga_product;?>" name="harga" readonly>
 										<input type="hidden" id="id_cart<?=$cart_id_cart;?>" value="<?=$cart_id_cart;?>" name="harga" readonly>

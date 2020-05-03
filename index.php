@@ -279,7 +279,7 @@ if($f_promo_mingguan_rows>0){
 												}, 1000);
 												</script>
 												<?php
-													$terjual = 9;
+													$terjual = 0;
 													$sisa = $promo_qty - $terjual;
 													$qtypersen = $sisa/$promo_qty*100;
 													?>
@@ -338,8 +338,8 @@ if($f_promo_mingguan_rows>0){
 											echo"
 												<div class='product-btns'>
 													<button class='add-to-wishlist'><i class='fa fa-heart-o'></i><span class='tooltipp'>add to wishlist</span></button>
-													<!--<button class='add-to-compare'><i class='fa fa-exchange'></i><span class='tooltipp'>add to compare</span></button>-->
-													<button onclick=\"window.location.href ='product.php?x=$promo_id_barang'\" class='quick-view'><i class='fa fa-eye'></i><span class='tooltipp'>quick view</span></a>
+													<!--<button class='add-to-compare'><i class='fa fa-exchange'></i><span class='tooltipp'>add to compare</span></button>
+													<button onclick=\"window.location.href ='product.php?x=$promo_id_barang'\" class='quick-view'><i class='fa fa-eye'></i><span class='tooltipp'>quick view</span></a>-->
 												</div>
 											</div>
 											<div class='add-to-cart'>

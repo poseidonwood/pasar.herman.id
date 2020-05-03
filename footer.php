@@ -106,7 +106,9 @@
 					//cek apakah inject sql atau tidak
 					$q_b = mysqli_query($koneksi,"select *from tbl_product where nm_barang = '$nm_barang12'");
 					$f_b = mysqli_num_rows($q_b);
-					if($f_b>0){
+					$q_b_promo = mysqli_query($koneksi,"select *from tbl_promo where nm_barang = '$nm_barang12'");
+					$f_b_promo = mysqli_num_rows($q_b_promo);
+					if($f_b || $f_b_promo>0){
 						echo "<script type='text/javascript'>
 						const Toast = Swal.mixin({
 						  toast: true,
@@ -149,10 +151,12 @@
                       
                     }else if($_GET['pesan'] == "delete-success"){
 						$nm_barang12 = $_GET['brg'];
-						//cek apakah inject sql atau tidak
-						$q_b = mysqli_query($koneksi,"select *from tbl_product where nm_barang = '$nm_barang12'");
-						$f_b = mysqli_num_rows($q_b);
-						if($f_b>0){
+					//cek apakah inject sql atau tidak
+					$q_b = mysqli_query($koneksi,"select *from tbl_product where nm_barang = '$nm_barang12'");
+					$f_b = mysqli_num_rows($q_b);
+					$q_b_promo = mysqli_query($koneksi,"select *from tbl_promo where nm_barang = '$nm_barang12'");
+					$f_b_promo = mysqli_num_rows($q_b_promo);
+					if($f_b || $f_b_promo>0){
 							echo "<script type='text/javascript'>
 							const Toast = Swal.mixin({
 							  toast: true,
