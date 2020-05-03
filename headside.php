@@ -135,10 +135,10 @@ session_start();
 						<!-- SEARCH BAR -->
 						<center><div class="col-md-6">
 							<div class="header-search">
-							<form>
+							<form method="GET" action ="search-product.php">
 									
 									<input class="input-select" placeholder="Mau belanja apa?">
-									<button onclick="myalert()" class="search-btn"><i class="fa fa-search"></i></button>
+									<button class="search-btn"><i class="fa fa-search"></i></button>
 						</form>
 							</div>
 						</div></center>
