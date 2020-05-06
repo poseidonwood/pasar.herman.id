@@ -24,7 +24,7 @@ if($foto != "") {
                   move_uploaded_file($file_tmp, '../../img/product/'.$nama_gambar_baru); //memindah file gambar ke folder gambar
                       
                     // jalankan query UPDATE berdasarkan ID yang produknya kita edit
-                   $query  = "UPDATE tbl_product SET nm_barang = '$nm_barang', detail = '$detail',qty = '$qty',id_satuan = '$id_satuan', harga_beli = '$harga_beli', harga_jual = '$harga_jual', expired = '$expired',last_upt = '$last_upt',active = '$active', foto = '$nama_gambar_baru'";
+                   $query  = "UPDATE tbl_product SET nm_barang = '$nm_barang', detail = '$detail',qty = '$qty',id_satuan = '$id_satuan', harga_beli = '$harga_beli', harga_jual = '$harga_jual', expired = '$expired',active = '$active', foto = '$nama_gambar_baru'";
                     $query .= "WHERE id_barang= '$id'";
                     $result = mysqli_query($koneksi, $query);
                     // periska query apakah ada error
@@ -42,7 +42,7 @@ if($foto != "") {
               }
     } else {
       // jalankan query UPDATE berdasarkan ID yang produknya kita edit
-      $query  = "UPDATE tbl_product SET nm_barang = '$nm_barang', detail = '$detail',qty = '$qty',id_satuan = '$id_satuan', harga_beli = '$harga_beli', harga_jual = '$harga_jual', expired = '$expired',last_upt = '$last_upt',active = '$active'";
+      $query  = "UPDATE tbl_product SET nm_barang = '$nm_barang', detail = '$detail',qty = '$qty',id_satuan = '$id_satuan', harga_beli = '$harga_beli', harga_jual = '$harga_jual', expired = '$expired',active = '$active'";
       $query .= "WHERE id_barang= '$id'";
       $result = mysqli_query($koneksi, $query);
       // periska query apakah ada error

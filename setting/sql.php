@@ -58,8 +58,9 @@ $b_f_order = mysqli_fetch_array($b_q_order);
 $timestamps_order = $b_f_order['timestamps'];
 //cari stok yang kurang dari 7 
 $q_stok = mysqli_query($koneksi,"SELECT * FROM tbl_product  where qty <= 7");
-$notif_stok = mysqli_fetch_array($q_stok);
-$stok_time = $notif_stok['last_upt'];
+$notif_stok = mysqli_num_rows($q_stok);
+$f_stok = mysqli_fetch_array($q_stok);
+$stok_time = $f_stok['last_upt'];
 
 
 

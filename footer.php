@@ -65,7 +65,17 @@
 				<!-- /container -->
 			</div>
 			<!-- /top footer -->
+<?php
+//hitung load page 
 
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$finish = $time;
+$total_time = round(($finish - $start), 4);
+//echo 'Page generated in '.$total_time.' seconds.';
+//end hitung load page
+?>
 			<!-- bottom footer -->
 			<div id="bottom-footer" class="section">
 				<div class="container">
@@ -82,7 +92,7 @@
 							</ul>
 							<span class="copyright">
 								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Device : <?=$device_ip;?>&nbsp;|Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+								Load Page : <?=$total_time." seconds ";?>| Device : <?=$device_ip;?>&nbsp;| Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 							</span>
 						</div>

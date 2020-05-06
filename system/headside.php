@@ -156,7 +156,7 @@
                 echo "<i class='fas fa-shopping-cart mr-2'></i> Stok Masih Aman";
 
             }else{
-                echo "<i class='fas fa-shopping-cart mr-2'></i> $notif_stok Barang Mau Habis";
+                echo "<i class='fas fa-shopping-cart mr-2'></i> $notif_stok Limited Stock";
 
 
             }

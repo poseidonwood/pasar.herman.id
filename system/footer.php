@@ -98,7 +98,6 @@ if($perangkat=="Komputer atau Notebook"){
                   </thead>
                   <tbody>
                 <?php 
-                include 'setting/koneksi.php';
                 $no = 1;
                 $data = mysqli_query($koneksi,"select * from inventory where ket ='MAU HABIS' or ket ='HABIS'");
                 while($d = mysqli_fetch_array($data)){

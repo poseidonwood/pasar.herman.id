@@ -1,4 +1,11 @@
 <?php
+//start timer load page 
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$start = $time;
+//End timer 
+
 
 //validasi cart jika created > jam sekarang maka update created - 15 menit dan status='canceled'
 $q_cart_validasi = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and status='' and id_transaksi is null");
@@ -23,13 +30,26 @@ while($f_transaksi_array = mysqli_fetch_array($q_transaksi_validasi)){
 	date_default_timezone_set("Asia/Jakarta");
 	$tempo_bayar = $f_transaksi_array['tempo_bayar'];
 	$id_transaksi_validasi = $f_transaksi_array['id_transaksi'];
-    $compare_date_transaksi = date("Y-m-d H:i:s");
+	$compare_date_transaksi = date("Y-m-d H:i:s");
+	//untuk hapus hystory jika lebih dari 1 minggu dari tempo bayar
+	$date_tempo = new DateTime($tempo_bayar);
+	$now = new DateTime();
+	$diff=date_diff($date_tempo,$now);
+	$kurangan = $diff->format("%a");
     if($tempo_bayar < $compare_date_transaksi){
 		
 		//jatuh tempo 
 		$q_u_transaksi_validasi = mysqli_query ($koneksi,"update transaksi set status_transaksi='CANCELED' where id_transaksi='$id_transaksi_validasi'");
 		$q_u_cart_validasi = mysqli_query ($koneksi,"update tbl_cart set status='CANCELED NO PAYMENT' where id_transaksi='$id_transaksi_validasi'");
 		 //echo"<script>window.alert('$created_update Jatuh tempo')</script>";
+		 if($kurangan >= 7){
+			$q_u_transaksi_validasi = mysqli_query ($koneksi,"update transaksi set status_transaksi='DELETED' where id_transaksi='$id_transaksi_validasi'");
+		//	 echo "<script>alert('Hapus | Tempo : $tempo_bayar , Selisih = $kurangan')</script>";
+		 }else{
+			 //gk terjadi apa apa
+			//echo "<script>alert('Tidak Hapus | Tempo : $tempo_bayar , Selisih = $kurangan')</script>";
+
+		 }
     }
 }
 
@@ -137,7 +157,7 @@ session_start();
 							<div class="header-search">
 							<form method="GET" action ="search-product.php">
 									
-									<input class="input-select" placeholder="Mau belanja apa?">
+									<input class="input-select" name="search" placeholder="Mau belanja apa?">
 									<button class="search-btn"><i class="fa fa-search"></i></button>
 						</form>
 							</div>
