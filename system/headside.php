@@ -89,7 +89,10 @@
           //notifikasi stok mau habis
           $notif_order = mysqli_query($koneksi,"select count(*)as order_baru from transaksi where (status_transaksi ='MENUNGGU PEMBAYARAN' or status_transaksi ='COD')");
           $notif_order = mysqli_fetch_array($notif_order);
-
+          //----------------------------------------------------------------------------------------------------Sql backend---------------------------------------------------
+          $b_q_order = mysqli_query($koneksi,"select *from transaksi where (status_transaksi = 'MENUNGGGU PEMBAYARAN' or status_transaksi= 'COD') order by timestamps desc");
+          $b_f_order = mysqli_fetch_array($b_q_order);
+          $timestamps_order = $b_f_order['timestamps'];
 
          // $tmpil_hitung = $notif['notif']+$notif_order['order_baru'];
          $tmpil_hitung = $notif['notif'];
@@ -144,7 +147,7 @@
              if($count_notif==0){
                 echo "";
              }else{
-                echo time_since(strtotime($timestamps_order ));
+                echo time_since(strtotime($timestamps_order));
              }
                ?></span>
           </a>
