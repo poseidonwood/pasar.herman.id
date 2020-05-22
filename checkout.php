@@ -1,7 +1,10 @@
 <?php
 include "setting/sql.php";
 include "headside.php";
+
 if($f_check_rows>0){
+	//echo"<script>alert('$f_check_rows');</script>";
+
 //check apakah transaksi is null ?
 
 ?>
@@ -164,18 +167,22 @@ if($f_check_rows>0){
 										<i class= "fa fa-tags"></i>
 										</div>
 										<input type="text" class="form-control" onkeyup="myFunction()" placeholder="Masukkan Kode Voucher" id="nm_voucher" name="nm_voucher">
+										<input type="hidden" class="form-control" id="harga_total" value="<?=$total_belanja;?>">
+
 										</div><br>
 										<!-- ajax mengambil kode promo-->
 									<script>
 									function myFunction(){
 									var voucher=$("#nm_voucher").val();
+									var harga_total=$("#harga_total").val();
 										$.ajax({
 												url : 'proses/check-promo.php',
-												data : 'voucher='+voucher,
+												data : 'voucher='+voucher+'&harga_total='+harga_total,
 										}).done(function(data){
 											var json = data,
 											obj = JSON.parse(json);
 											$("#notif_voucher").html(obj.ket);
+											$("#harga_total_belanja").html(obj.harga_total);
 										});	
 									}
 									</script>	
@@ -184,7 +191,7 @@ if($f_check_rows>0){
 							
 							<div class="order-col">
 								<div><strong>TOTAL</strong></div>
-								<div><strong class="order-total">Rp. <?=$total_belanja;?></strong></div>
+								<div id="harga_total_belanja"><strong class="order-total">Rp. <?=$total_belanja;?></strong></div>
 							</div>
 							
 						</div>

@@ -123,10 +123,18 @@ session_start();
 						
 					}else{
 						$session=$_SESSION['name'];
-						echo"<li><a href='#'><i class='fa fa-user-o'></i> Selamat datang, $session </a></li>
-						<li><a href='$domain\system/pages/logout/'><i class='fa fa-sign-in'></i> Logout</a></li>
-						<li><a href='#'><i class='fa fa-cog'></i>Pengaturan</a></li>
-						<!--<li><a href='#'><i class='fa fa-heart-o'></i>Your Wishlist (0)</a></li>-->";
+						if($_SESSION['role'] == 'admin'){
+							echo"<li><a href=".$domain."system/><i class='fa fa-tachometer'></i> Dashboard </a></li>
+							<li><a href='$domain\system/pages/logout/'><i class='fa fa-sign-in'></i> Logout</a></li>
+							<li><a href='#'><i class='fa fa-cog'></i>Pengaturan</a></li>
+							<!--<li><a href='#'><i class='fa fa-heart-o'></i>Your Wishlist (0)</a></li>-->";
+						}else{
+							echo"<li><a href='#'><i class='fa fa-user-o'></i> Selamat datang, $session </a></li>
+							<li><a href='$domain\system/pages/logout/'><i class='fa fa-sign-in'></i> Logout</a></li>
+							<li><a href='#'><i class='fa fa-cog'></i>Pengaturan</a></li>
+							<!--<li><a href='#'><i class='fa fa-heart-o'></i>Your Wishlist (0)</a></li>-->";
+						}
+						
 					}
 					?>
 
@@ -258,8 +266,9 @@ session_start();
 										while($f_category1 = mysqli_fetch_array($q_category1)){
 											$nm_category1 = $f_category1['nm_category'];
 											$id_category1 = $f_category1['id_category'];
+											$link_category = $f_category1['link'];
 										echo"
-											<li><a href='#'>$nm_category1</a></li>
+											<li><a href='$link_category.$nm_category1&ic=$id_category1'>$nm_category1</a></li>
 											";
 										}	
 										?>
@@ -487,7 +496,8 @@ session_start();
 
 		  if($rows_transaksi1>0){
 			while($f_transaksi = mysqli_fetch_array($q_transaksi1)){
-			 
+			$transaksi1_nm_voucher = $f_transaksi['nm_voucher'];
+			$transaksi1_harga_awal = $f_transaksi['harga_awal'];
 			$transaksi1_id_transaksi = $f_transaksi['id_transaksi'];	
 			$transaksi1_nm_pembeli = $f_transaksi['nm_pembeli'];
 			$transaksi1_alamat = $f_transaksi['alamat'];
@@ -573,7 +583,7 @@ session_start();
 	  <?php
 	$q_order1 = mysqli_query($koneksi,"select *from tbl_cart where device_ip = '$device_ip' and id_transaksi ='$transaksi1_id_transaksi'");  
 	while($f_detail = mysqli_fetch_array($q_order1)){
-
+	
 	  ?>
     <tr>
       <td><?= $f_detail['nm_barang'];?></td>
@@ -582,6 +592,24 @@ session_start();
 	</tr>
 	<?php
 	}?>
+	<?php
+	$voucher = $transaksi1_harga_awal - $transaksi1_harga;
+	
+	if(isset($transaksi1_nm_voucher)){
+		echo"<tr>
+		<td colspan='2'>Diskon ($transaksi1_nm_voucher)</td>
+		<td>- Rp. $voucher</td>
+
+		</tr>";
+	}else{
+		echo"<tr>
+		<td colspan='2'></td>
+		<td></td>
+
+		</tr>";
+	}
+	?>
+	
 	<th colspan="2">Total</th>
 	<td>Rp <?= $transaksi1_harga;?></td>
 
@@ -619,7 +647,8 @@ session_start();
 
 		  if($rows_transaksi>0){
 			while($f_transaksi = mysqli_fetch_array($q_transaksi2)){
-			 
+			 $transaksi2_nm_voucher = $f_transaksi['nm_voucher'];
+			 $transaksi2_harga_awal = $f_transaksi['harga_awal'];
 			$transaksi2_id_transaksi = $f_transaksi['id_transaksi'];	
 			$transaksi2_nm_pembeli = $f_transaksi['nm_pembeli'];
 			$transaksi2_alamat = $f_transaksi['alamat'];
@@ -715,8 +744,29 @@ session_start();
       <td><?= $f_detail1['qty'];?></td>
       <td>Rp <?= $f_detail1['harga_total'];?></td>
 	</tr>
+	
 	<?php
 	}?>
+	<?php
+	$voucher = $transaksi2_harga_awal - $transaksi2_harga;
+	
+	
+	if(isset($transaksi2_nm_voucher)){
+		echo"<tr>
+		<td colspan='2'>Diskon ($transaksi2_nm_voucher)</td>
+		<td>- Rp. $voucher</td>
+
+		</tr>";
+	}else{
+		echo"<tr>
+		<td colspan='2'></td>
+		<td></td>
+
+		</tr>";
+	}
+	
+	?>
+	
 	<th colspan="2">Total</th>
 	<td>Rp <?= $transaksi2_harga;?></td>
 

@@ -31,7 +31,7 @@
       <!-- Messages Dropdown Menu -->
       <li class="nav-item">
       
-        <a class="nav-link" data-toggle="dropdown"  href="#">
+      <!--  <a class="nav-link" data-toggle="dropdown"  href="#">
           <i class="fas fa"></i>
           <?php
        /*    include "../setting/koneksi.php";
@@ -42,7 +42,7 @@
           echo "Rp. ".number_format( $get_saldo, 0, ',', '.');
           
           */?>
-        </a>
+        </a>-->
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
        
           <div class="dropdown-divider"></div>
@@ -90,15 +90,16 @@
           $notif_order = mysqli_query($koneksi,"select count(*)as order_baru from transaksi where (status_transaksi ='MENUNGGU PEMBAYARAN' or status_transaksi ='COD')");
           $notif_order = mysqli_fetch_array($notif_order);
           //----------------------------------------------------------------------------------------------------Sql backend---------------------------------------------------
-          $b_q_order = mysqli_query($koneksi,"select *from transaksi where (status_transaksi = 'MENUNGGGU PEMBAYARAN' or status_transaksi= 'COD') order by timestamps desc");
+          $b_q_order = mysqli_query($koneksi,"select *from transaksi where (status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi= 'COD') order by timestamps desc");
           $b_f_order = mysqli_fetch_array($b_q_order);
           $timestamps_order = $b_f_order['timestamps'];
 
          // $tmpil_hitung = $notif['notif']+$notif_order['order_baru'];
-         $tmpil_hitung = $notif['notif'];
          $count_notif = $notif['notif'];
+         $tmpil_hitung = $count_notif + $notif_stok ;
+
         //  $count_notif = $notif_order['order_baru'];
-          if($count_notif==0){
+          if($tmpil_hitung==0){
             echo"";
           }else{
             echo"

@@ -5,6 +5,8 @@ $ip = $_SERVER['REMOTE_ADDR'];
 
 //sql category product
 $q_category = mysqli_query($koneksi,"select *from category_product");
+
+
 //end  category product
 
 //sql cart
@@ -17,7 +19,7 @@ $total_cart = $f_count_cart['total_cart'];
 //end  cart
 
 //checkout jika kosong tidak boleh masuk ke halaman checkout
-$q_check = mysqli_query($koneksi,"select *from tbl_cart where device_ip='$device_ip' and id_transaksi is null");
+$q_check = mysqli_query($koneksi,"select *from tbl_cart where device_ip='$device_ip' and (id_transaksi is null or id_transaksi='') and (status is null or status='')");
 $f_check_rows = mysqli_num_rows($q_check);
 
 //sql myorder
@@ -25,9 +27,13 @@ $q_order = mysqli_query($koneksi,"select * from tbl_cart where id_transaksi is n
 $f_order = mysqli_fetch_array($q_order);
 //end my order
 $order_id_transaksi = $f_order['id_transaksi'];
+// echo "<pre>".print_r($order_id_transaksi)."</pre>";
+// echo "<pre>".print_r($device_ip)."</pre>";
+
 //id _transaksi
 $q_transaksi = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and id_transaksi ='$order_id_transaksi'");
 $f_transaksi = mysqli_fetch_array($q_transaksi);
+if($f_transaksi==!null){
     $transaksi_id_transaksi = $f_transaksi['id_transaksi'];	
     $transaksi_nm_pembeli = $f_transaksi['nm_pembeli'];
     $transaksi_alamat = $f_transaksi['alamat'];
@@ -36,6 +42,10 @@ $f_transaksi = mysqli_fetch_array($q_transaksi);
     $transaksi_harga = $f_transaksi['harga_total'];
     $transaksi_status_transaksi = $f_transaksi['status_transaksi'];
     $transaksi_device_ip = $f_transaksi['device_ip'];
+}else{
+    echo"";
+}
+   
     
 //select semua transaksi berdasar kan device id ini
 $q_transaksi1 = mysqli_query($koneksi,"select *from transaksi where device_ip = '$device_ip' and (status_transaksi = 'MENUNGGU PEMBAYARAN' or status_transaksi ='COD')  order by timestamps desc");

@@ -110,20 +110,21 @@ if($f_promo_mingguan_rows>0){
 				<!-- row -->
 				<div class="row">
 										<?php
-										$q_category2 = mysqli_query($koneksi,"select *from category_product");
-										while($f_category2 = mysqli_fetch_array($q_category2)){
-											$nm_category2 = $f_category2['nm_category'];
-											$foto_category2= $f_category2['foto'];
-											$link = $f_category2['link'];
+										$q_category12 = mysqli_query($koneksi,"select *from category_product");
+										while($f_category12 = mysqli_fetch_array($q_category12)){
+											$id_category12 = $f_category12['id_category'];
+											$nm_category12 = $f_category12['nm_category'];
+											$foto_category12= $f_category12['foto'];
+											$link = $f_category12['link'];
 										echo"
 											<div class='col-md-4 col-xs-6'>
 												<div class='shop'>
 													<div class='shop-img'>
-														<img src='./img/$foto_category2' alt=''>
+														<img src='./img/$foto_category12' alt=''>
 													</div>
 													<div class='shop-body'>
-														<h3>$nm_category2</h3>
-														<a href='$link' class='cta-btn'>Belanja sekarang <i class='fa fa-arrow-circle-right'></i></a>
+														<h3>$nm_category12</h3>
+														<a href='$link.$nm_category12&ic=$id_category12' class='cta-btn'>Belanja sekarang <i class='fa fa-arrow-circle-right'></i></a>
 													</div>
 												</div>
 											</div>
@@ -379,7 +380,13 @@ if($f_promo_mingguan_rows>0){
 							<p>Kumpulan dari Buah - Buahan Segar</p>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li><a href="#tab1" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+								<?php
+								$id_category2 ='2';
+								$q_category2 = mysqli_query($koneksi,"select *from category_product where id_category = '$id_category2'");
+								$f_category2 = mysqli_fetch_array($q_category2);
+								$nm_category2 = $f_category2['nm_category'];
+								?>
+									<li><a href="category.php?cat=<?=$nm_category2;?>&ic=<?=$id_category2;?>" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
 									
 								</ul>
 							</div>
@@ -515,7 +522,14 @@ if($f_promo_mingguan_rows>0){
 							<p>Beberapa Sayuran Segar</p>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li><a href="#tab2" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+								<?php
+								$id_category1 ='1';
+								$q_category1 = mysqli_query($koneksi,"select *from category_product where id_category = '$id_category1'");
+								$f_category1 = mysqli_fetch_array($q_category1);
+								$nm_category1 = $f_category2['nm_category'];
+								?>
+									<li><a href="category.php?cat=<?=$nm_category1;?>&ic=<?=$id_category1;?>" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+
 									
 								</ul>
 							</div>
@@ -651,7 +665,15 @@ if($f_promo_mingguan_rows>0){
 							<p>Kumpulan Product - Product Protein Hewani</p>
 							<div class="section-nav">
 								<ul class="section-tab-nav tab-nav">
-									<li><a href="#tab2" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+								<?php
+								$id_category3 ='3';
+								$q_category3 = mysqli_query($koneksi,"select *from category_product where id_category = '$id_category3'");
+								$f_category3 = mysqli_fetch_array($q_category3);
+								$nm_category3 = $f_category2['nm_category'];
+								?>
+									<li><a href="category.php?cat=<?=$nm_category3;?>&ic=<?=$id_category3;?>" style="color: rgb(5, 238, 44);">Lihat semua >></a></li>
+
+									
 									
 								</ul>
 							</div>

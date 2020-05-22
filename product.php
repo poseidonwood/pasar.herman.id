@@ -8,6 +8,14 @@ if(isset($_GET['x'])){
 	}else{
 		session_start();
 	$id_barang = $_GET['x'];
+	//start timer load page 
+$time = microtime();
+$time = explode(' ', $time);
+$time = $time[1] + $time[0];
+$start = $time;
+//End timer 
+
+		
 	//search data di database
 	$q_p_b = mysqli_query($koneksi,"select *from tbl_product where id_barang = '$id_barang'");
 	$f_q_r = mysqli_num_rows($q_p_b);
@@ -33,7 +41,6 @@ if(isset($_GET['x'])){
 		$nm_category = $f_p_c['nm_category'];
 		//end select category
 
-		
 	?>
 	<!DOCTYPE html>
 <html lang="en">
@@ -588,7 +595,7 @@ if(isset($_GET['x'])){
 							<h2 class="product-name"><?=$nm_barang;?></h2>
 							<div>
 								<?php
-									if($rating =='5'){
+									if($rating >='4.5'){
 										echo"<div class='product-rating'>
 											<i class='fa fa-star'></i>
 											<i class='fa fa-star'></i>
@@ -596,7 +603,7 @@ if(isset($_GET['x'])){
 											<i class='fa fa-star'></i>
 											<i class='fa fa-star'></i>
 										</div>";
-									}elseif($rating =='4'){
+									}elseif($rating >='3.5'){
 										echo"<div class='product-rating'>
 											<i class='fa fa-star'></i>
 											<i class='fa fa-star'></i>
@@ -604,7 +611,7 @@ if(isset($_GET['x'])){
 											<i class='fa fa-star'></i>
 											<i class='fa fa-star-o'></i>
 										</div>";
-									}elseif($rating =='3'){
+									}elseif($rating >='2.5'){
 										echo"<div class='product-rating'>
 											<i class='fa fa-star'></i>
 											<i class='fa fa-star'></i>
@@ -612,7 +619,7 @@ if(isset($_GET['x'])){
 											<i class='fa fa-star-o'></i>
 											<i class='fa fa-star-o'></i>
 										</div>";
-									}elseif($rating =='2'){
+									}elseif($rating >='1.3'){
 										echo"<div class='product-rating'>
 											<i class='fa fa-star'></i>
 											<i class='fa fa-star'></i>
